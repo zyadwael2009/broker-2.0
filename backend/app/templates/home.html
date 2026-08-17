@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Wasit — the credential every Egyptian real-estate broker deserves{% endblock %}
+{% block description %}Wasit gives verified Egyptian real-estate brokers a public credential page: GOEIC verification, star ratings, and every listing they hold — one shareable link for WhatsApp, Instagram, and business cards.{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="wrap hero-inner">
+    <span class="tag">For Egyptian real-estate brokers</span>
+    <h1>Prove you&rsquo;re real. Win the client.</h1>
+    <p class="lede">
+      Wasit gives you one shareable page that proves your GOEIC registration,
+      shows your active listings, and carries every review you&rsquo;ve earned.
+      Send it before the first meeting &mdash; skip the sceptical questions.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary btn-lg" href="/for-brokers">Get verified &mdash; free</a>
+      <a class="btn ghost btn-lg" href="/browse">Or browse listings &rarr;</a>
+    </div>
+    <p class="disclaimer">
+      Wasit assists with verification &mdash; it does not replace a lawyer or
+      the notary office. Always confirm ownership at the Real Estate Registry
+      before signing.
+    </p>
+  </div>
+</section>
+
+<section class="wrap trust-strip" id="what-you-get">
+  <div class="trust-item">
+    <div class="trust-emoji">✓</div>
+    <div>
+      <div class="trust-title">A GOEIC-verified public page</div>
+      <p>We review your registration document, then issue a shareable
+      <code>wasit.app/b/&lt;id&gt;</code> URL your clients can trust.</p>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-emoji">★</div>
+    <div>
+      <div class="trust-title">Ratings that actually mean something</div>
+      <p>Only buyers who&rsquo;ve messaged you can rate you. No drive-by
+      reviews, no fake stars &mdash; the number on your page is real.</p>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-emoji">📋</div>
+    <div>
+      <div class="trust-title">Every listing carries its papers</div>
+      <p>Title deed, no-liens certificate, tax clearance &mdash; tracked
+      per listing. Buyers see exactly what&rsquo;s verified before they call.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap secondary-cta">
+  <h2>Not a broker?</h2>
+  <p class="lede">
+    Wasit is built around brokers, but if you&rsquo;re here to buy &mdash; browse
+    every verified listing in Egypt right now.
+  </p>
+  <a class="btn ghost" href="/browse">Browse verified listings &rarr;</a>
+</section>
+{% endblock %}

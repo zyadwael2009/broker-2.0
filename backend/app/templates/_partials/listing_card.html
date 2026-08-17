@@ -1,0 +1,42 @@
+{# Listing card — shared by /browse and the SEO landing pages. Expects
+   `l` in scope with the fields set by _render_card_dict(). #}
+<a href="{{ l.url }}" class="card">
+  <div class="card-photo">
+    {% if l.cover_url %}
+      <img src="{{ l.cover_url }}" alt="{{ l.title }}" loading="lazy">
+    {% else %}
+      <div class="photo-placeholder">🏠</div>
+    {% endif %}
+    <span class="kind-badge kind-{{ l.listing_kind }}">
+      {% if l.listing_kind == 'rent' %}For rent{% else %}For sale{% endif %}
+    </span>
+  </div>
+  <div class="card-body">
+    <div class="card-title">{{ l.title }}</div>
+    <div class="card-price">
+      {{ l.price_display }} <span class="ccy">EGP{% if l.listing_kind == 'rent' %} / mo{% endif %}</span>
+    </div>
+    <div class="card-meta">
+      <span>{{ l.city }}, {{ l.governorate }}</span>
+      <span>{{ l.area_m2 }} m²</span>
+    </div>
+    {% if l.bedrooms is not none or l.bathrooms is not none or l.compound_name %}
+    <div class="card-facts">
+      {% if l.bedrooms is not none %}<span>{{ l.bedrooms }} bed</span>{% endif %}
+      {% if l.bathrooms is not none %}<span>{{ l.bathrooms }} bath</span>{% endif %}
+      {% if l.compound_name %}<span class="compound">{{ l.compound_name }}</span>{% endif %}
+    </div>
+    {% endif %}
+    {% if l.broker_name %}
+    <div class="card-broker">
+      <span class="broker-check" aria-hidden="true">✓</span>
+      <span class="broker-check-name">{{ l.broker_name }}</span>
+      {% if l.rating.count %}
+      <span class="broker-check-rating">
+        <span class="star">★</span> {{ '%.1f' % l.rating.avg }}
+      </span>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</a>

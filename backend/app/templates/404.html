@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Not found · Wasit{% endblock %}
+{% block description %}The page you&rsquo;re looking for isn&rsquo;t here.{% endblock %}
+{% block content %}
+<section class="wrap error-page">
+  <div class="error-emoji">🏚️</div>
+  <h1>This page is no longer available</h1>
+  <p class="lede">
+    The listing or broker profile you&rsquo;re looking for may have been
+    removed, sold, or is no longer verified.
+  </p>
+  <div class="hero-cta" style="justify-content: center;">
+    <a class="btn primary" href="/browse">Browse verified listings</a>
+    <a class="btn ghost" href="/">Back to home</a>
+  </div>
+</section>
+{% endblock %}

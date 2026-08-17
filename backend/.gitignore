@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+uploads/
+instance/
+.pytest_cache/
+dev.db
+*.db
+# Cached demo photos (Unsplash downloads for `flask seed-demo`).
+app/cli_photos_cache/
+# Bulk broker import logs — hold temp passwords, must NEVER be committed.
+import_logs/

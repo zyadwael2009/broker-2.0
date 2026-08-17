@@ -1,0 +1,77 @@
+# Dev stack that mirrors the production topology:
+#   backend (Flask/Gunicorn)  ─── db (Postgres 16)
+#                             └── cache (Redis 7 — rate limits + JWT revocation)
+#
+# Usage:
+#   docker compose up --build       # first time: builds the backend image
+#   docker compose up               # subsequent
+#   docker compose down             # stop, keep volumes
+#   docker compose down -v          # nuke the DB volume too
+#
+# The mobile app connects to http://localhost:5000 as usual — the backend
+# publishes 5000; Postgres and Redis stay inside the compose network.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: broker
+      POSTGRES_PASSWORD: broker_dev_password
+      POSTGRES_DB: broker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U broker -d broker"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  cache:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg2://broker:broker_dev_password@db:5432/broker
+      SECRET_KEY: dev-secret-change-me
+      JWT_SECRET_KEY: dev-jwt-secret-change-me
+      STORAGE_BACKEND: local
+      UPLOAD_DIR: /var/broker/uploads
+      CORS_ORIGINS: "*"
+      # Route rate-limit + JWT revocation through Redis so multiple
+      # backend workers stay in sync. Fall back to memory if unset.
+      RATELIMIT_STORAGE_URI: redis://cache:6379/0
+      RATELIMIT_MESSAGES: 30 per minute
+      RATELIMIT_RATINGS: 3 per hour
+      RATELIMIT_REPORTS: 5 per hour
+      JWT_REVOCATION_URI: redis://cache:6379/1
+      # Phase 12 — SEO/public web view. Uncomment to override the
+      # request.host_url fallback.
+      # PUBLIC_BASE_URL: https://your-domain.com
+      # Phase 12 — push notifications. Leave unset to disable.
+      # FIREBASE_CREDENTIALS_JSON: /etc/secrets/firebase.json
+      FLASK_APP: wsgi:app
+    volumes:
+      - upload_data:/var/broker/uploads
+    ports:
+      - "5000:5000"
+    # Run migrations before starting Gunicorn — safe idempotent upgrade.
+    command: >
+      sh -c "flask db upgrade &&
+             gunicorn --bind 0.0.0.0:5000 --workers 2 --access-logfile - wsgi:app"
+
+volumes:
+  postgres_data:
+  upload_data:

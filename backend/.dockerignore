@@ -1,0 +1,19 @@
+# Keep the build context tiny and reproducible.
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.env
+.env.*
+!.env.example
+uploads/
+instance/
+dev.db
+*.db
+.git/
+.gitignore
+tests/
+README.md
+Dockerfile
+.dockerignore

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{# Common wrapper for /privacy, /terms, /contact. Extends base and adds
+   a centered prose column + a "Draft — pending legal review" banner
+   so nobody mistakes placeholder copy for final law-firm text. #}
+
+{% block content %}
+<section class="legal-page">
+  <div class="wrap legal-inner">
+    <div class="legal-draft-banner">
+      <strong>Draft — pending legal review.</strong>
+      This placeholder covers what Wasit does today; a lawyer&rsquo;s
+      polish is coming before public launch.
+    </div>
+
+    <header class="legal-header">
+      <h1>{% block legal_title %}{% endblock %}</h1>
+      <p class="legal-subtitle">{% block legal_subtitle %}{% endblock %}</p>
+      <p class="legal-updated">Last updated: {% block legal_updated %}16 August 2026{% endblock %}</p>
+    </header>
+
+    <article class="legal-prose">
+      {% block legal_body %}{% endblock %}
+    </article>
+  </div>
+</section>
+{% endblock %}

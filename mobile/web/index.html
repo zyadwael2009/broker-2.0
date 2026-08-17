@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    The `<base href>` is replaced at build time by the value of
+    `--base-href`. For production, we build with `--base-href /app/`
+    so the SPA is served at wasit.app/app/. For local dev via
+    `flutter run -d chrome` it stays "/" — both work.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Wasit — verified brokers for Egyptian real estate.">
+  <!-- Runtime bundle is not for search engines; SEO lives on the Jinja marketing pages. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Wasit">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Wasit</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!--
+    Wasit boot splash. Shown before Flutter's canvas is ready and hidden
+    the moment the first frame paints. Everything inline so it renders
+    before the JS bundle even downloads.
+  -->
+  <style>
+    html, body { margin: 0; padding: 0; background: #F8FAFC; }
+    @media (prefers-color-scheme: dark) { html, body { background: #0A121F; } }
+    #wasit-boot {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px;
+      font-family: -apple-system, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+      background: #F8FAFC; color: #0B1729;
+      transition: opacity .35s ease;
+      z-index: 999999;
+    }
+    @media (prefers-color-scheme: dark) {
+      #wasit-boot { background: #0A121F; color: #E8ECF3; }
+    }
+    #wasit-boot .mark {
+      width: 48px; height: 48px;
+      color: #0E7B96;
+      animation: wasit-pulse 1.4s cubic-bezier(.4,0,.6,1) infinite;
+    }
+    @media (prefers-color-scheme: dark) { #wasit-boot .mark { color: #4CBEDA; } }
+    @keyframes wasit-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .55; transform: scale(.94); }
+    }
+    #wasit-boot .wordmark {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 900; font-size: 22px; letter-spacing: -0.035em;
+    }
+    #wasit-boot .rule {
+      display: inline-block; width: 1px; height: 18px;
+      background: currentColor; opacity: .3;
+    }
+    #wasit-boot .ar {
+      font-family: "SF Arabic", "Segoe UI Arabic", "Noto Naskh Arabic UI", "Noto Naskh Arabic", "Amiri", serif;
+      font-size: 20px; font-weight: 700; letter-spacing: 0;
+      direction: rtl;
+    }
+    #wasit-boot .status {
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #8892A0; font-weight: 600;
+    }
+    @media (prefers-color-scheme: dark) { #wasit-boot .status { color: #6C7789; } }
+    #wasit-boot.gone { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div id="wasit-boot" aria-hidden="true">
+    <svg class="mark" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+      <path d="M14.6 3.2 C 19.2 3.2 22.4 6.4 22.4 10.6 C 22.4 14.6 19.6 17.4 15.6 17.9 L 15.6 24.8 L 11.2 24.8 L 11.2 17.9 C 7.2 17.4 4.4 14.6 4.4 10.6 C 4.4 6.4 7.6 3.2 12.2 3.2 Z M 13.4 7.4 C 11.2 7.4 9.8 8.8 9.8 10.6 C 9.8 12.4 11.2 13.8 13.4 13.8 C 15.6 13.8 17 12.4 17 10.6 C 17 8.8 15.6 7.4 13.4 7.4 Z"/>
+    </svg>
+    <div class="wordmark">
+      wasit
+      <span class="rule" aria-hidden="true"></span>
+      <span class="ar" lang="ar" dir="rtl">وسيط</span>
+    </div>
+    <div class="status">Loading</div>
+  </div>
+
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+  -->
+  <script src="flutter_bootstrap.js" async></script>
+
+  <script>
+    // Hide the boot splash as soon as Flutter paints its first frame.
+    // MutationObserver watches <flt-glass-pane> appearance — that's the
+    // canvas element Flutter injects when it's ready to render.
+    (function () {
+      var splash = document.getElementById('wasit-boot');
+      if (!splash) return;
+      function hide() {
+        splash.classList.add('gone');
+        setTimeout(function () { splash.remove(); }, 400);
+      }
+      var mo = new MutationObserver(function () {
+        if (document.querySelector('flt-glass-pane, flt-scene-host, flutter-view')) {
+          hide();
+          mo.disconnect();
+        }
+      });
+      mo.observe(document.body, { childList: true, subtree: true });
+      // Absolute fallback — hide after 8s no matter what.
+      setTimeout(hide, 8000);
+    })();
+  </script>
+</body>
+</html>

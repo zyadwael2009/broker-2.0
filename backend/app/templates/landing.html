@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}{{ title_text }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+
+{% block og_title %}{{ title_text }}{% endblock %}
+{% block og_description %}{{ description }}{% endblock %}
+
+{% block head_extra %}
+<script type="application/ld+json">
+{{ json_ld | tojson }}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="wrap breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {% for b in breadcrumbs %}
+      {% if not loop.last %}
+      <li><a href="{{ b.url }}">{{ b.name }}</a> <span class="sep" aria-hidden="true">›</span></li>
+      {% else %}
+      <li aria-current="page">{{ b.name }}</li>
+      {% endif %}
+    {% endfor %}
+  </ol>
+</nav>
+
+<section class="wrap browse-header landing-header">
+  <h1>{{ h1 }}</h1>
+  <p class="lede">{{ intro }}</p>
+</section>
+
+{# Facet chips — quick jumps to sibling landings for the same
+   governorate. Property-type row + kind row. #}
+<section class="wrap browse-filters landing-facets">
+  <div class="filter-row">
+    <div class="filter-group filter-kind">
+      <span class="filter-label">Kind</span>
+      <div class="chip-row">
+        <a class="filter-chip {% if not facet_slug or facet_slug not in ['for-sale','for-rent'] %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key }}">All</a>
+        <a class="filter-chip {% if facet_slug == 'for-sale' %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key ~ '/for-sale' }}">For sale</a>
+        <a class="filter-chip {% if facet_slug == 'for-rent' %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key ~ '/for-rent' }}">For rent</a>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Type</span>
+      <div class="chip-row">
+        <a class="filter-chip {% if not facet_slug or facet_slug in ['for-sale','for-rent'] %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key }}">Any</a>
+        <a class="filter-chip {% if facet_slug == 'apartments' %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key ~ '/apartments' }}">Apartments</a>
+        <a class="filter-chip {% if facet_slug == 'villas' %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key ~ '/villas' }}">Villas</a>
+        <a class="filter-chip {% if facet_slug == 'houses' %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key ~ '/houses' }}">Houses</a>
+        <a class="filter-chip {% if facet_slug == 'land' %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key ~ '/land' }}">Land</a>
+        <a class="filter-chip {% if facet_slug == 'commercial' %}active{% endif %}"
+           href="{{ '/browse/' ~ gov.key ~ '/commercial' }}">Commercial</a>
+      </div>
+    </div>
+
+    <div class="filter-group filter-actions">
+      <a class="filter-reset" href="/browse">More filters →</a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap grid">
+  {% for l in listings %}
+    {% include "_partials/listing_card.html" %}
+  {% endfor %}
+</section>
+
+{% if related_locations %}
+<section class="wrap related-locations">
+  <h2>Also popular in {{ gov.en }}</h2>
+  <ul class="location-list">
+    {% for loc in related_locations %}
+    <li>
+      <a href="{{ loc.url }}">
+        <span class="loc-name">{{ loc.name }}</span>
+        <span class="loc-count">{{ loc.count }} listing{% if loc.count != 1 %}s{% endif %}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

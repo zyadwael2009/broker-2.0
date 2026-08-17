@@ -1,0 +1,7 @@
+# Isolated from backend/requirements.txt because Playwright is a
+# build-time tool for producing app-store assets, not a runtime dep.
+#
+# Install with:
+#   pip install -r scripts/screenshots-requirements.txt
+#   playwright install chromium
+playwright==1.48.0

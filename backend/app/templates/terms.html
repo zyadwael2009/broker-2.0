@@ -1,0 +1,124 @@
+{% extends "legal_base.html" %}
+{% block title %}Terms of Service · Wasit{% endblock %}
+{% block description %}The rules for using Wasit as a broker, buyer, or visitor.{% endblock %}
+{% block legal_title %}Terms of Service{% endblock %}
+{% block legal_subtitle %}The rules for using Wasit as a broker, buyer, or visitor.{% endblock %}
+
+{% block legal_body %}
+<h2>1. Acceptance</h2>
+<p>
+  By creating a Wasit account or using <code>wasit.app</code>, you
+  agree to these terms. If you don&rsquo;t agree, please don&rsquo;t
+  use the service.
+</p>
+
+<h2>2. Who can use Wasit</h2>
+<ul>
+  <li>You must be at least 18 years old.</li>
+  <li>You must use your real name and a phone number you actually
+    control. Fake accounts are removed on discovery.</li>
+  <li>Broker accounts require a valid GOEIC registration document that
+    passes our review.</li>
+</ul>
+
+<h2>3. What Wasit does &mdash; and what it doesn&rsquo;t</h2>
+<p>
+  Wasit helps you verify: we check that brokers are registered with
+  GOEIC and give buyers a place to see that verification alongside a
+  broker&rsquo;s active listings and reviews. That&rsquo;s the whole
+  product.
+</p>
+<p>
+  <strong>Wasit is not a lawyer, a notary, an escrow agent, or a
+  brokerage.</strong> A property listing being on Wasit does not mean
+  we&rsquo;ve inspected the property, verified the title independently
+  at the Real Estate Registry, or confirmed the seller&rsquo;s intent.
+  Always do those checks in person, with a lawyer, and at the Registry
+  before signing any contract.
+</p>
+
+<h2>4. Broker responsibilities</h2>
+<ul>
+  <li>Your listings must be for real, currently-available properties
+    you have permission to represent.</li>
+  <li>Photos must be your own (or licensed) and depict the actual unit
+    being listed.</li>
+  <li>Prices must be genuine offers, not lead-generation lures.</li>
+  <li>Document uploads (title deed, no-liens certificate, tax clearance)
+    must be authentic. Uploading forged documents leads to immediate
+    account removal and may be reported.</li>
+</ul>
+
+<h2>5. Buyer responsibilities</h2>
+<ul>
+  <li>Communicate with brokers respectfully.</li>
+  <li>Rate honestly, and only after a real interaction.</li>
+  <li>Report abuse (fraud, spam, inappropriate messages) via the report
+    button on any listing or broker profile.</li>
+</ul>
+
+<h2>6. Prohibited content</h2>
+<p>You may not post or send:</p>
+<ul>
+  <li>Anything illegal in Egypt.</li>
+  <li>Discriminatory listings (rentals must comply with fair-housing
+    norms).</li>
+  <li>Duplicated listings with someone else&rsquo;s photos.</li>
+  <li>Off-platform contact solicitations before a genuine listing
+    conversation.</li>
+</ul>
+
+<h2>7. Account termination</h2>
+<p>
+  We can suspend or delete accounts that violate these terms without
+  notice. You can delete your own account at any time from the app or
+  by
+  {% if config.SUPPORT_EMAIL %}emailing <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>{% else %}contacting support{% endif %}.
+</p>
+
+<h2>8. Fees</h2>
+<p>
+  Wasit is currently free for both buyers and brokers. If we ever
+  introduce paid features (boosted listings, premium tiers, etc.),
+  we&rsquo;ll notify all users at least 30 days before those changes
+  take effect. Existing verified brokers will always have a free tier.
+</p>
+
+<h2>9. Intellectual property</h2>
+<p>
+  You retain ownership of your listing content (photos, descriptions,
+  documents). By uploading, you grant Wasit a non-exclusive licence to
+  display it inside our product for the purpose of running the
+  service. That licence ends when you delete the content.
+</p>
+<p>
+  The Wasit name, logo, wordmark, and site design are our property.
+  Please don&rsquo;t use them to imply affiliation without our
+  written permission.
+</p>
+
+<h2>10. Disclaimer &amp; liability</h2>
+<p>
+  Wasit is provided &ldquo;as is.&rdquo; We do our best to keep it
+  running and to review verifications carefully, but we don&rsquo;t
+  guarantee uninterrupted service, error-free listings, or that every
+  verified broker will meet your expectations. To the maximum extent
+  permitted by Egyptian law, our aggregate liability to any user is
+  limited to the fees you have paid us in the past 12 months (currently
+  zero).
+</p>
+
+<h2>11. Dispute resolution</h2>
+<p>
+  These terms are governed by the laws of the Arab Republic of Egypt.
+  Any dispute that we can&rsquo;t resolve informally will be resolved
+  in the competent courts of Cairo.
+</p>
+
+<h2>12. Changes to these terms</h2>
+<p>
+  We may revise these terms occasionally. Material changes will be
+  announced at least 30 days in advance via in-app notice and email
+  (if your account has one on file).
+</p>
+{% endblock %}

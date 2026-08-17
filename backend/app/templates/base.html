@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Wasit — Verified brokers for Egyptian real estate{% endblock %}</title>
+  <meta name="description" content="{% block description %}Egyptian real estate you can trust. Every broker is verified with GOEIC registration.{% endblock %}">
+  {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
+
+  {# OpenGraph — used by WhatsApp / Facebook / iMessage previews. #}
+  <meta property="og:site_name" content="Wasit">
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
+  {% if canonical %}<meta property="og:url" content="{{ canonical }}">{% endif %}
+  {% block og_image %}{% endblock %}
+
+  {# Twitter card. summary_large_image if we have a photo. #}
+  <meta name="twitter:card" content="{% block twitter_card %}summary{% endblock %}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head_extra %}{% endblock %}
+
+  {# Plausible analytics — rendered only when PLAUSIBLE_DOMAIN is set.
+     Cookie-free, no consent banner needed. #}
+  {% if config.PLAUSIBLE_DOMAIN %}
+  <script defer data-domain="{{ config.PLAUSIBLE_DOMAIN }}"
+          src="https://plausible.io/js/script.js"></script>
+  {% endif %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="/" class="brand" aria-label="Wasit — home">
+        {# Custom SVG mark: waw-inspired geometric shape (Arabic و).
+           Reads as: broker's stamp / keyhole / and the first letter of وسيط. #}
+        <svg class="wm-mark-svg" width="24" height="24" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+          <path d="M14.6 3.2 C 19.2 3.2 22.4 6.4 22.4 10.6 C 22.4 14.6 19.6 17.4 15.6 17.9 L 15.6 24.8 L 11.2 24.8 L 11.2 17.9 C 7.2 17.4 4.4 14.6 4.4 10.6 C 4.4 6.4 7.6 3.2 12.2 3.2 Z M 13.4 7.4 C 11.2 7.4 9.8 8.8 9.8 10.6 C 9.8 12.4 11.2 13.8 13.4 13.8 C 15.6 13.8 17 12.4 17 10.6 C 17 8.8 15.6 7.4 13.4 7.4 Z"/>
+        </svg>
+        <span class="brand-text">wasit</span>
+        <span class="wm-rule" aria-hidden="true"></span>
+        <span class="brand-ar" lang="ar" dir="rtl">وسيط</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/browse">Browse</a>
+        <a href="/for-brokers">For brokers</a>
+        <a class="cta" href="/for-brokers#get-verified">Get verified</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <div>
+        <div class="foot-title">Wasit</div>
+        <p class="foot-note">
+          Wasit assists with verification &mdash; it does not replace a lawyer
+          or the notary office. Always confirm ownership at the Real Estate
+          Registry before signing.
+        </p>
+      </div>
+      <div>
+        <a href="/browse">Browse listings</a>
+        <a href="/for-brokers">For brokers</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+
+  {# Phase G1 — referral link capture. When a broker shares
+     wasit.app/?ref=xyz, we stash it in localStorage so the Flutter
+     register form (native or web) can send it up when the user
+     finally converts. Zero cookies, zero server round-trip. #}
+  <script>
+    (function () {
+      try {
+        var m = location.search.match(/[?&]ref=([a-z0-9]{4,16})/i);
+        if (m && m[1]) {
+          window.localStorage.setItem('wasit_ref', m[1].toLowerCase());
+        }
+      } catch (e) { /* private mode, etc. — silently skip */ }
+    })();
+  </script>
+</body>
+</html>

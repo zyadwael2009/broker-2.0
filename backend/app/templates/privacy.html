@@ -1,0 +1,117 @@
+{% extends "legal_base.html" %}
+{% block title %}Privacy Policy · Wasit{% endblock %}
+{% block description %}How Wasit collects, uses, and protects your personal data.{% endblock %}
+{% block legal_title %}Privacy Policy{% endblock %}
+{% block legal_subtitle %}What we collect, why we collect it, and how you can control it.{% endblock %}
+
+{% block legal_body %}
+<h2>1. Who we are</h2>
+<p>
+  Wasit is a real-estate credential platform operating in Egypt. This
+  policy describes how we handle personal data for buyers, brokers, and
+  visitors to <code>wasit.app</code>.
+  {% if config.COMPANY_LEGAL_NAME %}The controller of your data is
+  <strong>{{ config.COMPANY_LEGAL_NAME }}</strong>.{% endif %}
+</p>
+
+<h2>2. What we collect</h2>
+<p>We only collect what we need to run the service:</p>
+<ul>
+  <li><strong>Account data:</strong> phone number (required), full name,
+    optional email, and a hashed password.</li>
+  <li><strong>Broker verification data:</strong> GOEIC registration
+    number and a photo or PDF of your registration document. Reviewed by
+    our team, stored encrypted at rest.</li>
+  <li><strong>Listing content:</strong> title, description, price, area,
+    location, property type, photos, and any per-listing documents
+    (title deed, no-liens certificate, tax clearance) you choose to
+    upload.</li>
+  <li><strong>Messaging content:</strong> text messages between buyers
+    and brokers, and the read/delivery status for each.</li>
+  <li><strong>Device data:</strong> when push notifications are enabled,
+    your Firebase Cloud Messaging registration token.</li>
+  <li><strong>Analytics:</strong> aggregated, anonymous page-view
+    counts via Plausible Analytics &mdash; no cookies, no IP storage,
+    no cross-site tracking.</li>
+  <li><strong>Error diagnostics:</strong> when a crash occurs, a stack
+    trace is sent to Sentry with no personally-identifying content.</li>
+</ul>
+
+<h2>3. Why we collect it</h2>
+<ul>
+  <li><strong>Authentication:</strong> your phone number identifies your
+    account. Passwords let you sign in.</li>
+  <li><strong>Verification:</strong> your GOEIC document is reviewed by
+    our team to confirm you&rsquo;re a registered broker. Only your name
+    and verification status are ever shown publicly &mdash; the
+    document itself is not.</li>
+  <li><strong>Matching:</strong> buyers see verified brokers&rsquo;
+    listings and can start conversations. Brokers can respond.</li>
+  <li><strong>Trust:</strong> ratings, reports, and the per-listing
+    document checklist help buyers assess a broker before meeting.</li>
+</ul>
+
+<h2>4. What we never do</h2>
+<ul>
+  <li>Sell your data. Ever.</li>
+  <li>Share your phone number with buyers publicly. It only appears
+    inside the app after a conversation starts.</li>
+  <li>Show your email or verification document publicly.</li>
+  <li>Track you across other sites.</li>
+</ul>
+
+<h2>5. How long we keep it</h2>
+<p>
+  Account data is kept as long as your account is active, plus 90 days
+  after deletion for legal / audit purposes. Listing photos and
+  documents are removed within 30 days of listing deletion. Message
+  history is retained while both parties&rsquo; accounts exist.
+</p>
+
+<h2>6. Your rights</h2>
+<p>
+  You can, at any time:
+</p>
+<ul>
+  <li>See the data on your account (in the app or by email request).</li>
+  <li>Correct anything wrong.</li>
+  <li>Delete your account &mdash; permanently, from all systems, within
+    30 days.</li>
+  <li>Export your data in a machine-readable format.</li>
+</ul>
+<p>
+  To exercise any of these,
+  {% if config.SUPPORT_EMAIL %}email <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>{% else %}contact our support team{% endif %}.
+</p>
+
+<h2>7. Security</h2>
+<p>
+  Passwords are hashed with bcrypt. Session tokens are short-lived and
+  revocable. Verification documents are encrypted at rest. If we ever
+  suffer a data breach affecting you, we&rsquo;ll notify you within 72
+  hours as required by international best-practice.
+</p>
+
+<h2>8. Children</h2>
+<p>
+  Wasit is not intended for anyone under 18. Accounts identified as
+  under-age are removed on discovery.
+</p>
+
+<h2>9. Changes to this policy</h2>
+<p>
+  We&rsquo;ll notify registered users of any material changes at least
+  30 days before they take effect. The date above marks the most
+  recent revision.
+</p>
+
+<h2>10. Contact</h2>
+<p>
+  {% if config.SUPPORT_EMAIL %}
+  For any privacy-related question, email <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>.
+  {% else %}
+  Contact information will be published here before launch.
+  {% endif %}
+  {% if config.COMPANY_ADDRESS %}<br>Our registered address: {{ config.COMPANY_ADDRESS }}.{% endif %}
+</p>
+{% endblock %}

@@ -1,0 +1,97 @@
+name: broker_app
+description: Egyptian real estate trust app.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # State + routing
+  flutter_riverpod: ^2.5.1
+  go_router: ^14.2.7
+
+  # Networking
+  dio: ^5.7.0
+
+  # Secure JWT storage
+  flutter_secure_storage: ^9.2.2
+
+  # Egyptian phone input helper
+  intl_phone_field: ^3.2.0
+
+  # Phase 2 additions
+  file_picker: ^8.1.2        # pick pdf/image for broker registration proof
+  url_launcher: ^6.3.0       # open uploaded PDFs from admin detail, phone dialer
+  intl: any                  # relative + absolute date formatting; version bound by flutter_localizations
+
+  # Phase 3 additions
+  image_picker: ^1.1.2       # mobile-friendly picker for listing photos
+  geolocator: ^13.0.1        # "use my location" on create-listing screen
+  cached_network_image: ^3.4.1  # caches listing photos across scrolls
+
+  # Phase 5 additions
+  fl_chart: ^0.69.0          # trend chart on the price transparency screen
+
+  # Phase 10 additions — real document viewer (replaces data:-URI shim)
+  path_provider: ^2.1.4      # native temp dir for downloaded proofs
+  open_filex: ^4.5.0         # opens files in the OS default handler
+
+  # Phase 12 — shrink camera photos before upload to save mobile data
+  flutter_image_compress: ^2.3.0
+
+  # Phase 12 — push notifications. Both packages are optional at runtime:
+  # push_service.dart wraps initializeApp() in a try/catch so an app
+  # missing google-services.json still boots (just without notifications).
+  firebase_core: ^3.6.0
+  firebase_messaging: ^15.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  # Phase 8 — generate all icon + splash sizes from a single source PNG.
+  # Run manually: dart run flutter_launcher_icons && dart run flutter_native_splash:create
+  flutter_launcher_icons: ^0.14.1
+  flutter_native_splash: ^2.4.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  # Adaptive icon for Android 8+ — background + white silhouette.
+  adaptive_icon_background: "#0B7CA8"
+  adaptive_icon_foreground: "assets/icon/app_icon.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#0B7CA8"
+  color_dark: "#0B1116"
+  image: "assets/icon/splash_logo.png"
+  image_dark: "assets/icon/splash_logo.png"
+  android_12:
+    color: "#0B7CA8"
+    color_dark: "#0B1116"
+    image: "assets/icon/splash_logo.png"
+    image_dark: "assets/icon/splash_logo.png"
+  web: false
+
+flutter:
+  uses-material-design: true
+  generate: true   # runs `flutter gen-l10n` on pub get / build
+
+  assets:
+    - assets/icon/
+
+  # Cairo font intentionally NOT bundled here — see the note in README.
+  # System fonts (Roboto on Android, SF on iOS) already cover Arabic
+  # glyphs cleanly. To bundle Cairo: drop the TTFs into
+  # assets/fonts/Cairo-*.ttf and uncomment the fonts block.

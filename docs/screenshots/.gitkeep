@@ -1,0 +1,4 @@
+# Screenshots output directory.
+# `python scripts/generate_screenshots.py` writes PNGs into device-named
+# subdirectories here (docs/screenshots/phone-play/, phone-ios/, etc.).
+# Actual PNGs are not committed — regenerate whenever the design changes.

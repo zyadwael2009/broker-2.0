@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}For brokers · Wasit — get verified, win the client{% endblock %}
+{% block description %}Wasit is a credential platform for Egyptian real-estate brokers. Get your GOEIC verification reviewed, receive a public /b/ URL, and share it on WhatsApp before every meeting.{% endblock %}
+
+{% block content %}
+<section class="fb-hero">
+  <div class="wrap fb-hero-inner">
+    <span class="tag">For Egyptian real-estate brokers</span>
+    <h1>Verified beats unverified.<br>Every time.</h1>
+    <p class="lede">
+      Send your client one link before the meeting. They see your GOEIC
+      registration, your active listings, and every review you&rsquo;ve earned.
+      No more &ldquo;who is this guy&rdquo; energy.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary btn-lg" href="#get-verified">Get verified &mdash; free</a>
+      <a class="btn ghost btn-lg" href="#how-it-works">See how it works &rarr;</a>
+    </div>
+    {% if verified_broker_count %}
+    <p class="fb-social-proof">
+      Trusted by <b>{{ verified_broker_count }}</b> verified broker{{ '' if verified_broker_count == 1 else 's' }} across Egypt.
+    </p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="wrap fb-how" id="how-it-works">
+  <div class="section-label">How it works</div>
+  <h2 class="fb-h2">Three steps. About forty-eight hours.</h2>
+  <ol class="fb-steps">
+    <li>
+      <div class="fb-step-num">01</div>
+      <div>
+        <h3>Submit your GOEIC registration</h3>
+        <p>Sign up in the app, enter your GOEIC number, and upload a photo
+        or scan of your registration document. That&rsquo;s the whole form.</p>
+      </div>
+    </li>
+    <li>
+      <div class="fb-step-num">02</div>
+      <div>
+        <h3>Our reviewer checks it</h3>
+        <p>A human at Wasit opens your document and confirms it against
+        the GOEIC record. Typically under 48 hours. If anything looks off
+        we message you back with a specific reason &mdash; not a template.</p>
+      </div>
+    </li>
+    <li>
+      <div class="fb-step-num">03</div>
+      <div>
+        <h3>You get your public credential</h3>
+        <p>Your <code>wasit.app/b/&lt;id&gt;</code> URL goes live. Paste it
+        into your WhatsApp Business bio, Instagram profile, your
+        business card. Every client who clicks sees proof, not promises.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="wrap fb-features">
+  <div class="section-label">What verification unlocks</div>
+  <h2 class="fb-h2">Everything you need to look serious.</h2>
+  <div class="fb-features-grid">
+    <div class="fb-feature">
+      <div class="fb-feature-icon">✓</div>
+      <h3>A public credential page</h3>
+      <p>Verified seal, GOEIC number, jurisdiction, active listings, review history.
+      Design that reads as official, not startup.</p>
+    </div>
+    <div class="fb-feature">
+      <div class="fb-feature-icon">★</div>
+      <h3>Ratings buyers actually trust</h3>
+      <p>Only buyers who&rsquo;ve messaged you can rate. No drive-by stars.
+      When your page says 4.8, it means 4.8.</p>
+    </div>
+    <div class="fb-feature">
+      <div class="fb-feature-icon">📋</div>
+      <h3>Per-listing document checklist</h3>
+      <p>Title deed, no-liens certificate, tax clearance. Upload each,
+      or mark as self-reported. Buyers see the difference.</p>
+    </div>
+    <div class="fb-feature">
+      <div class="fb-feature-icon">💬</div>
+      <h3>In-app messaging &amp; call routing</h3>
+      <p>Buyers reach you through the app. Every conversation lives
+      alongside the listing and the docs &mdash; nothing gets lost in WhatsApp.</p>
+    </div>
+    <div class="fb-feature">
+      <div class="fb-feature-icon">🛡️</div>
+      <h3>Duplicate-listing detection</h3>
+      <p>Someone reposts your photo? Our system flags it and admins
+      review. Your work stays yours.</p>
+    </div>
+    <div class="fb-feature">
+      <div class="fb-feature-icon">📊</div>
+      <h3>Neighbourhood price transparency</h3>
+      <p>Median EGP/m² for every governorate, refreshed as listings
+      post. Anchor your prices to real data during negotiation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap fb-compare">
+  <div class="section-label">The difference</div>
+  <h2 class="fb-h2">What changes on day one.</h2>
+  <div class="fb-compare-grid">
+    <div class="fb-compare-col fb-compare-before">
+      <div class="fb-compare-head">Before Wasit</div>
+      <ul>
+        <li>Every client asks &ldquo;are you licensed?&rdquo; before they trust anything else.</li>
+        <li>Your ratings live on WhatsApp screenshots. Or nowhere.</li>
+        <li>Buyers ghost you after the first call &mdash; you have no way to build reputation across deals.</li>
+        <li>Your best listings get reposted by someone else with no consequences.</li>
+        <li>You compete on price because you can&rsquo;t compete on credibility.</li>
+      </ul>
+    </div>
+    <div class="fb-compare-col fb-compare-after">
+      <div class="fb-compare-head">With Wasit</div>
+      <ul>
+        <li>You paste one URL. The verification, GOEIC number, and rating are already there.</li>
+        <li>Every review comes from a real buyer conversation. It&rsquo;s public, permanent, and searchable.</li>
+        <li>Your credibility compounds across deals &mdash; a strong page opens the next one.</li>
+        <li>Duplicate detection flags your photos on other listings. Admins act.</li>
+        <li>You compete on trust. The buyers who care will pay for it.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap fb-faq">
+  <div class="section-label">Common questions</div>
+  <h2 class="fb-h2">Straight answers.</h2>
+  <details class="fb-faq-item">
+    <summary>How much does verification cost?</summary>
+    <p>Free during our launch. We&rsquo;ll be transparent well in advance if that changes.</p>
+  </details>
+  <details class="fb-faq-item">
+    <summary>What documents do I need?</summary>
+    <p>Your GOEIC registration certificate. A clear photo or scan is fine.
+    That&rsquo;s it. We never ask for national-ID card or bank details.</p>
+  </details>
+  <details class="fb-faq-item">
+    <summary>What if my GOEIC is expired or being renewed?</summary>
+    <p>We&rsquo;ll tell you exactly what&rsquo;s missing. If it&rsquo;s a renewal
+    in progress you can resubmit as soon as it&rsquo;s reissued.</p>
+  </details>
+  <details class="fb-faq-item">
+    <summary>Can I use Wasit while I&rsquo;m still pending review?</summary>
+    <p>You can sign in, but posting listings and sending messages are
+    gated on verification. This is the whole point &mdash; buyers only
+    ever see verified brokers.</p>
+  </details>
+  <details class="fb-faq-item">
+    <summary>What happens if I get rejected?</summary>
+    <p>You get a specific reason and can resubmit with corrected
+    documents. No cooldown, no penalty.</p>
+  </details>
+  <details class="fb-faq-item">
+    <summary>Do buyers see my phone number?</summary>
+    <p>Only inside the app after they open a thread with you. Your
+    public <code>/b/</code> URL never shows your phone or email &mdash;
+    everything goes through in-app messaging.</p>
+  </details>
+</section>
+
+<section class="fb-final" id="get-verified">
+  <div class="wrap fb-final-inner">
+    <h2>Ready to get verified?</h2>
+    <p class="lede">
+      Register, upload your GOEIC document, and paste your public URL
+      into every conversation from tomorrow onward.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary btn-lg" href="/app/#/register">Register &mdash; free</a>
+      <a class="btn ghost btn-lg" href="/browse">Browse the marketplace</a>
+    </div>
+    <p class="disclaimer">
+      Wasit assists with verification &mdash; it does not replace a lawyer
+      or the notary office. Always confirm ownership at the Real Estate
+      Registry before signing any contract.
+    </p>
+    <p class="disclaimer trust-links">
+      By registering you agree to our
+      <a href="/terms">Terms</a>,
+      <a href="/privacy">Privacy Policy</a>, and consent to processing
+      of your registration details for identity verification under
+      Egypt&rsquo;s Personal Data Protection Law (151/2020).
+      Questions? <a href="/contact">Contact us</a>.
+    </p>
+  </div>
+</section>
+{% endblock %}
