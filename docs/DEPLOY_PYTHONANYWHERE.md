@@ -9,11 +9,16 @@ substitute your PythonAnywhere username. Estimated first-time run:
 - Flutter Web app at `https://USER.pythonanywhere.com/app/`
 
 **Constraints (free tier):**
-- MySQL only (no Postgres). Handled — see step 4.
+- No SQL server (MySQL and Postgres are both paid-only now). We use
+  **SQLite** on the persistent disk — same driver our test suite
+  uses, so we know it works. Fine for a launch cohort of ~20
+  brokers + hundreds of listings. Upgrade to paid + Postgres when
+  write concurrency actually bites.
 - No custom domain (upgrade to Hacker $5/mo when ready).
 - Outbound HTTP allowed only to whitelisted hosts (Twilio, FCM,
   Sentry are on it — see step 13).
-- 512 MB persistent disk. Plenty for a few thousand listing photos.
+- 512 MB persistent disk. Plenty for a few thousand listing photos
+  and the SQLite DB file combined.
 
 ---
 
@@ -65,17 +70,20 @@ issues on free tier are already solved there.
 
 ---
 
-## 4. Create the MySQL database
+## 4. Prepare the SQLite DB directory
 
-**PA dashboard → Databases tab**:
+SQLite lives as a single file on PA's persistent disk. No server
+setup, no dashboard clicks.
 
-1. Set a **MySQL password** (top of the page). Save it somewhere
-   safe — you can't retrieve it later.
-2. Under **Create a database**, type `wasit` and click Create.
-3. Note the connection host shown at the top:
-   `USER.mysql.pythonanywhere-services.com`.
+```bash
+mkdir -p ~/wasit/backend
+# The DB file itself is created by `flask db upgrade` in step 6 —
+# we just need the parent directory to exist and be writable, which
+# it already is from the git clone in step 2.
+```
 
-Actual DB name becomes `USER$wasit` (PA prefixes with username + `$`).
+If you ever want to see how big the DB is: `du -h ~/wasit/backend/wasit.db`.
+Back it up by copying that one file somewhere safe.
 
 ---
 
@@ -107,8 +115,9 @@ FLASK_DEBUG=0
 SECRET_KEY=<from generate-secrets>
 JWT_SECRET_KEY=<from generate-secrets>
 
-# MySQL — the '$' is literal, part of PA's DB naming
-DATABASE_URL=mysql+pymysql://USER:MYSQL_PASSWORD@USER.mysql.pythonanywhere-services.com/USER$wasit
+# SQLite on the persistent disk. Yes, four slashes — the leading '/'
+# is part of the absolute path. Substitute your PA username for USER.
+DATABASE_URL=sqlite:////home/USER/wasit/backend/wasit.db
 
 # CORS + canonical URLs
 CORS_ORIGINS=https://USER.pythonanywhere.com
@@ -175,8 +184,10 @@ Migration output should end with the G3+PDPL revision:
 `Running upgrade c8b47f2e0a9d -> d4a72e1f8b60, Pre-launch — PDPL
 consent audit trail`.
 
-If it errors on `Access denied` — the `.env` DATABASE_URL is wrong.
-Test with `python -c "from app import create_app; create_app().app_context().push()"`.
+If it errors on `unable to open database file` — the `.env`
+DATABASE_URL path is wrong or the parent directory doesn't exist.
+Verify: `ls -la ~/wasit/backend/` should show a writable directory.
+The DB file appears the first time `db upgrade` runs successfully.
 
 ---
 
@@ -386,12 +397,12 @@ If you added new Flutter code that changes the Web bundle:
 
 | Symptom | Fix |
 |---|---|
-| 500 on every route, "Access denied" in error log | `.env` `DATABASE_URL` is wrong. Double-check user + password + `$` in DB name. |
+| 500 on every route, "unable to open database file" | `.env` `DATABASE_URL` path is wrong. It needs FOUR slashes: `sqlite:////home/USER/…`. |
 | "Refusing to start in FLASK_ENV=production" | You still have a dev-shaped secret. Rerun `flask generate-secrets`, paste fresh values. |
 | `/app/` shows "App not built yet" | `WEBAPP_BUILD_DIR` doesn't exist or is empty. Check the path in `.env` matches step 11's unzip destination. |
 | Static CSS not loading (unstyled pages) | Static file mapping in step 10 is missing or the directory is wrong. |
 | OTP never arrives after Twilio setup | Free-tier PA whitelist may not include `api.twilio.com` anymore. Check the [current whitelist](https://www.pythonanywhere.com/whitelist/). |
-| Migrations error on `Enum` type | Rare, but if a migration hand-writes Postgres-specific syntax it'll fail on MySQL. All current migrations use dialect-neutral SQLAlchemy DDL. |
+| Migrations error on `ALTER COLUMN` | SQLite can't ALTER columns directly. All migrations already use `op.batch_alter_table()` which handles this — should never trip. |
 
 ---
 
@@ -404,6 +415,16 @@ If you added new Flutter code that changes the Web bundle:
   ~5000 photos at 100 KB each. Extend `app/storage/` with an S3/R2
   backend when you outgrow it — the storage abstraction was
   designed for exactly this swap.
-- **PostgreSQL upgrade**: on paid tier + custom domain, if you want
-  Postgres for its performance edge, re-add `psycopg2-binary` to
-  requirements, change `DATABASE_URL`, `mysqldump | psql` your data.
+- **PostgreSQL upgrade**: when you outgrow SQLite (concurrent
+  writes get slow, DB file over ~1 GB, or you want proper Postgres
+  features), upgrade PA to Hacker ($5/mo), enable Postgres in the
+  Databases tab, and migrate:
+  ```bash
+  # On PA:
+  sqlite3 ~/wasit/backend/wasit.db .dump > wasit.sql
+  # Then load into Postgres. There will be a few dialect fixes
+  # (auto-increment syntax, boolean casts). ~1 hour of work total.
+  ```
+  Alternative: just start fresh with `flask db upgrade` against
+  the new Postgres, then rerun `import-brokers` with your CSV.
+  For a small launch cohort this is often the cleaner path.
