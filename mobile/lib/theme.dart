@@ -79,22 +79,25 @@ class AppColors {
     rejectedLine: Color(0xFFF3B0AC),
   );
 
+  // Dark palette mirrors the live site's CSS custom properties exactly
+  // (--bg, --surface, --primary, etc. on wasit.pythonanywhere.com) so the
+  // mobile app reads as the same brand as the web credential page.
   static const dark = AppColors(
-    background: Color(0xFF0B1116),
-    surface: Color(0xFF151C22),
-    surfaceAlt: Color(0xFF1D252C),
-    border: Color(0xFF2A343D),
-    borderStrong: Color(0xFF3B4753),
-    text: Color(0xFFE8ECF1),
-    textMuted: Color(0xFF99A4B0),
-    textSubtle: Color(0xFF6C7783),
-    primary: Color(0xFF4FBCE3),
-    primaryHover: Color(0xFF6ECAEB),
-    accent: Color(0xFFF3AE5E),
-    accentNavy: Color(0xFF7A93B5), // lighter navy for dark surfaces
-    verified: Color(0xFF4ADAA2),
-    verifiedBg: Color(0x244ADAA2), // ~14% alpha
-    verifiedLine: Color(0x524ADAA2), // ~32% alpha
+    background: Color(0xFF0A121F),   // --bg
+    surface: Color(0xFF131C2C),      // --surface
+    surfaceAlt: Color(0xFF1B2438),   // --surface-alt
+    border: Color(0xFF253048),       // --border
+    borderStrong: Color(0xFF3A4966), // --border-strong
+    text: Color(0xFFE8ECF3),         // --text
+    textMuted: Color(0xFF99A3B4),    // --text-muted
+    textSubtle: Color(0xFF6C7789),   // --text-subtle
+    primary: Color(0xFF4CBEDA),      // --primary
+    primaryHover: Color(0xFF66CDE8), // --primary-hover
+    accent: Color(0xFFE5B84D),       // --gold, for star ratings
+    accentNavy: Color(0xFF7A93B5),   // --accent
+    verified: Color(0xFF4CC088),     // --verified
+    verifiedBg: Color(0xFF142B22),   // --verified-bg
+    verifiedLine: Color(0xFF275544), // --verified-border
     pending: Color(0xFFF0B045),
     pendingBg: Color(0x24F0B045),
     pendingLine: Color(0x57F0B045),

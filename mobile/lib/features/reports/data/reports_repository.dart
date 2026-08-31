@@ -33,12 +33,12 @@ class ReportsRepository {
   }
 
   Future<List<ReportDto>> listForAdmin({String status = 'open'}) async {
-    final res = await _api.dio.get<List<dynamic>>(
+    final res = await _api.dio.get<dynamic>(
       '/admin/reports',
       queryParameters: {'status': status},
     );
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List)
           .cast<Map<String, dynamic>>()
           .map(ReportDto.fromJson)
           .toList();

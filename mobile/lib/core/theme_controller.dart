@@ -8,12 +8,18 @@ import 'token_storage.dart';
 const _kThemeKey = 'theme_mode';
 
 class ThemeController extends StateNotifier<ThemeMode> {
-  ThemeController(this._storage) : super(ThemeMode.system);
+  // Default to dark on first launch — brand is dark-navy on the web, and
+  // the mobile app should feel like a native continuation, not a light
+  // reskin. The user can still cycle to light/system via the toggle.
+  ThemeController(this._storage) : super(ThemeMode.dark);
   final FlutterSecureStorage _storage;
 
   Future<void> load() async {
     final raw = await _storage.read(key: _kThemeKey);
-    state = _fromString(raw);
+    // Only overwrite the constructor default when the user has previously
+    // made an explicit choice — otherwise leave the first-launch default
+    // (dark) in place.
+    if (raw != null) state = _fromString(raw);
   }
 
   /// Cycles System → Light → Dark → System.

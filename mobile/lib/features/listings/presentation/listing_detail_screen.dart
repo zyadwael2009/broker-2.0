@@ -53,7 +53,8 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
       _error = null;
     });
     try {
-      final l = await ref.read(listingsRepositoryProvider).get(widget.listingId);
+      final l = await ref.read(listingsRepositoryProvider)
+          .get(widget.listingId, usePublic: Env.screenshotMode);
       if (!mounted) return;
       setState(() {
         _listing = l;
@@ -297,7 +298,13 @@ class _ListingDetailScreenState extends ConsumerState<ListingDetailScreen> {
                     listing: _listing!,
                     isOwner: isOwner,
                     onConfirm: _acting ? null : _confirm,
-                    onCallBroker: () => _callBroker(_listing!.broker!.phone),
+                    // Phone is stripped from the public feed; the auth'd
+                    // detail response still carries it, so the Call button
+                    // is a no-op only on the (rare) unauth'd view.
+                    onCallBroker: () {
+                      final phone = _listing!.broker?.phone;
+                      if (phone != null) _callBroker(phone);
+                    },
                     acting: _acting,
                   ),
       ),
@@ -501,10 +508,11 @@ class _Body extends ConsumerWidget {
                                 ),
                               ),
                               const SizedBox(height: 2),
-                              Text(
-                                listing.broker!.phone,
-                                style: TextStyle(color: c.textMuted, fontSize: 13),
-                              ),
+                              if (listing.broker!.phone != null)
+                                Text(
+                                  listing.broker!.phone!,
+                                  style: TextStyle(color: c.textMuted, fontSize: 13),
+                                ),
                               if (listing.broker!.rating.count > 0) ...[
                                 const SizedBox(height: 6),
                                 Row(

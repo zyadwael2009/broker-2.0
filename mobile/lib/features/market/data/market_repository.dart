@@ -32,15 +32,15 @@ class MarketRepository {
     String? propertyType,
     int months = 12,
   }) async {
-    final res = await _api.dio.get<List<dynamic>>(
+    final res = await _api.dio.get<dynamic>(
       '/market/price-per-m2/trend',
       queryParameters: {
         ..._params(governorate, city, propertyType),
         'months': months,
       },
     );
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List)
           .cast<Map<String, dynamic>>()
           .map(PriceTrendPoint.fromJson)
           .toList();

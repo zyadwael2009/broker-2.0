@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'core/env.dart';
 import 'features/admin/presentation/broker_detail_screen.dart';
 import 'features/admin/presentation/queue_screen.dart';
 import 'features/analytics/presentation/analytics_screen.dart';
@@ -63,9 +64,17 @@ final routerProvider = Provider<GoRouter>((ref) {
   ref.onDispose(refresh.dispose);
 
   return GoRouter(
-    initialLocation: Routes.login,
+    // In screenshot-mode builds, land on the browse feed directly so
+    // Play Store captures show the meaty content, not the sign-in wall.
+    initialLocation: Env.screenshotMode ? Routes.home : Routes.login,
     refreshListenable: refresh,
     redirect: (context, state) {
+      // Screenshot-mode builds bypass every auth gate: the browse feed
+      // hits the public `/api/public/listings` endpoint, and we let the
+      // capture tooling roam any route to snap it. Never enabled in the
+      // real Play release.
+      if (Env.screenshotMode) return null;
+
       final auth = ref.read(authControllerProvider);
       final user = auth.user;
       final loggedIn = user != null;

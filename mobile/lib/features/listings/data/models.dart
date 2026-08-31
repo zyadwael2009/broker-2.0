@@ -26,20 +26,22 @@ class ListingBrokerDto {
   ListingBrokerDto({
     required this.id,
     required this.fullName,
-    required this.phone,
     required this.verificationStatus,
     required this.rating,
+    this.phone,
   });
   final int id;
   final String fullName;
-  final String phone;
+  /// Present only on authenticated `/listings` responses; the public
+  /// `/api/public/listings` feed omits it for broker-privacy.
+  final String? phone;
   final String verificationStatus;
   final RatingAggregateDto rating;
 
   factory ListingBrokerDto.fromJson(Map<String, dynamic> j) => ListingBrokerDto(
         id: j['id'] as int,
         fullName: j['full_name'] as String,
-        phone: j['phone'] as String,
+        phone: j['phone'] as String?,
         verificationStatus: j['verification_status'] as String,
         rating: j['rating'] is Map<String, dynamic>
             ? RatingAggregateDto.fromJson(j['rating'] as Map<String, dynamic>)

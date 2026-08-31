@@ -9,12 +9,12 @@ class AdminRepository {
   final ApiClient _api;
 
   Future<List<AdminBrokerDto>> listBrokers({String status = 'pending'}) async {
-    final res = await _api.dio.get<List<dynamic>>(
+    final res = await _api.dio.get<dynamic>(
       '/admin/brokers',
       queryParameters: {'status': status},
     );
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List)
           .cast<Map<String, dynamic>>()
           .map(AdminBrokerDto.fromJson)
           .toList();
@@ -68,9 +68,9 @@ class AdminRepository {
   // Phase 3: flagged listings queue
 
   Future<List<Map<String, dynamic>>> listFlaggedListings() async {
-    final res = await _api.dio.get<List<dynamic>>('/admin/listings/flagged');
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!.cast<Map<String, dynamic>>();
+    final res = await _api.dio.get<dynamic>('/admin/listings/flagged');
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List).cast<Map<String, dynamic>>();
     }
     throw AuthException(
       _err(res.data as Map<String, dynamic>?) ??

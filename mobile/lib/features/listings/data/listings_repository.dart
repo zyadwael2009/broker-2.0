@@ -23,9 +23,14 @@ class ListingsRepository {
     bool? furnished,
     String? compound,
     String? deliveryStatus,
+    // Screenshot-mode builds hit the public feed at `/api/public/listings`
+    // so we can capture the browse UI without a logged-in JWT. The two
+    // endpoints share the same shape (see backend/app/listings/routes.py).
+    bool usePublic = false,
   }) async {
-    final res = await _api.dio.get<List<dynamic>>(
-      '/listings',
+    final path = usePublic ? '/api/public/listings' : '/listings';
+    final res = await _api.dio.get<dynamic>(
+      path,
       queryParameters: {
         if (governorate != null && governorate.isNotEmpty) 'governorate': governorate,
         if (city != null && city.isNotEmpty) 'city': city,
@@ -39,8 +44,8 @@ class ListingsRepository {
         if (deliveryStatus != null && deliveryStatus.isNotEmpty) 'delivery_status': deliveryStatus,
       },
     );
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!.cast<Map<String, dynamic>>().map(ListingDto.fromJson).toList();
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List).cast<Map<String, dynamic>>().map(ListingDto.fromJson).toList();
     }
     throw AuthException(
       _err(res.data as Map<String, dynamic>?) ?? 'Could not load listings.',
@@ -49,9 +54,9 @@ class ListingsRepository {
   }
 
   Future<List<ListingDto>> mine() async {
-    final res = await _api.dio.get<List<dynamic>>('/listings/mine');
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!.cast<Map<String, dynamic>>().map(ListingDto.fromJson).toList();
+    final res = await _api.dio.get<dynamic>('/listings/mine');
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List).cast<Map<String, dynamic>>().map(ListingDto.fromJson).toList();
     }
     throw AuthException(
       _err(res.data as Map<String, dynamic>?) ?? 'Could not load your listings.',
@@ -59,8 +64,11 @@ class ListingsRepository {
     );
   }
 
-  Future<ListingDto> get(int id) async {
-    final res = await _api.dio.get<Map<String, dynamic>>('/listings/$id');
+  Future<ListingDto> get(int id, {bool usePublic = false}) async {
+    final path = usePublic
+        ? '/api/public/listings/$id'
+        : '/listings/$id';
+    final res = await _api.dio.get<Map<String, dynamic>>(path);
     if (res.statusCode == 200 && res.data != null) {
       return ListingDto.fromJson(res.data!);
     }

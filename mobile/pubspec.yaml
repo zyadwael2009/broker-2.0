@@ -1,7 +1,7 @@
 name: broker_app
 description: Egyptian real estate trust app.
 publish_to: "none"
-version: 0.1.0+1
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -67,19 +67,22 @@ flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/icon/app_icon.png"
-  # Adaptive icon for Android 8+ — background + white silhouette.
-  adaptive_icon_background: "#0B7CA8"
-  adaptive_icon_foreground: "assets/icon/app_icon.png"
+  # Adaptive icon for Android 8+ — dedicated transparent foreground so the
+  # mark stays inside the launcher's safe zone under every mask shape.
+  # Brand colors mirror the live site's CSS custom properties
+  # (--bg #0A121F, --primary #4CBEDA).
+  adaptive_icon_background: "#0A121F"
+  adaptive_icon_foreground: "assets/icon/app_icon_fg.png"
   min_sdk_android: 21
 
 flutter_native_splash:
-  color: "#0B7CA8"
-  color_dark: "#0B1116"
+  color: "#0A121F"
+  color_dark: "#0A121F"
   image: "assets/icon/splash_logo.png"
   image_dark: "assets/icon/splash_logo.png"
   android_12:
-    color: "#0B7CA8"
-    color_dark: "#0B1116"
+    color: "#0A121F"
+    color_dark: "#0A121F"
     image: "assets/icon/splash_logo.png"
     image_dark: "assets/icon/splash_logo.png"
   web: false
