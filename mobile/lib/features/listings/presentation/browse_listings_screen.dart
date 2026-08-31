@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/env.dart';
 import '../../../core/geo/egypt.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../../router.dart';
@@ -71,6 +72,7 @@ class _BrowseListingsScreenState extends ConsumerState<BrowseListingsScreen> {
             bedroomsMin: _bedroomsMin,
             minPrice: _minPriceCtrl.text.trim().isEmpty ? null : _minPriceCtrl.text.trim(),
             maxPrice: _maxPriceCtrl.text.trim().isEmpty ? null : _maxPriceCtrl.text.trim(),
+            usePublic: Env.screenshotMode,
           );
       if (!mounted || gen != _loadGen) return;
       setState(() {

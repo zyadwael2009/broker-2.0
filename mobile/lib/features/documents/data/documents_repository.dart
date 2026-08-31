@@ -12,11 +12,13 @@ class DocumentsRepository {
   final ApiClient _api;
 
   Future<List<ListingDocumentDto>> forListing(int listingId) async {
-    final res = await _api.dio.get<List<dynamic>>(
-      '/listings/$listingId/documents',
-    );
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!
+    // Don't annotate `<List<dynamic>>` on the dio call — a 401/403 (or any
+    // error response) sends back a JSON object, and Dio's response-type
+    // cast would fail before our statusCode check ran. Read the body as
+    // dynamic and verify the shape ourselves.
+    final res = await _api.dio.get<dynamic>('/listings/$listingId/documents');
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List)
           .cast<Map<String, dynamic>>()
           .map(ListingDocumentDto.fromJson)
           .toList();
@@ -78,9 +80,11 @@ class DocumentsRepository {
   // ── admin ──
 
   Future<List<PendingDocumentDto>> pendingForAdmin() async {
-    final res = await _api.dio.get<List<dynamic>>('/admin/documents/pending');
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!
+    // Same reason as `forListing`: read as dynamic so an error body
+    // (a JSON object) doesn't blow up Dio's response-type cast.
+    final res = await _api.dio.get<dynamic>('/admin/documents/pending');
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List)
           .cast<Map<String, dynamic>>()
           .map(PendingDocumentDto.fromJson)
           .toList();

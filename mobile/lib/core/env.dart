@@ -33,6 +33,17 @@ class Env {
   /// its `--dart-define` and would be broken on any real device.
   static bool get isUsingDevDefault => apiBaseUrl == _defaultDevUrl;
 
+  /// Build-time flag for Play Store screenshot captures: the router
+  /// stops forcing the login redirect, and browse screens hit the
+  /// backend's public endpoints (`/api/public/…`) instead of the
+  /// JWT-gated ones. Enable with `--dart-define=SCREENSHOT_MODE=true`.
+  /// The flag stays off for real user builds, so this has zero effect
+  /// on shipped behavior.
+  static const bool screenshotMode = bool.fromEnvironment(
+    'SCREENSHOT_MODE',
+    defaultValue: false,
+  );
+
   /// Call once from `main()` before `runApp`.
   static void assertConfigured() {
     const isRelease = bool.fromEnvironment('dart.vm.product');

@@ -8,12 +8,18 @@ import 'token_storage.dart';
 const _kLocaleKey = 'locale_code';
 
 class LocaleController extends StateNotifier<Locale?> {
-  LocaleController(this._storage) : super(null);
+  // Default to Arabic on first launch — the audience is Egyptian brokers
+  // and buyers, and the web app also defaults to Arabic. The user can
+  // still cycle to English/System via the language toggle.
+  LocaleController(this._storage) : super(const Locale('ar'));
   final FlutterSecureStorage _storage;
 
   Future<void> load() async {
     final code = await _storage.read(key: _kLocaleKey);
-    state = _fromString(code);
+    // Only overwrite the constructor default when the user has previously
+    // made an explicit choice — otherwise leave the first-launch default
+    // (Arabic) in place.
+    if (code != null) state = _fromString(code);
   }
 
   /// Cycles System → English → Arabic → System.

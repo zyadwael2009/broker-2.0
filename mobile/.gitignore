@@ -6,3 +6,9 @@ build/
 pubspec.lock
 .idea/
 .vscode/
+
+# Release signing — the keystore file itself and the password properties
+# must NEVER be committed. See android/key.properties.example.
+android/key.properties
+*.jks
+*.keystore

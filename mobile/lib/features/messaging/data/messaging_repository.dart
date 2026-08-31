@@ -34,9 +34,9 @@ class MessagingRepository {
   }
 
   Future<List<ThreadDto>> listThreads() async {
-    final res = await _api.dio.get<List<dynamic>>('/threads');
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!
+    final res = await _api.dio.get<dynamic>('/threads');
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List)
           .cast<Map<String, dynamic>>()
           .map(ThreadDto.fromJson)
           .toList();
@@ -47,12 +47,12 @@ class MessagingRepository {
   /// [since] enables delta polling — only messages with id > since are
   /// returned. Omit to get the last 50 (fresh open).
   Future<List<MessageDto>> messages(int threadId, {int? since}) async {
-    final res = await _api.dio.get<List<dynamic>>(
+    final res = await _api.dio.get<dynamic>(
       '/threads/$threadId/messages',
       queryParameters: {if (since != null) 'since': since},
     );
-    if (res.statusCode == 200 && res.data != null) {
-      return res.data!
+    if (res.statusCode == 200 && res.data is List) {
+      return (res.data as List)
           .cast<Map<String, dynamic>>()
           .map(MessageDto.fromJson)
           .toList();

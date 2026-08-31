@@ -1,0 +1,16 @@
+# Copy this file to `android/key.properties` and fill in real values.
+# The real key.properties MUST NOT be committed — it is git-ignored.
+#
+# Generate the keystore ONCE (this is your Play upload key — losing it means
+# you can never update the app):
+#
+#   keytool -genkey -v -keystore ~/wasit-upload.jks \
+#           -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+#
+# Store the .jks somewhere safe outside the repo (a password manager or
+# encrypted backup). Then point `storeFile` at its absolute path.
+
+storePassword=CHANGE_ME
+keyPassword=CHANGE_ME
+keyAlias=upload
+storeFile=/absolute/path/to/wasit-upload.jks
