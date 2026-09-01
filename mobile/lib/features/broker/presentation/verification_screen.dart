@@ -17,6 +17,7 @@ import '../../auth/presentation/auth_controller.dart';
 import '../../shared/widgets/language_toggle_button.dart';
 import '../../shared/widgets/status_card.dart';
 import '../../shared/widgets/theme_toggle_button.dart';
+import '../../shared/widgets/account_menu_button.dart';
 import '../data/broker_repository.dart';
 import '../data/models.dart';
 
@@ -162,11 +163,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
         actions: [
           const LanguageToggleButton(),
           const ThemeToggleButton(),
-          IconButton(
-            tooltip: t.signOut,
-            icon: const Icon(Icons.logout_rounded),
-            onPressed: () => ref.read(authControllerProvider.notifier).logout(),
-          ),
+          const AccountMenuButton(),
         ],
       ),
       body: SafeArea(

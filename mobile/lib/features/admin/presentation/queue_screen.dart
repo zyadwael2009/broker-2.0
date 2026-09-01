@@ -8,10 +8,10 @@ import '../../../l10n/gen/app_localizations.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/data/models.dart' show AuthException;
-import '../../auth/presentation/auth_controller.dart';
 import '../../shared/widgets/language_toggle_button.dart';
 import '../../shared/widgets/theme_toggle_button.dart';
 import '../../shared/widgets/verified_badge.dart';
+import '../../shared/widgets/account_menu_button.dart';
 import '../data/admin_repository.dart';
 import '../data/models.dart';
 import '../../reports/presentation/reports_queue_screen.dart';
@@ -86,11 +86,7 @@ class _AdminQueueScreenState extends ConsumerState<AdminQueueScreen> {
             ),
           const LanguageToggleButton(),
           const ThemeToggleButton(),
-          IconButton(
-            tooltip: t.signOut,
-            icon: const Icon(Icons.logout_rounded),
-            onPressed: () => ref.read(authControllerProvider.notifier).logout(),
-          ),
+          const AccountMenuButton(),
         ],
       ),
       body: SafeArea(
