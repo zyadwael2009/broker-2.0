@@ -96,6 +96,82 @@ def test_refresh_rejects_missing_token(client):
     assert r.status_code == 401
 
 
+# ── Play-required in-app account deletion ─────────────────────────────
+
+def test_delete_account_anonymizes_and_disables(client, buyer, app):
+    """DELETE /auth/account nulls PII, disables the account, and stops
+    the same phone from resolving to the deleted user on the next login.
+    Required by the Google Play User Data policy."""
+    from app.extensions import db
+    from app.models.user import User
+
+    access = buyer["tokens"]["access_token"]
+    old_phone = buyer["user"]["phone"]
+    user_id = buyer["user"]["id"]
+
+    r = client.delete(
+        "/auth/account",
+        headers={"Authorization": f"Bearer {access}"},
+        json={"password": "supersecret"},
+    )
+    assert r.status_code == 204
+
+    with app.app_context():
+        u = db.session.get(User, user_id)
+        assert u is not None                   # row preserved for FK integrity
+        assert u.is_active is False
+        assert u.email is None
+        assert u.full_name == "Deleted user"
+        assert u.phone != old_phone            # anonymized
+        assert u.phone.startswith("DEL-")
+
+    # Deleted user cannot log in with the old phone + password.
+    r2 = client.post(
+        "/auth/login",
+        json={"phone": old_phone, "password": "supersecret"},
+    )
+    assert r2.status_code == 401
+
+    # The old phone is now free for a fresh registration.
+    r3 = client.post(
+        "/auth/register",
+        json={
+            "phone": old_phone,
+            "password": "brandnewpass",
+            "full_name": "Second Life",
+            "role": "buyer",
+        },
+    )
+    assert r3.status_code == 201
+
+
+def test_delete_account_requires_password(client, buyer):
+    """A stolen JWT alone shouldn't be enough to nuke an account —
+    the current password must be supplied and verified."""
+    access = buyer["tokens"]["access_token"]
+
+    # Missing password → 400
+    r = client.delete(
+        "/auth/account",
+        headers={"Authorization": f"Bearer {access}"},
+        json={},
+    )
+    assert r.status_code == 400
+
+    # Wrong password → 401
+    r = client.delete(
+        "/auth/account",
+        headers={"Authorization": f"Bearer {access}"},
+        json={"password": "not-the-right-one"},
+    )
+    assert r.status_code == 401
+
+
+def test_delete_account_requires_auth(client):
+    r = client.delete("/auth/account", json={"password": "anything"})
+    assert r.status_code == 401
+
+
 def test_public_broker_profile_requires_auth(client):
     """Regression: previously only positive/404 paths were covered."""
     assert client.get("/brokers/1").status_code == 401

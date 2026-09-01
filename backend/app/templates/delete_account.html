@@ -1,0 +1,111 @@
+{% extends "legal_base.html" %}
+{% block title %}{{ 'حذف الحساب · وسيط' if lang == 'ar' else 'Delete your account · Wasit' }}{% endblock %}
+{% block description %}{{ 'إزاي تحذف حسابك على وسيط والبيانات اللي بتتشال.' if lang == 'ar' else 'How to delete your Wasit account and what data is removed.' }}{% endblock %}
+{% block legal_title %}{{ 'حذف الحساب' if lang == 'ar' else 'Delete your account' }}{% endblock %}
+{% block legal_subtitle %}{{ 'من داخل التطبيق أو بطلب على الإيميل.' if lang == 'ar' else 'From inside the app, or by email request.' }}{% endblock %}
+
+{% block legal_body %}
+{% if lang == 'ar' %}
+
+<h2>الطريقة الأسرع: من داخل التطبيق</h2>
+<ol>
+  <li>افتح تطبيق وسيط وسجّل دخول.</li>
+  <li>اضغط على أيقونة الحساب <strong>👤</strong> فوق يمين.</li>
+  <li>اختار <strong>«حذف الحساب»</strong>.</li>
+  <li>أدخل كلمة السر عشان نتأكد إنك أنت.</li>
+  <li>اضغط <strong>«احذف نهائياً»</strong>.</li>
+</ol>
+
+<h2>لو مش قادر تدخل التطبيق</h2>
+<p>
+  ابعت إيميل من نفس الإيميل أو رقم الموبايل المسجّل على حسابك على
+  {% if config.SUPPORT_EMAIL %}<a href="mailto:{{ config.SUPPORT_EMAIL }}?subject=%D8%B7%D9%84%D8%A8%20%D8%AD%D8%B0%D9%81%20%D8%AD%D8%B3%D8%A7%D8%A8">{{ config.SUPPORT_EMAIL }}</a>{% else %}<code>support@wasit.app</code>{% endif %}
+  بعنوان <strong>«طلب حذف حساب»</strong>. هنراجع الطلب ونحذف حسابك خلال 7 أيام شغل، وهنبعتلك تأكيد لما ننتهي.
+</p>
+
+<h2>البيانات اللي بتتشال</h2>
+<ul>
+  <li>اسمك الكامل</li>
+  <li>إيميلك</li>
+  <li>مستندات التوثيق المرفوعة (شهادة GOEIC، الهوية)</li>
+  <li>صور ومستندات إعلاناتك</li>
+  <li>محتوى محادثاتك (بتتحول لـ «مستخدم محذوف» في محادثات الطرف الثاني)</li>
+  <li>توكن الإشعارات (Firebase FCM)</li>
+  <li>كلمة السر بتنمسح ومحدش يقدر يدخل الحساب تاني</li>
+</ul>
+
+<h2>البيانات اللي بتفضل موجودة</h2>
+<p>
+  رقم صف الحساب في قاعدة البيانات بيتحفظ (بدون بياناتك الشخصية) عشان الإعلانات القديمة والتقييمات
+  والمحادثات اللي كانت مربوطة بيك مايبقاش فيها لينكات مكسورة. الاسم اللي بيظهر يبقى <strong>«مستخدم محذوف»</strong>.
+</p>
+
+<h2>كم من الوقت بياخد؟</h2>
+<p>
+  الحذف من داخل التطبيق فوري. طلبات الإيميل بتتنفذ خلال 7 أيام شغل. البيانات المحذوفة بتتشال من كل
+  النسخ الاحتياطية خلال 90 يوم إضافية بحد أقصى.
+</p>
+
+<h2>مقدرش تتراجع عن الحذف</h2>
+<p>
+  الحذف نهائي. بعد ما نأكّده، مفيش طريقة نرجّع بياناتك. لو غيّرت رأيك، تقدر تعمل حساب جديد بنفس الرقم
+  أو الإيميل — لكن هيبدأ فاضي، من غير الإعلانات أو التقييمات القديمة.
+</p>
+
+{% else %}
+
+<h2>Fastest: delete from inside the app</h2>
+<ol>
+  <li>Open the Wasit app and sign in.</li>
+  <li>Tap the account icon <strong>👤</strong> in the top right.</li>
+  <li>Choose <strong>&ldquo;Delete account&rdquo;</strong>.</li>
+  <li>Enter your password to confirm it&rsquo;s you.</li>
+  <li>Tap <strong>&ldquo;Delete permanently&rdquo;</strong>.</li>
+</ol>
+
+<h2>If you can&rsquo;t access the app</h2>
+<p>
+  Send an email from the address or phone-number email registered on
+  your account to
+  {% if config.SUPPORT_EMAIL %}<a href="mailto:{{ config.SUPPORT_EMAIL }}?subject=Account%20deletion%20request">{{ config.SUPPORT_EMAIL }}</a>{% else %}<code>support@wasit.app</code>{% endif %}
+  with the subject <strong>&ldquo;Account deletion request&rdquo;</strong>. We&rsquo;ll process
+  the request within 7 business days and email you a confirmation when
+  it&rsquo;s done.
+</p>
+
+<h2>Data that&rsquo;s removed</h2>
+<ul>
+  <li>Your full name</li>
+  <li>Your email address</li>
+  <li>Uploaded verification documents (GOEIC certificate, ID)</li>
+  <li>Your listing photos and documents</li>
+  <li>Your side of any messages (shown as &ldquo;Deleted user&rdquo; to the other party)</li>
+  <li>Push notification token (Firebase FCM)</li>
+  <li>Password &mdash; wiped so no-one can ever sign in as you again</li>
+</ul>
+
+<h2>Data that stays</h2>
+<p>
+  The account&rsquo;s row in our database is kept (with all your personal
+  information removed) so past listings, ratings, and messages that
+  referenced you don&rsquo;t end up with broken links. The name shown in
+  their place becomes <strong>&ldquo;Deleted user&rdquo;</strong>.
+</p>
+
+<h2>How long does it take?</h2>
+<p>
+  In-app deletion is immediate. Email requests are processed within 7
+  business days. Deleted data is purged from all backups within a
+  further 90 days at most.
+</p>
+
+<h2>Deletion cannot be undone</h2>
+<p>
+  Once confirmed, there&rsquo;s no way to recover your data. If you
+  change your mind, you can create a new account with the same phone or
+  email &mdash; but it will start empty, without the old listings or
+  ratings.
+</p>
+
+{% endif %}
+{% endblock %}

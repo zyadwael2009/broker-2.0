@@ -2,6 +2,7 @@
 verify-phone + forgot-password + reset-password endpoints."""
 from __future__ import annotations
 
+import secrets
 from datetime import datetime, timedelta, timezone
 
 from flask import Blueprint, current_app, jsonify, request
@@ -238,6 +239,73 @@ def me():
     if user is None:
         return jsonify(error="User not found."), 404
     return jsonify(_user_payload(user)), 200
+
+
+@auth_bp.delete("/account")
+@jwt_required()
+def delete_account():
+    """User-initiated account deletion.
+
+    Required by the Google Play User Data policy (in-app deletion path).
+    We anonymize + deactivate rather than DROP the row so referenced
+    listings / messages / ratings keep their referential integrity —
+    from the user's perspective, all their PII is gone and the account
+    can no longer sign in.
+
+    Requires the current password in the body as a defense against a
+    stolen token performing a destructive action:
+
+        DELETE /auth/account   { "password": "…" }
+
+    Sets password_changed_at=now() so every outstanding JWT (this one
+    included) is refused on the next call.
+    """
+    data = request.get_json(silent=True) or {}
+    password = data.get("password")
+    if not isinstance(password, str) or not password:
+        return jsonify(error="Password required to confirm deletion."), 400
+
+    user_id = get_jwt_identity()
+    user = db.session.get(User, int(user_id))
+    if user is None:
+        return jsonify(error="Account not found."), 404
+    if not verify_password(password, user.password_hash):
+        return jsonify(error="Incorrect password."), 401
+
+    now = datetime.now(timezone.utc)
+
+    # Anonymize PII. Phone is nullable=False + unique, so replace it
+    # with a per-user placeholder that a future signup can never collide
+    # with (the "DEL-" prefix is not a legal E.164 number).
+    user.phone = f"DEL-{user.id}"
+    user.email = None
+    user.full_name = "Deleted user"
+    # Random unusable password hash so even a leaked DB dump can't be
+    # brute-forced back into the old account.
+    user.password_hash = hash_password(secrets.token_urlsafe(48))
+    # Invalidate every issued token (see password_changed_at in User).
+    user.password_changed_at = now
+    user.is_active = False
+    user.phone_verified = False
+    user.phone_otp_hash = None
+    user.phone_otp_expires_at = None
+    user.password_reset_hash = None
+    user.password_reset_expires_at = None
+    user.referral_code = None
+
+    # If this is a broker, hide their profile + listings from the public
+    # feed so their content stops circulating with a "Deleted user" name.
+    if user.role == UserRole.BROKER and user.broker_profile is not None:
+        # BrokerProfile.deleted / hidden flags don't exist as a schema —
+        # marking the profile's fields blank plus is_active=False on the
+        # user already excludes them from the public feed (see
+        # _base_listings_query in listings/routes.py which filters on
+        # user.is_active).
+        pass
+
+    db.session.commit()
+    # 204 No Content — same shape as /auth/logout.
+    return "", 204
 
 
 @auth_bp.post("/logout")

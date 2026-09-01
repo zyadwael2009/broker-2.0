@@ -111,6 +111,24 @@ class AuthRepository {
     }
   }
 
+  /// Permanently delete (anonymize + deactivate) the current user's
+  /// account. Requires the current password as a defense against a
+  /// stolen token performing a destructive action. Server returns 204
+  /// on success; every outstanding JWT for this user is invalidated,
+  /// so the caller should clear local storage immediately.
+  Future<void> deleteAccount(String currentPassword) async {
+    final res = await _api.dio.delete<dynamic>(
+      '/auth/account',
+      data: {'password': currentPassword},
+    );
+    if (res.statusCode == 204) return;
+    throw AuthException(
+      _extractError(res.data as Map<String, dynamic>?)
+          ?? 'Could not delete the account.',
+      status: res.statusCode,
+    );
+  }
+
   /// Revoke a token server-side (JTI added to the blocklist). Pass the
   /// raw token to bypass the Dio interceptor's normal Authorization
   /// injection — logout needs to specify exactly which token to kill.

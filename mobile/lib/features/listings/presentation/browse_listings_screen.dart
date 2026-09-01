@@ -10,11 +10,11 @@ import '../../../l10n/gen/app_localizations.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/data/models.dart' show AuthException;
-import '../../auth/presentation/auth_controller.dart';
 import '../../shared/widgets/inbox_icon_button.dart';
 import '../../shared/widgets/language_toggle_button.dart';
 import '../../shared/widgets/theme_toggle_button.dart';
 import '../../shared/widgets/verify_phone_banner.dart';
+import '../../shared/widgets/account_menu_button.dart';
 import '../data/listings_repository.dart';
 import '../data/listings_signal.dart';
 import '../data/models.dart';
@@ -138,11 +138,7 @@ class _BrowseListingsScreenState extends ConsumerState<BrowseListingsScreen> {
           ),
           const LanguageToggleButton(),
           const ThemeToggleButton(),
-          IconButton(
-            tooltip: t.signOut,
-            icon: const Icon(Icons.logout_rounded),
-            onPressed: () => ref.read(authControllerProvider.notifier).logout(),
-          ),
+          const AccountMenuButton(),
         ],
       ),
       body: SafeArea(

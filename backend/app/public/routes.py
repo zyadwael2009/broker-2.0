@@ -225,6 +225,21 @@ def contact():
     return render_template("contact.html", canonical=_absolute("/contact"))
 
 
+@public_bp.get("/delete-account")
+def delete_account_info():
+    """Public account-deletion instructions.
+
+    Required by the Google Play Console Data Safety form: users
+    (including former users who no longer have the app installed) need
+    a publicly-reachable URL that documents how to request deletion.
+    The page describes the in-app flow and provides an email fallback.
+    """
+    return render_template(
+        "delete_account.html",
+        canonical=_absolute("/delete-account"),
+    )
+
+
 @public_bp.get("/for-brokers")
 def for_brokers():
     """Sales page aimed at brokers. Zero DB queries — pure marketing.
@@ -311,55 +326,88 @@ _FACET_MAP = {
 _TOP_GOV_KEYS_FOR_FACETS = ("cairo", "giza", "alexandria", "6th-of-october")
 
 
+def _facet_label(facet_slug: str | None, lang: str) -> str | None:
+    """Localized human label for a facet slug ('apartments' → 'Apartments'
+    / 'شقق'), or None if no facet. Uses the same translation dict as
+    the templates so filter chips and h1 stay consistent."""
+    if facet_slug is None:
+        return None
+    from ..i18n import t as _t
+    slug_to_key = {
+        "apartments": "ptype_apartment_plural",
+        "villas": "ptype_villa_plural",
+        "houses": "ptype_house_plural",
+        "land": "ptype_land_plural",
+        "commercial": "ptype_commercial_plural",
+        "for-sale": "kind_sale",
+        "for-rent": "kind_rent",
+    }
+    key = slug_to_key.get(facet_slug)
+    return _t(key, lang) if key else None
+
+
 def _landing_copy(gov: dict, city: str | None, facet_slug: str | None,
-                  count: int) -> dict:
+                  count: int, lang: str = "en") -> dict:
     """Auto-generate title/description/H1/intro for a landing page.
 
     Kept deterministic so refreshing the page doesn't churn the SEO copy.
     All strings mention the count + verification promise (our moat).
+    Locale-aware via `lang` param — pulled from `flask.g.lang` by the
+    calling route handler.
     """
-    gov_en = gov["en"]
-    if city is not None:
-        subject = f"{city}, {gov_en}"
-    else:
-        subject = gov_en
+    from ..i18n import t as _t
 
-    facet_label = None
-    if facet_slug is not None:
-        facet_label = _FACET_MAP[facet_slug][2]
+    gov_name = gov["ar"] if lang == "ar" else gov["en"]
+    if city is not None:
+        # City names aren't translated (no AR taxonomy yet) — use the
+        # DB string. In AR mode the punctuation reads fine either way.
+        subject = f"{city}, {gov_name}"
+    else:
+        subject = gov_name
+
+    facet_label = _facet_label(facet_slug, lang)
 
     if facet_label is None:
-        h1 = f"Property in {subject}"
-        title = f"Property in {subject} | Wasit"
+        h1 = _t("landing_h1_property_in", lang, subject=subject)
+        title = _t("landing_title_property_in", lang, subject=subject)
     elif facet_slug in ("for-sale", "for-rent"):
         # "For rent in Nasr City" reads better than "Property for rent…"
-        h1 = f"{facet_label} in {subject}"
-        title = f"Property {facet_label.lower()} in {subject} | Wasit"
+        h1 = _t("landing_h1_facet_in", lang, facet=facet_label, subject=subject)
+        # Title uses the short kind label ("Property for sale in Cairo").
+        kind_short_key = "kind_sale_short" if facet_slug == "for-sale" else "kind_rent_short"
+        title = _t("landing_title_kind_in", lang,
+                   kind=_t(kind_short_key, lang), subject=subject)
     else:
-        # "Apartments in Cairo"
-        h1 = f"{facet_label} in {subject}"
-        title = f"{facet_label} in {subject} | Wasit"
+        h1 = _t("landing_h1_facet_in", lang, facet=facet_label, subject=subject)
+        title = _t("landing_title_facet_in", lang, facet=facet_label, subject=subject)
 
-    intro = (
-        f"Browse {count} verified {facet_label.lower() if facet_label else 'property'} "
-        f"listing{'s' if count != 1 else ''} in {subject}. "
-        f"Every broker on Wasit is registered with the Egyptian General "
-        f"Organization for Import & Export Control (GOEIC) — you can "
-        f"contact them directly without middlemen."
-    )
+    # Intro uses one plural template; pass singular/plural facet noun
+    # via `facet` and a `plural` suffix (empty in AR — plural inflection
+    # doesn't map cleanly to a suffix like the English 's').
+    facet_word = (facet_label.lower() if facet_label else _t("landing_intro_default_facet", lang))
+    plural = "" if (count == 1 or lang == "ar") else "s"
+    intro = _t("landing_intro_template", lang,
+               count=count, facet=facet_word, plural=plural, subject=subject)
+
     # Meta description is the intro trimmed to ~160 chars — Google truncates
     # around there anyway.
     description = intro if len(intro) <= 160 else intro[:157].rstrip() + "…"
     return {"title": title, "description": description, "h1": h1, "intro": intro}
 
 
-def _breadcrumb_ld(gov: dict, city: str | None, facet_slug: str | None) -> dict:
+def _breadcrumb_ld(gov: dict, city: str | None, facet_slug: str | None,
+                   lang: str = "en") -> dict:
+    from ..i18n import t as _t
+
+    gov_name = gov["ar"] if lang == "ar" else gov["en"]
     items = [
-        {"@type": "ListItem", "position": 1, "name": "Home",
+        {"@type": "ListItem", "position": 1,
+         "name": _t("landing_breadcrumb_home", lang),
          "item": _absolute("/")},
-        {"@type": "ListItem", "position": 2, "name": "Browse",
+        {"@type": "ListItem", "position": 2,
+         "name": _t("landing_breadcrumb_browse", lang),
          "item": _absolute("/browse")},
-        {"@type": "ListItem", "position": 3, "name": gov["en"],
+        {"@type": "ListItem", "position": 3, "name": gov_name,
          "item": _absolute(f"/browse/{gov['key']}")},
     ]
     if city is not None:
@@ -370,7 +418,7 @@ def _breadcrumb_ld(gov: dict, city: str | None, facet_slug: str | None) -> dict:
     elif facet_slug is not None:
         items.append({
             "@type": "ListItem", "position": 4,
-            "name": _FACET_MAP[facet_slug][2],
+            "name": _facet_label(facet_slug, lang),
             "item": _absolute(f"/browse/{gov['key']}/{facet_slug}"),
         })
     return {
@@ -427,8 +475,11 @@ def _render_landing(gov: dict, city: str | None = None,
     if not listings:
         abort(404)
 
+    from flask import g as _g
+    lang = getattr(_g, "lang", "en")
+
     cards = _build_card_dicts(listings)
-    copy = _landing_copy(gov, city, facet_slug, len(cards))
+    copy = _landing_copy(gov, city, facet_slug, len(cards), lang)
 
     # Canonical URL for THIS landing (not the query-string variant).
     if city is not None:
@@ -471,20 +522,22 @@ def _render_landing(gov: dict, city: str | None = None,
         if len(related_locations) >= 8:
             break
 
-    breadcrumb_ld = _breadcrumb_ld(gov, city, facet_slug)
+    breadcrumb_ld = _breadcrumb_ld(gov, city, facet_slug, lang)
     item_list_ld = _item_list_ld(cards)
 
     # Breadcrumb UI data (mirrors the JSON-LD).
+    from ..i18n import t as _t
+    gov_name = gov["ar"] if lang == "ar" else gov["en"]
     breadcrumbs = [
-        {"name": "Home", "url": _absolute("/")},
-        {"name": "Browse", "url": _absolute("/browse")},
-        {"name": gov["en"], "url": _absolute(f"/browse/{gov['key']}")},
+        {"name": _t("landing_breadcrumb_home", lang), "url": _absolute("/")},
+        {"name": _t("landing_breadcrumb_browse", lang), "url": _absolute("/browse")},
+        {"name": gov_name, "url": _absolute(f"/browse/{gov['key']}")},
     ]
     if city is not None:
         breadcrumbs.append({"name": city, "url": _absolute(canonical_path)})
     elif facet_slug is not None:
         breadcrumbs.append({
-            "name": _FACET_MAP[facet_slug][2],
+            "name": _facet_label(facet_slug, lang),
             "url": _absolute(canonical_path),
         })
 

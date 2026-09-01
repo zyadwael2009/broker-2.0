@@ -118,6 +118,20 @@ class AuthController extends StateNotifier<AuthState> {
     }
   }
 
+  /// Play-required in-app account deletion. On success we mirror the
+  /// same local cleanup as logout — clear storage, drop push token,
+  /// wipe state — so the router redirects to /login. Throws
+  /// AuthException on wrong password or network error so the dialog
+  /// can surface the message to the user.
+  Future<void> deleteAccount(String currentPassword) async {
+    await _repo.deleteAccount(currentPassword);
+    // Deletion invalidated the JWT, so a /devices DELETE would 401.
+    // Best-effort: try, ignore any error.
+    try { await _push.deregisterOnLogout(); } catch (_) {}
+    await _storage.clear();
+    state = const AuthState();
+  }
+
   Future<void> logout() async {
     // Push token first — while we still have a valid access token, so the
     // /devices DELETE succeeds. After clear() we'd 401.
