@@ -109,6 +109,318 @@ abstract class AppL10n {
   /// **'Sign in'**
   String get signIn;
 
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
+  /// No description provided for @loginHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Wasit'**
+  String get loginHeroTitle;
+
+  /// No description provided for @loginHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Egypt\'\'s first verified real-estate brokerage platform.'**
+  String get loginHeroSubtitle;
+
+  /// No description provided for @loginCredentialPill.
+  ///
+  /// In en, this message translates to:
+  /// **'Official accreditation & digital land registry'**
+  String get loginCredentialPill;
+
+  /// No description provided for @loginPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked to your National ID'**
+  String get loginPhoneHint;
+
+  /// No description provided for @loginAltDivider.
+  ///
+  /// In en, this message translates to:
+  /// **'Or continue with'**
+  String get loginAltDivider;
+
+  /// No description provided for @loginSsoDigitalEgypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Egyptian Digital ID (National Access)'**
+  String get loginSsoDigitalEgypt;
+
+  /// No description provided for @loginSsoDigitalEgyptSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant verification via your national ID card'**
+  String get loginSsoDigitalEgyptSub;
+
+  /// No description provided for @loginOtpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with SMS code'**
+  String get loginOtpTitle;
+
+  /// No description provided for @loginOtpSub.
+  ///
+  /// In en, this message translates to:
+  /// **'One-tap login by phone verification'**
+  String get loginOtpSub;
+
+  /// No description provided for @loginNoAccountPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'\'t have an account?'**
+  String get loginNoAccountPrompt;
+
+  /// No description provided for @loginRegisterCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Create one'**
+  String get loginRegisterCta;
+
+  /// No description provided for @loginTrustContracts.
+  ///
+  /// In en, this message translates to:
+  /// **'Official contracts'**
+  String get loginTrustContracts;
+
+  /// No description provided for @loginTrustContractsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified and legally compliant'**
+  String get loginTrustContractsSub;
+
+  /// No description provided for @loginTrustInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Professional inspection'**
+  String get loginTrustInspect;
+
+  /// No description provided for @loginTrustInspectSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Rigorous on-site checks'**
+  String get loginTrustInspectSub;
+
+  /// No description provided for @loginFooterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Real-estate safety & legality guarantee'**
+  String get loginFooterTitle;
+
+  /// No description provided for @loginFooterSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Every property and broker is officially vetted through the Real-Estate Registry.'**
+  String get loginFooterSub;
+
+  /// No description provided for @otpLoginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in by SMS code'**
+  String get otpLoginTitle;
+
+  /// No description provided for @otpLoginComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP-only sign-in is coming soon. Please use phone + password for now.'**
+  String get otpLoginComingSoon;
+
+  /// No description provided for @registerHeroPill.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital real-estate registration system'**
+  String get registerHeroPill;
+
+  /// No description provided for @registerHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Wasit\'\'s verified network'**
+  String get registerHeroTitle;
+
+  /// No description provided for @registerHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your account type to start browsing or listing verified properties.'**
+  String get registerHeroSubtitle;
+
+  /// No description provided for @registerAccountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Account type'**
+  String get registerAccountType;
+
+  /// No description provided for @registerStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String registerStep(int current, int total);
+
+  /// No description provided for @registerRoleBrokerLicensed.
+  ///
+  /// In en, this message translates to:
+  /// **'Licensed broker'**
+  String get registerRoleBrokerLicensed;
+
+  /// No description provided for @registerRoleBrokerLicenseChip.
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get registerRoleBrokerLicenseChip;
+
+  /// No description provided for @registerTrustBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification & transparency guarantee'**
+  String get registerTrustBannerTitle;
+
+  /// No description provided for @registerTrustBannerSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyers get contract validity and land-registry checks with no hidden brokerage fees.'**
+  String get registerTrustBannerSub;
+
+  /// No description provided for @registerFullNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'(As on your National ID)'**
+  String get registerFullNameHint;
+
+  /// No description provided for @registerFullNameExample.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Ahmed Abdallah El-Sherbiny'**
+  String get registerFullNameExample;
+
+  /// No description provided for @emailField.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailField;
+
+  /// No description provided for @registerEmailOptionalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get registerEmailOptionalHint;
+
+  /// No description provided for @registerPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'8+ letters & symbols'**
+  String get registerPasswordHint;
+
+  /// No description provided for @registerPasswordRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Must include digits, upper + lowercase letters, and a special character.'**
+  String get registerPasswordRule;
+
+  /// No description provided for @registerLinkRegistryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant link to the Real-Estate Registry'**
+  String get registerLinkRegistryTitle;
+
+  /// No description provided for @registerLinkRegistrySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted verification against registered contracts.'**
+  String get registerLinkRegistrySub;
+
+  /// No description provided for @registerAgreeTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the terms of service, real-estate verification policy, and data protection.'**
+  String get registerAgreeTerms;
+
+  /// No description provided for @registerMustAgreeTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Please tick the terms box to continue.'**
+  String get registerMustAgreeTerms;
+
+  /// No description provided for @registerContinueCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account and continue'**
+  String get registerContinueCta;
+
+  /// No description provided for @registerTrustEncrypted.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted data'**
+  String get registerTrustEncrypted;
+
+  /// No description provided for @registerTrustLicensed.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal licensing'**
+  String get registerTrustLicensed;
+
+  /// No description provided for @registerTrustSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'24/7 support'**
+  String get registerTrustSupport;
+
+  /// No description provided for @verifyPhoneIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit verification code to'**
+  String get verifyPhoneIntro;
+
+  /// No description provided for @verifyPhoneEditNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Change number'**
+  String get verifyPhoneEditNumber;
+
+  /// No description provided for @verifyPhoneCodeSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Code sent.'**
+  String get verifyPhoneCodeSent;
+
+  /// No description provided for @verifyPhoneDigitsEntered.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} of 6 digits entered'**
+  String verifyPhoneDigitsEntered(int n);
+
+  /// No description provided for @verifyPhoneAutoDecrypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-encrypted'**
+  String get verifyPhoneAutoDecrypt;
+
+  /// No description provided for @verifyPhoneResendInPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code in'**
+  String get verifyPhoneResendInPrefix;
+
+  /// No description provided for @verifyPhoneResendSms.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code by SMS'**
+  String get verifyPhoneResendSms;
+
+  /// No description provided for @verifyPhoneConfirmCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm code and continue'**
+  String get verifyPhoneConfirmCta;
+
+  /// No description provided for @verifyPhoneSecurityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Wasit protects your data with 256-bit AES encryption.'**
+  String get verifyPhoneSecurityNote;
+
   /// No description provided for @createAccount.
   ///
   /// In en, this message translates to:
@@ -150,6 +462,36 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Sign out'**
   String get logout;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your account?'**
+  String get deleteAccountTitle;
+
+  /// No description provided for @deleteAccountBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes your account and hides your listings. You can\'\'t undo this. Enter your password to confirm.'**
+  String get deleteAccountBody;
+
+  /// No description provided for @deleteAccountConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete permanently'**
+  String get deleteAccountConfirm;
+
+  /// No description provided for @deleteAccountDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account has been deleted.'**
+  String get deleteAccountDone;
 
   /// No description provided for @refresh.
   ///
@@ -576,6 +918,78 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Browse listings'**
   String get browseListings;
+
+  /// No description provided for @navBrowse.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse'**
+  String get navBrowse;
+
+  /// No description provided for @navMyListings.
+  ///
+  /// In en, this message translates to:
+  /// **'My listings'**
+  String get navMyListings;
+
+  /// No description provided for @navSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get navSaved;
+
+  /// No description provided for @navMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get navMessages;
+
+  /// No description provided for @navAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get navAccount;
+
+  /// No description provided for @navAdminQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get navAdminQueue;
+
+  /// No description provided for @savedEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved listings yet.'**
+  String get savedEmptyTitle;
+
+  /// No description provided for @savedEmptySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the heart icon on any listing to save it here.'**
+  String get savedEmptySub;
+
+  /// No description provided for @accountPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get accountPreferences;
+
+  /// No description provided for @accountTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get accountTheme;
+
+  /// No description provided for @accountLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get accountLanguage;
+
+  /// No description provided for @accountActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get accountActions;
 
   /// No description provided for @newListing.
   ///

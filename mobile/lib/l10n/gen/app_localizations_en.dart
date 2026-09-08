@@ -15,6 +15,179 @@ class AppL10nEn extends AppL10n {
   String get signIn => 'Sign in';
 
   @override
+  String get comingSoon => 'Coming soon';
+
+  @override
+  String get loginHeroTitle => 'Welcome to Wasit';
+
+  @override
+  String get loginHeroSubtitle =>
+      'Egypt\'\'s first verified real-estate brokerage platform.';
+
+  @override
+  String get loginCredentialPill =>
+      'Official accreditation & digital land registry';
+
+  @override
+  String get loginPhoneHint => 'Linked to your National ID';
+
+  @override
+  String get loginAltDivider => 'Or continue with';
+
+  @override
+  String get loginSsoDigitalEgypt => 'Egyptian Digital ID (National Access)';
+
+  @override
+  String get loginSsoDigitalEgyptSub =>
+      'Instant verification via your national ID card';
+
+  @override
+  String get loginOtpTitle => 'Sign in with SMS code';
+
+  @override
+  String get loginOtpSub => 'One-tap login by phone verification';
+
+  @override
+  String get loginNoAccountPrompt => 'Don\'\'t have an account?';
+
+  @override
+  String get loginRegisterCta => 'Create one';
+
+  @override
+  String get loginTrustContracts => 'Official contracts';
+
+  @override
+  String get loginTrustContractsSub => 'Verified and legally compliant';
+
+  @override
+  String get loginTrustInspect => 'Professional inspection';
+
+  @override
+  String get loginTrustInspectSub => 'Rigorous on-site checks';
+
+  @override
+  String get loginFooterTitle => 'Real-estate safety & legality guarantee';
+
+  @override
+  String get loginFooterSub =>
+      'Every property and broker is officially vetted through the Real-Estate Registry.';
+
+  @override
+  String get otpLoginTitle => 'Sign in by SMS code';
+
+  @override
+  String get otpLoginComingSoon =>
+      'OTP-only sign-in is coming soon. Please use phone + password for now.';
+
+  @override
+  String get registerHeroPill => 'Digital real-estate registration system';
+
+  @override
+  String get registerHeroTitle => 'Join Wasit\'\'s verified network';
+
+  @override
+  String get registerHeroSubtitle =>
+      'Choose your account type to start browsing or listing verified properties.';
+
+  @override
+  String get registerAccountType => 'Account type';
+
+  @override
+  String registerStep(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get registerRoleBrokerLicensed => 'Licensed broker';
+
+  @override
+  String get registerRoleBrokerLicenseChip => 'License';
+
+  @override
+  String get registerTrustBannerTitle =>
+      'Verification & transparency guarantee';
+
+  @override
+  String get registerTrustBannerSub =>
+      'Buyers get contract validity and land-registry checks with no hidden brokerage fees.';
+
+  @override
+  String get registerFullNameHint => '(As on your National ID)';
+
+  @override
+  String get registerFullNameExample => 'e.g. Ahmed Abdallah El-Sherbiny';
+
+  @override
+  String get emailField => 'Email';
+
+  @override
+  String get registerEmailOptionalHint => 'Optional';
+
+  @override
+  String get registerPasswordHint => '8+ letters & symbols';
+
+  @override
+  String get registerPasswordRule =>
+      'Must include digits, upper + lowercase letters, and a special character.';
+
+  @override
+  String get registerLinkRegistryTitle =>
+      'Instant link to the Real-Estate Registry';
+
+  @override
+  String get registerLinkRegistrySub =>
+      'Encrypted verification against registered contracts.';
+
+  @override
+  String get registerAgreeTerms =>
+      'I agree to the terms of service, real-estate verification policy, and data protection.';
+
+  @override
+  String get registerMustAgreeTerms => 'Please tick the terms box to continue.';
+
+  @override
+  String get registerContinueCta => 'Create account and continue';
+
+  @override
+  String get registerTrustEncrypted => 'Encrypted data';
+
+  @override
+  String get registerTrustLicensed => 'Legal licensing';
+
+  @override
+  String get registerTrustSupport => '24/7 support';
+
+  @override
+  String get verifyPhoneIntro => 'We sent a 6-digit verification code to';
+
+  @override
+  String get verifyPhoneEditNumber => 'Change number';
+
+  @override
+  String get verifyPhoneCodeSent => 'Code sent.';
+
+  @override
+  String verifyPhoneDigitsEntered(int n) {
+    return '$n of 6 digits entered';
+  }
+
+  @override
+  String get verifyPhoneAutoDecrypt => 'Auto-encrypted';
+
+  @override
+  String get verifyPhoneResendInPrefix => 'Resend code in';
+
+  @override
+  String get verifyPhoneResendSms => 'Resend code by SMS';
+
+  @override
+  String get verifyPhoneConfirmCta => 'Confirm code and continue';
+
+  @override
+  String get verifyPhoneSecurityNote =>
+      'Wasit protects your data with 256-bit AES encryption.';
+
+  @override
   String get createAccount => 'Create account';
 
   @override
@@ -34,6 +207,22 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get logout => 'Sign out';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get deleteAccountTitle => 'Delete your account?';
+
+  @override
+  String get deleteAccountBody =>
+      'This permanently deletes your account and hides your listings. You can\'\'t undo this. Enter your password to confirm.';
+
+  @override
+  String get deleteAccountConfirm => 'Delete permanently';
+
+  @override
+  String get deleteAccountDone => 'Your account has been deleted.';
 
   @override
   String get refresh => 'Refresh';
@@ -264,6 +453,43 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get browseListings => 'Browse listings';
+
+  @override
+  String get navBrowse => 'Browse';
+
+  @override
+  String get navMyListings => 'My listings';
+
+  @override
+  String get navSaved => 'Saved';
+
+  @override
+  String get navMessages => 'Messages';
+
+  @override
+  String get navAccount => 'Account';
+
+  @override
+  String get navAdminQueue => 'Queue';
+
+  @override
+  String get savedEmptyTitle => 'No saved listings yet.';
+
+  @override
+  String get savedEmptySub =>
+      'Tap the heart icon on any listing to save it here.';
+
+  @override
+  String get accountPreferences => 'Preferences';
+
+  @override
+  String get accountTheme => 'Theme';
+
+  @override
+  String get accountLanguage => 'Language';
+
+  @override
+  String get accountActions => 'Account';
 
   @override
   String get newListing => 'New listing';

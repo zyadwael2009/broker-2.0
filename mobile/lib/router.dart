@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/env.dart';
+import 'features/account/presentation/account_screen.dart';
 import 'features/admin/presentation/broker_detail_screen.dart';
 import 'features/admin/presentation/queue_screen.dart';
 import 'features/analytics/presentation/analytics_screen.dart';
 import 'features/auth/presentation/auth_controller.dart';
 import 'features/auth/presentation/forgot_password_screen.dart';
 import 'features/auth/presentation/login_screen.dart';
+import 'features/auth/presentation/otp_login_screen.dart';
 import 'features/auth/presentation/register_screen.dart';
 import 'features/auth/presentation/verify_phone_screen.dart';
 import 'features/broker/presentation/verification_screen.dart';
@@ -16,6 +18,7 @@ import 'features/listings/presentation/browse_listings_screen.dart';
 import 'features/listings/presentation/create_listing_screen.dart';
 import 'features/listings/presentation/listing_detail_screen.dart';
 import 'features/listings/presentation/my_listings_screen.dart';
+import 'features/listings/presentation/saved_listings_screen.dart';
 import 'features/market/presentation/price_transparency_screen.dart';
 import 'features/messaging/data/models.dart';
 import 'features/messaging/presentation/thread_screen.dart';
@@ -44,6 +47,11 @@ class Routes {
   static const messages = '/messages'; // + '/:threadId' for detail
 
   static const brokerProfile = '/brokers'; // + '/:id'
+
+  // Phase 13 (Stitch redesign) — new top-level destinations.
+  static const savedListings = '/saved'; // buyer favorites
+  static const account = '/account';     // profile + settings
+  static const otpLogin = '/login-otp';  // passwordless SMS-code login
 }
 
 /// Given the current user role, where should the "home" landing be?
@@ -81,6 +89,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       final loc = state.matchedLocation;
 
       final onAuthRoute = loc == Routes.login ||
+          loc == Routes.otpLogin ||
           loc == Routes.register ||
           loc == Routes.forgotPassword;
 
@@ -111,16 +120,26 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (loc == Routes.home && user.role != 'buyer') {
         return landingFor(user.role);
       }
+      // Saved (favorites) is buyer-only. Brokers/admins don't have a
+      // savings concept in the current product spec.
+      if (loc == Routes.savedListings && user.role != 'buyer') {
+        return landingFor(user.role);
+      }
       return null;
     },
     routes: [
       GoRoute(path: Routes.login, builder: (_, __) => const LoginScreen()),
+      GoRoute(path: Routes.otpLogin, builder: (_, __) => const OtpLoginScreen()),
       GoRoute(path: Routes.register, builder: (_, __) => const RegisterScreen()),
       GoRoute(path: Routes.forgotPassword, builder: (_, __) => const ForgotPasswordScreen()),
       GoRoute(path: Routes.verifyPhone, builder: (_, __) => const VerifyPhoneScreen()),
 
       // Buyer
       GoRoute(path: Routes.home, builder: (_, __) => const BrowseListingsScreen()),
+      GoRoute(path: Routes.savedListings, builder: (_, __) => const SavedListingsScreen()),
+
+      // Account tab — reachable by every authed role (nav-bar 4th tab).
+      GoRoute(path: Routes.account, builder: (_, __) => const AccountScreen()),
 
       // Broker
       GoRoute(

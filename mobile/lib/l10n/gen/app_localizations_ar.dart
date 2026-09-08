@@ -15,6 +15,175 @@ class AppL10nAr extends AppL10n {
   String get signIn => 'تسجيل الدخول';
 
   @override
+  String get comingSoon => 'قريباً';
+
+  @override
+  String get loginHeroTitle => 'مرحباً بك في وسيط';
+
+  @override
+  String get loginHeroSubtitle =>
+      'المنصة الأولى الموثقة للوساطة العقارية في مصر.';
+
+  @override
+  String get loginCredentialPill => 'اعتماد رسمي وسجل عقاري إلكتروني';
+
+  @override
+  String get loginPhoneHint => 'مربوط بالرقم القومي';
+
+  @override
+  String get loginAltDivider => 'أو المتابعة عبر';
+
+  @override
+  String get loginSsoDigitalEgypt => 'مصر الرقمية (النفاذ الوطني)';
+
+  @override
+  String get loginSsoDigitalEgyptSub => 'التحقق اللحظي عبر بطاقة الرقم القومي';
+
+  @override
+  String get loginOtpTitle => 'تسجيل سريع برمز التحقق (SMS OTP)';
+
+  @override
+  String get loginOtpSub => 'دخول بضغطة واحدة عبر التحقق من الهاتف';
+
+  @override
+  String get loginNoAccountPrompt => 'ليس لديك حساب؟';
+
+  @override
+  String get loginRegisterCta => 'إنشاء حساب جديد';
+
+  @override
+  String get loginTrustContracts => 'عقود رسمية';
+
+  @override
+  String get loginTrustContractsSub => 'موثقة ومطابقة للقانون';
+
+  @override
+  String get loginTrustInspect => 'معاينة فنية';
+
+  @override
+  String get loginTrustInspectSub => 'فحص ميداني دقيق';
+
+  @override
+  String get loginFooterTitle => 'ضمان الأمان والشرعية العقارية';
+
+  @override
+  String get loginFooterSub =>
+      'جميع العقارات والوسطاء مفحوصون ومعتمدون رسمياً عبر هيئة السجل العقاري.';
+
+  @override
+  String get otpLoginTitle => 'دخول برمز التحقق';
+
+  @override
+  String get otpLoginComingSoon =>
+      'دخول الرمز فقط بيوصل قريباً. استخدم الهاتف وكلمة المرور دلوقتي.';
+
+  @override
+  String get registerHeroPill => 'منظومة التسجيل العقاري الرقمي';
+
+  @override
+  String get registerHeroTitle => 'انضم إلى شبكة وسيط الموثقة';
+
+  @override
+  String get registerHeroSubtitle =>
+      'اختر نوع حسابك للبدء في تصفح أو عرض العقارات المفحوصة والمطابقة للسجل العقاري.';
+
+  @override
+  String get registerAccountType => 'نوع الحساب';
+
+  @override
+  String registerStep(int current, int total) {
+    return 'خطوة $current من $total';
+  }
+
+  @override
+  String get registerRoleBrokerLicensed => 'وسيط معتمد';
+
+  @override
+  String get registerRoleBrokerLicenseChip => 'رخصة';
+
+  @override
+  String get registerTrustBannerTitle => 'ضمانة التحقق والشفافية';
+
+  @override
+  String get registerTrustBannerSub =>
+      'حساب المشتري يتيح لك فحص حجية العقود والسجلات المساحية دون رسوم سمسرة خفية.';
+
+  @override
+  String get registerFullNameHint => '(كما في بطاقة الرقم القومي)';
+
+  @override
+  String get registerFullNameExample => 'مثال: أحمد عبد الله الشربيني';
+
+  @override
+  String get emailField => 'البريد الإلكتروني';
+
+  @override
+  String get registerEmailOptionalHint => 'اختياري';
+
+  @override
+  String get registerPasswordHint => '8+ أحرف ورموز';
+
+  @override
+  String get registerPasswordRule =>
+      'يجب أن تشمل أرقاماً، أحرفاً كبيرة وصغيرة، ورمزاً خاصاً.';
+
+  @override
+  String get registerLinkRegistryTitle => 'ربط فوري بالسجل العيني';
+
+  @override
+  String get registerLinkRegistrySub => 'تدقيق إلكتروني مشفر للعقود المسجلة.';
+
+  @override
+  String get registerAgreeTerms =>
+      'أوافق على شروط الخدمة وسياسة التحقق من الملكية العقارية وحماية البيانات.';
+
+  @override
+  String get registerMustAgreeTerms => 'اقبل الشروط أولاً عشان نكمل.';
+
+  @override
+  String get registerContinueCta => 'إنشاء الحساب والمتابعة';
+
+  @override
+  String get registerTrustEncrypted => 'بيانات مشفرة';
+
+  @override
+  String get registerTrustLicensed => 'ترخيص قانوني';
+
+  @override
+  String get registerTrustSupport => 'دعم مستمر 24/7';
+
+  @override
+  String get verifyPhoneIntro =>
+      'تم إرسال رمز التحقق المكون من 6 أرقام إلى الرقم';
+
+  @override
+  String get verifyPhoneEditNumber => 'تعديل الرقم';
+
+  @override
+  String get verifyPhoneCodeSent => 'تم إرسال الرمز.';
+
+  @override
+  String verifyPhoneDigitsEntered(int n) {
+    return 'تم إدخال $n من 6 أرقام';
+  }
+
+  @override
+  String get verifyPhoneAutoDecrypt => 'مشفر تلقائياً';
+
+  @override
+  String get verifyPhoneResendInPrefix => 'إعادة إرسال الرمز خلال';
+
+  @override
+  String get verifyPhoneResendSms => 'إعادة الإرسال عبر رسالة نصية';
+
+  @override
+  String get verifyPhoneConfirmCta => 'تأكيد الرمز والمتابعة';
+
+  @override
+  String get verifyPhoneSecurityNote =>
+      'وسيط يحمي بياناتك برمز تشفير آمن 256-bit.';
+
+  @override
   String get createAccount => 'إنشاء حساب';
 
   @override
@@ -34,6 +203,22 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get logout => 'تسجيل الخروج';
+
+  @override
+  String get deleteAccount => 'حذف الحساب';
+
+  @override
+  String get deleteAccountTitle => 'تحذف حسابك نهائياً؟';
+
+  @override
+  String get deleteAccountBody =>
+      'هذا بيمسح حسابك للأبد وبيخفي إعلاناتك. مفيش تراجع. أدخل كلمة السر عشان نأكد.';
+
+  @override
+  String get deleteAccountConfirm => 'احذف نهائياً';
+
+  @override
+  String get deleteAccountDone => 'تم حذف حسابك.';
 
   @override
   String get refresh => 'تحديث';
@@ -261,6 +446,43 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get browseListings => 'تصفح القوائم';
+
+  @override
+  String get navBrowse => 'تصفح';
+
+  @override
+  String get navMyListings => 'عقاراتي';
+
+  @override
+  String get navSaved => 'المفضلة';
+
+  @override
+  String get navMessages => 'محادثات';
+
+  @override
+  String get navAccount => 'حسابي';
+
+  @override
+  String get navAdminQueue => 'الطلبات';
+
+  @override
+  String get savedEmptyTitle => 'مفيش عقارات محفوظة لسه.';
+
+  @override
+  String get savedEmptySub =>
+      'اضغط على أيقونة القلب في أي إعلان عشان تحفظه هنا.';
+
+  @override
+  String get accountPreferences => 'التفضيلات';
+
+  @override
+  String get accountTheme => 'الوضع';
+
+  @override
+  String get accountLanguage => 'اللغة';
+
+  @override
+  String get accountActions => 'الحساب';
 
   @override
   String get newListing => 'قائمة جديدة';
