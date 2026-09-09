@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}" dir="{{ dir }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Wasit — Verified brokers for Egyptian real estate{% endblock %}</title>
-  <meta name="description" content="{% block description %}Egyptian real estate you can trust. Every broker is verified with GOEIC registration.{% endblock %}">
+  <title>{% block title %}{{ t('meta_default_title') }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ t('meta_default_description') }}{% endblock %}">
   {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
 
   {# OpenGraph — used by WhatsApp / Facebook / iMessage previews. #}
@@ -12,6 +12,7 @@
   <meta property="og:type" content="{% block og_type %}website{% endblock %}">
   <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
   <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
+  <meta property="og:locale" content="{{ 'ar_EG' if lang == 'ar' else 'en_US' }}">
   {% if canonical %}<meta property="og:url" content="{{ canonical }}">{% endif %}
   {% block og_image %}{% endblock %}
 
@@ -31,7 +32,7 @@
 <body>
   <header class="site-header">
     <div class="wrap header-row">
-      <a href="/" class="brand" aria-label="Wasit — home">
+      <a href="/" class="brand" aria-label="{{ t('brand_aria_home') }}">
         {# Custom SVG mark: waw-inspired geometric shape (Arabic و).
            Reads as: broker's stamp / keyhole / and the first letter of وسيط. #}
         <svg class="wm-mark-svg" width="24" height="24" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
@@ -42,9 +43,23 @@
         <span class="brand-ar" lang="ar" dir="rtl">وسيط</span>
       </a>
       <nav class="header-nav">
-        <a href="/browse">Browse</a>
-        <a href="/for-brokers">For brokers</a>
-        <a class="cta" href="/for-brokers#get-verified">Get verified</a>
+        {# Live count of what the feed is actually serving — the number
+           IS the pitch, so it is read from the DB, not hardcoded. #}
+        <span class="header-live">
+          <span class="dot" aria-hidden="true"></span>
+          {{ t('header_live_count', n=live_listing_count()) }}
+        </span>
+        <a href="/browse">{{ t('nav_browse') }}</a>
+        <a href="/for-brokers">{{ t('nav_for_brokers') }}</a>
+        {# Language toggle. `next` preserves the current URL so the
+           user lands right where they were. The path already carries
+           any existing query string via `request.full_path`. #}
+        <a class="lang-toggle"
+           href="{{ url_for('lang.set_lang', lang=('en' if lang == 'ar' else 'ar'), next=request.full_path) }}"
+           aria-label="{{ 'Switch to English' if lang == 'ar' else 'التبديل إلى العربية' }}">
+          {{ t('lang_toggle_to_en') if lang == 'ar' else t('lang_toggle_to_ar') }}
+        </a>
+        <a class="cta" href="/for-brokers#get-verified">{{ t('nav_get_verified') }}</a>
       </nav>
     </div>
   </header>
@@ -52,23 +67,31 @@
   <main>{% block content %}{% endblock %}</main>
 
   <footer class="site-footer">
-    <div class="wrap footer-row">
+    <div class="wrap footer-cols">
       <div>
-        <div class="foot-title">Wasit</div>
-        <p class="foot-note">
-          Wasit assists with verification &mdash; it does not replace a lawyer
-          or the notary office. Always confirm ownership at the Real Estate
-          Registry before signing.
-        </p>
+        <div class="fc-head">{{ t('footer_title') }}</div>
+        <p>{{ t('footer_about_body') }}</p>
+        <span class="footer-note-pill">
+          <span aria-hidden="true">✓</span> {{ t('footer_pill') }}
+        </span>
       </div>
       <div>
-        <a href="/browse">Browse listings</a>
-        <a href="/for-brokers">For brokers</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-        <a href="/contact">Contact</a>
-        <a href="/sitemap.xml">Sitemap</a>
+        <div class="fc-head">{{ t('footer_col_quick') }}</div>
+        <a href="/browse">{{ t('footer_browse') }}</a>
+        <a href="/for-brokers">{{ t('footer_for_brokers') }}</a>
+        <a href="/contact">{{ t('footer_contact') }}</a>
+        <a href="/sitemap.xml">{{ t('footer_sitemap') }}</a>
       </div>
+      <div>
+        <div class="fc-head">{{ t('footer_col_legal') }}</div>
+        <a href="/privacy">{{ t('footer_privacy') }}</a>
+        <a href="/terms">{{ t('footer_terms') }}</a>
+        <a href="/delete-account">{{ t('footer_delete_account') }}</a>
+      </div>
+    </div>
+    <div class="wrap footer-legal-line">
+      <span>{{ t('footer_copyright', year=current_year) }}</span>
+      <span class="foot-note">{{ t('footer_note') }}</span>
     </div>
   </footer>
 

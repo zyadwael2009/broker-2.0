@@ -1,10 +1,98 @@
 {% extends "legal_base.html" %}
-{% block title %}Privacy Policy · Wasit{% endblock %}
-{% block description %}How Wasit collects, uses, and protects your personal data.{% endblock %}
-{% block legal_title %}Privacy Policy{% endblock %}
-{% block legal_subtitle %}What we collect, why we collect it, and how you can control it.{% endblock %}
+{% block title %}{{ 'سياسة الخصوصية · وسيط' if lang == 'ar' else 'Privacy Policy · Wasit' }}{% endblock %}
+{% block description %}{{ 'إزاي بنجمع بياناتك الشخصية ونستخدمها ونحميها.' if lang == 'ar' else 'How Wasit collects, uses, and protects your personal data.' }}{% endblock %}
+{% block legal_title %}{{ 'سياسة الخصوصية' if lang == 'ar' else 'Privacy Policy' }}{% endblock %}
+{% block legal_subtitle %}{{ 'إيه بنجمعه، ليه بنجمعه، وإزاي تتحكم فيه.' if lang == 'ar' else 'What we collect, why we collect it, and how you can control it.' }}{% endblock %}
 
 {% block legal_body %}
+{% if lang == 'ar' %}
+<h2>١. مين إحنا</h2>
+<p>
+  وسيط منصة توثيق للوسطاء العقاريين شغالة في مصر. السياسة دي بتوصف إزاي بنتعامل مع البيانات الشخصية
+  للمشترين والوسطاء وزوار <code>wasit.app</code>.
+  {% if config.COMPANY_LEGAL_NAME %}المتحكم في بياناتك هو
+  <strong>{{ config.COMPANY_LEGAL_NAME }}</strong>.{% endif %}
+</p>
+
+<h2>٢. بنجمع إيه</h2>
+<p>بنجمع بس اللي محتاجينه لتشغيل الخدمة:</p>
+<ul>
+  <li><strong>بيانات الحساب:</strong> رقم الموبايل (إجباري)، الاسم الكامل، إيميل اختياري، وباسورد مشفّر.</li>
+  <li><strong>بيانات توثيق الوسيط:</strong> رقم تسجيل GOEIC وصورة أو PDF لمستند التسجيل. بيتراجع من فريقنا وبيتحفظ مشفّر.</li>
+  <li><strong>محتوى الإعلان:</strong> العنوان، الوصف، السعر، المساحة، الموقع، نوع العقار، الصور، وأي مستندات لكل إعلان
+    (سند الملكية، شهادة عدم الرهن، المخالصة الضريبية) اللي بتختار ترفعها.</li>
+  <li><strong>محتوى الرسائل:</strong> الرسائل النصية بين المشترين والوسطاء، وحالة القراءة والتسليم لكل واحدة.</li>
+  <li><strong>بيانات الجهاز:</strong> لما تشغّل الإشعارات، توكن التسجيل الخاص بـ Firebase Cloud Messaging.</li>
+  <li><strong>إحصائيات:</strong> عدد مشاهدات الصفحات مجمّع ومجهول عبر Plausible Analytics — من غير كوكيز،
+    من غير حفظ IP، من غير تتبع بين المواقع.</li>
+  <li><strong>تشخيص الأخطاء:</strong> لما يحصل عطل، بيتبعت stack trace لـ Sentry بدون محتوى يعرّف عنك.</li>
+</ul>
+
+<h2>٣. ليه بنجمعها</h2>
+<ul>
+  <li><strong>المصادقة:</strong> رقم موبايلك بيعرّف حسابك. الباسورد بيديك تسجيل الدخول.</li>
+  <li><strong>التوثيق:</strong> مستند GOEIC بيتراجع من فريقنا للتأكد إنك وسيط مسجّل. اسمك وحالة التوثيق بس هما اللي بيبانوا للعامة — المستند نفسه لأ.</li>
+  <li><strong>الربط:</strong> المشترين بيشوفوا إعلانات الوسطاء الموثّقين ويقدروا يبدأوا محادثات. الوسطاء بيقدروا يردوا.</li>
+  <li><strong>الثقة:</strong> التقييمات والبلاغات وقائمة مستندات كل إعلان بتساعد المشتري يقيّم الوسيط قبل ما يقابله.</li>
+</ul>
+
+<h2>٤. حاجات عمرنا ما هنعملها</h2>
+<ul>
+  <li>مبيع بياناتك. أبدًا.</li>
+  <li>مشاركة رقم موبايلك مع المشترين علنيًا. بيظهر بس داخل التطبيق بعد ما تبدأ محادثة.</li>
+  <li>إظهار إيميلك أو مستند التوثيق علنيًا.</li>
+  <li>تتبعك عبر مواقع تانية.</li>
+</ul>
+
+<h2>٥. بنحتفظ بيها لحد إمتى</h2>
+<p>
+  بيانات الحساب بتفضل طول ما حسابك شغال، زايد 90 يوم بعد الحذف لأغراض قانونية / تدقيق. صور ومستندات
+  الإعلان بتتشال خلال 30 يوم من حذف الإعلان. سجل الرسائل بيتحفظ طول ما حسابات الطرفين موجودة.
+</p>
+
+<h2>٦. حقوقك</h2>
+<p>
+  تقدر في أي وقت:
+</p>
+<ul>
+  <li>تشوف بيانات حسابك (في التطبيق أو بطلب إيميل).</li>
+  <li>تصحّح أي حاجة غلط.</li>
+  <li>تحذف حسابك — نهائيًا من كل الأنظمة، خلال 30 يوم.</li>
+  <li>تصدّر بياناتك بصيغة قابلة للقراءة آليًا.</li>
+</ul>
+<p>
+  عشان تنفّذ أي من دول،
+  {% if config.SUPPORT_EMAIL %}ابعت إيميل على <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>{% else %}تواصل مع فريق الدعم{% endif %}.
+</p>
+
+<h2>٧. الأمان</h2>
+<p>
+  الباسوردات مشفّرة بـ bcrypt. توكنز الجلسة قصيرة العمر وقابلة للإلغاء. مستندات التوثيق مشفّرة
+  في التخزين. لو حصل تسريب بيانات بيأثّر عليك، هنبلّغك خلال 72 ساعة زي ما بتوصي به أفضل الممارسات الدولية.
+</p>
+
+<h2>٨. الأطفال</h2>
+<p>
+  وسيط مش مخصص لأي حد تحت 18 سنة. الحسابات اللي بتظهر إنها لقاصرين بتتشال أول ما نكتشف.
+</p>
+
+<h2>٩. تعديلات على السياسة</h2>
+<p>
+  هنبلّغ المستخدمين المسجّلين بأي تعديلات جوهرية قبل تطبيقها بـ 30 يوم على الأقل. التاريخ فوق بيوّرِي آخر تعديل.
+</p>
+
+<h2>١٠. تواصل</h2>
+<p>
+  {% if config.SUPPORT_EMAIL %}
+  لأي سؤال يخص الخصوصية، ابعت إيميل على <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>.
+  {% else %}
+  بيانات التواصل هتتنشر هنا قبل الإطلاق.
+  {% endif %}
+  {% if config.COMPANY_ADDRESS %}<br>عنواننا المسجّل: {{ config.COMPANY_ADDRESS }}.{% endif %}
+</p>
+
+{% else %}
+
 <h2>1. Who we are</h2>
 <p>
   Wasit is a real-estate credential platform operating in Egypt. This
@@ -114,4 +202,6 @@
   {% endif %}
   {% if config.COMPANY_ADDRESS %}<br>Our registered address: {{ config.COMPANY_ADDRESS }}.{% endif %}
 </p>
+
+{% endif %}
 {% endblock %}

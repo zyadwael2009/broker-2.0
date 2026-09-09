@@ -352,3 +352,52 @@ def test_robots_txt_allows_all_and_points_at_sitemap(client):
     assert "Sitemap:" in body
     assert "sitemap.xml" in body
     assert "Disallow: /files/" in body
+
+
+# ── Bilingual (EN ↔ AR) toggle ─────────────────────────────────────
+
+def test_default_lang_is_english(client):
+    """No cookie → English chrome + `<html lang="en">`."""
+    res = client.get("/")
+    assert res.status_code == 200
+    html = res.get_data(as_text=True)
+    assert 'lang="en"' in html
+    # Nav label — English.
+    assert ">Browse<" in html or "Browse</a>" in html
+
+
+def test_ar_cookie_switches_to_arabic(client):
+    """Cookie `wasit_lang=ar` → Arabic chrome + `<html lang="ar" dir="rtl">`."""
+    client.set_cookie("wasit_lang", "ar", domain="localhost")
+    res = client.get("/for-brokers")
+    assert res.status_code == 200
+    html = res.get_data(as_text=True)
+    assert 'lang="ar"' in html
+    assert 'dir="rtl"' in html
+    # A distinctive AR chrome string that only exists in the AR dict.
+    assert "للوسطاء" in html  # nav_for_brokers, footer, or hero tag
+
+
+def test_set_lang_route_redirects_and_sets_cookie(client):
+    res = client.get("/set-lang?lang=ar&next=/browse")
+    assert res.status_code == 302
+    assert res.location.endswith("/browse")
+    # Set-Cookie header present with the correct name.
+    set_cookie = res.headers.get("Set-Cookie", "")
+    assert "wasit_lang=ar" in set_cookie
+    assert "Max-Age" in set_cookie
+
+
+def test_set_lang_rejects_open_redirect(client):
+    """External / protocol-relative `next` URLs must NOT leak the user
+    off-site (open-redirect vuln). Falls back to '/'."""
+    for evil in ("https://evil.com", "//evil.com/x", "http://phish.net/"):
+        res = client.get(f"/set-lang?lang=ar&next={evil}")
+        assert res.status_code == 302
+        assert res.location.endswith("/"), \
+            f"evil `next` leaked: {evil} → {res.location}"
+
+
+def test_set_lang_rejects_unknown_lang(client):
+    res = client.get("/set-lang?lang=fr&next=/")
+    assert res.status_code == 400

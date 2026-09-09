@@ -1,27 +1,104 @@
 {% extends "base.html" %}
 
-{# Common wrapper for /privacy, /terms, /contact. Extends base and adds
-   a centered prose column + a "Draft — pending legal review" banner
-   so nobody mistakes placeholder copy for final law-firm text. #}
+{# Common wrapper for /privacy, /terms, /contact and /delete-account.
+   The Stitch "legal gateway" layout: a compliance header, tabs across
+   the three published documents, a sticky section index built from the
+   article's own headings, and the data-protection contact card. #}
 
 {% block content %}
 <section class="legal-page">
-  <div class="wrap legal-inner">
+  <div class="wrap">
     <div class="legal-draft-banner">
-      <strong>Draft — pending legal review.</strong>
-      This placeholder covers what Wasit does today; a lawyer&rsquo;s
-      polish is coming before public launch.
+      <strong>{{ t('legal_draft_banner') }}</strong>
     </div>
 
-    <header class="legal-header">
-      <h1>{% block legal_title %}{% endblock %}</h1>
-      <p class="legal-subtitle">{% block legal_subtitle %}{% endblock %}</p>
-      <p class="legal-updated">Last updated: {% block legal_updated %}16 August 2026{% endblock %}</p>
-    </header>
+    <div class="legal-hero">
+      <div class="lh-icon" aria-hidden="true">✓</div>
+      <div>
+        <h2>{{ t('legal_hub_title') }}</h2>
+        <p>{{ t('legal_hub_body') }}</p>
+      </div>
+      <div class="lh-updated">
+        {{ t('legal_last_updated') }} {% block legal_updated %}{{ t('legal_updated_date') }}{% endblock %}
+      </div>
+    </div>
 
-    <article class="legal-prose">
-      {% block legal_body %}{% endblock %}
-    </article>
+    {# `request.path` drives the active tab — no per-template plumbing. #}
+    <nav class="legal-tabs" aria-label="{{ t('legal_hub_title') }}">
+      <a href="/privacy" {% if request.path == '/privacy' %}class="active" aria-current="page"{% endif %}>
+        {{ t('legal_tab_privacy') }}
+      </a>
+      <a href="/terms" {% if request.path == '/terms' %}class="active" aria-current="page"{% endif %}>
+        {{ t('legal_tab_terms') }}
+      </a>
+      <a href="/delete-account" {% if request.path == '/delete-account' %}class="active" aria-current="page"{% endif %}>
+        {{ t('legal_tab_delete') }}
+      </a>
+    </nav>
+
+    <div class="legal-layout">
+      <aside class="legal-aside">
+        <div class="legal-card legal-index" id="legal-index" hidden>
+          <h3>{{ t('legal_index_title') }}</h3>
+          <ol></ol>
+        </div>
+
+        <div class="legal-card">
+          <h3>{{ t('legal_dpo_title') }}</h3>
+          <p>{{ t('legal_dpo_body') }}</p>
+          <div class="dpo-row">
+            <span>{{ t('legal_dpo_email_label') }}</span>
+            <a href="mailto:{{ config.SUPPORT_EMAIL or 'support@wasit.app' }}">
+              {{ config.SUPPORT_EMAIL or 'support@wasit.app' }}
+            </a>
+          </div>
+        </div>
+
+        <div class="legal-card">
+          <h3>{{ t('legal_help_title') }}</h3>
+          <p>{{ t('legal_help_body') }}</p>
+          <a class="btn ghost block" href="/contact">{{ t('legal_help_cta') }}</a>
+        </div>
+      </aside>
+
+      <div class="legal-inner">
+        <header class="legal-header">
+          <h1>{% block legal_title %}{% endblock %}</h1>
+          <p class="legal-subtitle">{% block legal_subtitle %}{% endblock %}</p>
+        </header>
+
+        <article class="legal-prose" id="legal-prose">
+          {% block legal_body %}{% endblock %}
+        </article>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  // Build the section index from the article's own <h2>s. Doing it here
+  // rather than in each template means the three legal pages — which are
+  // written as plain prose — never have to maintain a parallel list of
+  // links that can drift out of sync with the headings.
+  (function () {
+    var prose = document.getElementById('legal-prose');
+    var box = document.getElementById('legal-index');
+    if (!prose || !box) return;
+    var heads = prose.querySelectorAll('h2');
+    if (heads.length < 2) return;  // an index of one entry helps nobody
+    var list = box.querySelector('ol');
+    Array.prototype.forEach.call(heads, function (h, i) {
+      if (!h.id) h.id = 'sec-' + (i + 1);
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      // The documents number their own headings (in Arabic numerals
+      // on the Arabic pages), so don't prepend a second counter.
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    box.hidden = false;
+  })();
+</script>
 {% endblock %}

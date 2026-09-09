@@ -1,45 +1,45 @@
 {% extends "base.html" %}
-{% block title %}Browse listings · Wasit{% endblock %}
-{% block description %}Verified real estate listings across Egypt. Apartments, houses, villas, land, and commercial property from GOEIC-registered brokers.{% endblock %}
+{% block title %}{{ t('browse_meta_title') }}{% endblock %}
+{% block description %}{{ t('browse_meta_description') }}{% endblock %}
 
 {% block content %}
 <section class="wrap browse-header">
-  <h1>Verified listings</h1>
-  <p class="lede">Every card below is from a broker whose GOEIC registration we&rsquo;ve reviewed.</p>
+  <h1>{{ t('browse_header_title') }}</h1>
+  <p class="lede">{{ t('browse_header_lede') }}</p>
 </section>
 
 {# Filter row — plain GET form so the URL carries state (shareable). #}
 <form class="wrap browse-filters" method="get" action="/browse" id="browse-filters">
   <div class="filter-row">
     <div class="filter-group filter-kind">
-      <span class="filter-label">Kind</span>
+      <span class="filter-label">{{ t('browse_filter_kind') }}</span>
       <div class="chip-row">
         <button type="submit" name="kind" value=""
-          class="filter-chip {% if not selected.kind %}active{% endif %}">All</button>
+          class="filter-chip {% if not selected.kind %}active{% endif %}">{{ t('browse_filter_all') }}</button>
         {% for k in listing_kinds %}
         <button type="submit" name="kind" value="{{ k }}"
           class="filter-chip {% if selected.kind == k %}active{% endif %}">
-          {% if k == 'sale' %}For sale{% else %}For rent{% endif %}
+          {{ t('kind_' + k) }}
         </button>
         {% endfor %}
       </div>
     </div>
 
     <div class="filter-group">
-      <label class="filter-label" for="f-gov">Governorate</label>
+      <label class="filter-label" for="f-gov">{{ t('browse_filter_governorate') }}</label>
       <select class="filter-select" name="governorate" id="f-gov"
               onchange="wasitOnGovChange(this); this.form.submit();">
-        <option value="">Anywhere</option>
+        <option value="">{{ t('browse_filter_anywhere') }}</option>
         {% for g in governorates %}
-        <option value="{{ g }}" {% if selected.governorate == g %}selected{% endif %}>{{ g }}</option>
+        <option value="{{ g }}" {% if selected.governorate == g %}selected{% endif %}>{{ gov_display(g) }}</option>
         {% endfor %}
       </select>
     </div>
 
     <div class="filter-group">
-      <label class="filter-label" for="f-city">City</label>
+      <label class="filter-label" for="f-city">{{ t('browse_filter_city') }}</label>
       <select class="filter-select" name="city" id="f-city" onchange="this.form.submit();">
-        <option value="">Any</option>
+        <option value="">{{ t('browse_filter_any') }}</option>
         {% for c in initial_cities %}
         <option value="{{ c }}" {% if selected.city == c %}selected{% endif %}>{{ c }}</option>
         {% endfor %}
@@ -47,43 +47,44 @@
     </div>
 
     <div class="filter-group">
-      <label class="filter-label" for="f-type">Type</label>
+      <label class="filter-label" for="f-type">{{ t('browse_filter_type') }}</label>
       <select class="filter-select" name="property_type" id="f-type" onchange="this.form.submit();">
-        <option value="">Any</option>
-        {% for t in property_types %}
-        <option value="{{ t }}" {% if selected.property_type == t %}selected{% endif %}>
-          {{ t | capitalize }}
+        <option value="">{{ t('browse_filter_any') }}</option>
+        {# `pt` (not `t`) — the outer `t()` filter would be shadowed. #}
+        {% for pt in property_types %}
+        <option value="{{ pt }}" {% if selected.property_type == pt %}selected{% endif %}>
+          {{ t('ptype_' + pt) }}
         </option>
         {% endfor %}
       </select>
     </div>
 
     <div class="filter-group filter-bedrooms">
-      <span class="filter-label">Bedrooms</span>
+      <span class="filter-label">{{ t('browse_filter_bedrooms') }}</span>
       <div class="chip-row">
         {% for b in ['', '1', '2', '3', '4', '5'] %}
         <button type="submit" name="bedrooms_min" value="{{ b }}"
           class="filter-chip {% if selected.bedrooms_min == b %}active{% endif %}">
-          {% if b == '' %}Any{% elif b == '5' %}5+{% else %}{{ b }}+{% endif %}
+          {% if b == '' %}{{ t('browse_filter_any') }}{% elif b == '5' %}{{ t('browse_bedrooms_5plus') }}{% else %}{{ t('browse_bedrooms_n_plus', n=b) }}{% endif %}
         </button>
         {% endfor %}
       </div>
     </div>
 
     <div class="filter-group filter-price">
-      <label class="filter-label" for="f-min-price">Price (EGP)</label>
+      <label class="filter-label" for="f-min-price">{{ t('browse_filter_price') }}</label>
       <div class="price-row">
         <input class="filter-input" type="number" name="min_price" id="f-min-price"
-               placeholder="Min" value="{{ selected.min_price }}" inputmode="numeric">
+               placeholder="{{ t('browse_filter_price_min') }}" value="{{ selected.min_price }}" inputmode="numeric">
         <span class="price-sep">—</span>
         <input class="filter-input" type="number" name="max_price"
-               placeholder="Max" value="{{ selected.max_price }}" inputmode="numeric">
+               placeholder="{{ t('browse_filter_price_max') }}" value="{{ selected.max_price }}" inputmode="numeric">
       </div>
     </div>
 
     <div class="filter-group filter-actions">
-      <button type="submit" class="btn primary">Apply</button>
-      <a class="filter-reset" href="/browse">Reset</a>
+      <button type="submit" class="btn primary">{{ t('browse_filter_apply') }}</button>
+      <a class="filter-reset" href="/browse">{{ t('browse_filter_reset') }}</a>
     </div>
   </div>
 </form>
@@ -92,12 +93,13 @@
   // Repopulate the city dropdown when the governorate changes.
   // Cities are pre-baked into the page so no fetch is needed.
   var WASIT_CITIES = {{ cities_by_gov | tojson }};
+  var WASIT_ANY_LABEL = {{ t('browse_filter_any') | tojson }};
   function wasitOnGovChange(sel) {
     var city = document.getElementById('f-city');
     if (!city) return;
     var gov = sel.value;
     var list = (gov && WASIT_CITIES[gov]) ? WASIT_CITIES[gov] : [];
-    city.innerHTML = '<option value="">Any</option>';
+    city.innerHTML = '<option value="">' + WASIT_ANY_LABEL + '</option>';
     list.forEach(function (c) {
       var opt = document.createElement('option');
       opt.value = c; opt.textContent = c;
@@ -106,12 +108,40 @@
   }
 </script>
 
+{# Results bar: how many verified listings matched, and the sort.
+   The sort is its own GET form that re-submits the active filters as
+   hidden fields, so sorting never silently drops a filter. #}
+<div class="wrap results-bar">
+  <span class="results-count">
+    <span class="dot" aria-hidden="true"></span>
+    {{ t('browse_results_count', n=total_matches) }}
+    {% if shown_count < total_matches %}
+    <span class="results-sub">· {{ t('browse_results_shown', shown=shown_count) }}</span>
+    {% endif %}
+  </span>
+  <form class="sort-form" method="get" action="/browse">
+    {% for field, value in selected.items() %}
+      {% if value and field != 'sort' %}
+      <input type="hidden" name="{{ field }}" value="{{ value }}">
+      {% endif %}
+    {% endfor %}
+    <label class="sort-label" for="f-sort">{{ t('browse_sort_label') }}</label>
+    <select class="filter-select" name="sort" id="f-sort" onchange="this.form.submit();">
+      {% for opt in sort_options %}
+      <option value="{{ opt }}" {% if selected.sort == opt %}selected{% endif %}>
+        {{ t('browse_sort_' + opt) }}
+      </option>
+      {% endfor %}
+    </select>
+  </form>
+</div>
+
 <section class="wrap grid">
   {% for l in listings %}
     {% include "_partials/listing_card.html" %}
   {% else %}
   <div class="empty">
-    No listings match your filters. <a href="/browse">Reset</a> to see everything.
+    {{ t('browse_empty') }} <a href="/browse">{{ t('browse_empty_reset') }}</a> {{ t('browse_empty_suffix') }}
   </div>
   {% endfor %}
 </section>

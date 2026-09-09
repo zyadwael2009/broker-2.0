@@ -123,6 +123,11 @@ def create_app(config_class: type[Config] = Config) -> Flask:
     # Flutter Web bundle — the interactive app inside a browser.
     app.register_blueprint(webapp_bp, url_prefix="/app")
 
+    # EN ↔ AR toggle for the Jinja marketing/SEO surface. Adds
+    # before_request + context processor + /set-lang route.
+    from . import i18n
+    i18n.init_app(app)
+
     # CLI commands
     from .cli import register_cli
     register_cli(app)
