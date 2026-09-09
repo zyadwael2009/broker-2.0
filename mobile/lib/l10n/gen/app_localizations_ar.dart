@@ -442,7 +442,7 @@ class AppL10nAr extends AppL10n {
       'التوثيق يؤكد أن فريقنا راجع تسجيلك في GOEIC، وهو لا يغني عن التحقق القانوني المستقل.';
 
   @override
-  String get myListings => 'قوائمي';
+  String get myListings => 'عقاراتي';
 
   @override
   String get browseListings => 'تصفح القوائم';
@@ -485,7 +485,7 @@ class AppL10nAr extends AppL10n {
   String get accountActions => 'الحساب';
 
   @override
-  String get newListing => 'قائمة جديدة';
+  String get newListing => 'إضافة عقار';
 
   @override
   String get priceTransparency => 'شفافية الأسعار';

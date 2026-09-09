@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../l10n/gen/app_localizations.dart';
+import '../../../core/bidi.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/presentation/auth_controller.dart';
@@ -60,8 +61,13 @@ class AccountScreen extends ConsumerWidget {
                         Text(user.fullName,
                             style: Theme.of(context).textTheme.titleLarge),
                         const SizedBox(height: 2),
-                        Text(user.phone,
-                            style: TextStyle(color: c.textMuted, fontSize: 13)),
+                        Text(
+                          user.phone,
+                          // A bare phone number has no strong character,
+                          // so it must be pinned LTR or the leading + flips.
+                          textDirection: directionOf(user.phone),
+                          style: TextStyle(color: c.textMuted, fontSize: 13),
+                        ),
                         const SizedBox(height: 8),
                         if (user.role == 'broker' && auth.brokerProfile != null)
                           VerifiedBadge(

@@ -286,7 +286,7 @@ class _BrowseListingsScreenState extends ConsumerState<BrowseListingsScreen> {
 
                 if (activeChips.isNotEmpty)
                   SizedBox(
-                    height: 42,
+                    height: 50,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
@@ -298,7 +298,10 @@ class _BrowseListingsScreenState extends ConsumerState<BrowseListingsScreen> {
 
                 // ── Property-type chips ─────────────────────────────
                 SizedBox(
-                  height: 46,
+                  // Cairo's ascenders and descenders need more room than a
+                  // Latin-only mock-up suggests — too tight and the chip
+                  // labels get clipped mid-glyph.
+                  height: 56,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

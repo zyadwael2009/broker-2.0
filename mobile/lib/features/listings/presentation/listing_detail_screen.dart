@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/env.dart';
+import '../../../core/bidi.dart';
 import '../../../core/nav.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../../router.dart';
@@ -486,8 +487,11 @@ class _BodyState extends ConsumerState<_Body> {
               ),
               const SizedBox(height: 8),
 
-              Text(listing.title,
-                  style: Theme.of(context).textTheme.headlineSmall),
+              Text(
+                listing.title,
+                textDirection: directionOf(listing.title),
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               const SizedBox(height: 6),
               Row(
                 children: [
@@ -751,7 +755,11 @@ class _DescriptionPane extends StatelessWidget {
       ),
       child: body == null || body.isEmpty
           ? Text(t.noDescription, style: TextStyle(color: c.textMuted))
-          : Text(body, style: TextStyle(color: c.text, height: 1.6)),
+          : Text(
+              body,
+              textDirection: directionOf(body),
+              style: TextStyle(color: c.text, height: 1.6),
+            ),
     );
   }
 }

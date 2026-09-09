@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../l10n/gen/app_localizations.dart';
+import '../../../core/bidi.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/data/models.dart' show AuthException;
@@ -309,6 +310,8 @@ class _ThreadCard extends StatelessWidget {
                           Expanded(
                             child: Text(
                               thread.listingTitle!,
+                              textDirection:
+                                  directionOf(thread.listingTitle!),
                               style: TextStyle(
                                   color: c.primary,
                                   fontSize: 12,
@@ -331,6 +334,8 @@ class _ThreadCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             thread.lastMessage ?? t.threadNoMessagesYet,
+                            textDirection: directionOf(
+                                thread.lastMessage ?? t.threadNoMessagesYet),
                             style: TextStyle(
                               color: unread ? c.text : c.textMuted,
                               fontSize: 13,

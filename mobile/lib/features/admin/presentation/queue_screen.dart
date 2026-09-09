@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../l10n/gen/app_localizations.dart';
+import '../../../core/bidi.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/data/models.dart' show AuthException;
@@ -800,6 +801,7 @@ class _BrokerDecisionCard extends StatelessWidget {
                             const SizedBox(height: 2),
                             Text(
                               broker.phone,
+                              textDirection: directionOf(broker.phone),
                               style:
                                   TextStyle(color: c.textMuted, fontSize: 12),
                             ),

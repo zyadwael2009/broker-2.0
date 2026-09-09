@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/env.dart';
+import '../../../../core/bidi.dart';
 import '../../../../l10n/gen/app_localizations.dart';
 import '../../../../theme.dart';
 import '../../../shared/widgets/star_row.dart';
@@ -197,6 +198,7 @@ class ListingCard extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       listing.title,
+                      textDirection: directionOf(listing.title),
                       style: TextStyle(
                         color: c.text,
                         fontSize: 15,

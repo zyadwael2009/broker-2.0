@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/env.dart';
+import '../../../core/bidi.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
@@ -617,7 +618,7 @@ class _QuickReplies extends StatelessWidget {
         : [t.quickReplyBuyerViewing, t.quickReplyBuyerDocs, t.quickReplyBuyerPrice];
 
     return SizedBox(
-      height: 44,
+      height: 52,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -686,7 +687,14 @@ class _Bubble extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(message.body, style: TextStyle(color: fg, fontSize: 14, height: 1.45)),
+            Text(
+              message.body,
+              // Message bodies are user text: an English sentence in
+              // the Arabic UI needs its own direction or its final
+              // '?' lands on the wrong side.
+              textDirection: directionOf(message.body),
+              style: TextStyle(color: fg, fontSize: 14, height: 1.45),
+            ),
             const SizedBox(height: 3),
             Row(
               mainAxisSize: MainAxisSize.min,

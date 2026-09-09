@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../core/api_client.dart';
 import '../../../core/document_opener.dart';
 import '../../../core/nav.dart';
+import '../../../core/bidi.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../../theme.dart';
 import '../../auth/presentation/auth_controller.dart';
@@ -272,7 +273,11 @@ class _Body extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 2),
-                  Text(broker.phone, style: TextStyle(color: c.textMuted, fontSize: 13)),
+                  Text(
+                    broker.phone,
+                    textDirection: directionOf(broker.phone),
+                    style: TextStyle(color: c.textMuted, fontSize: 13),
+                  ),
                 ],
               ),
             ),
@@ -332,6 +337,7 @@ class _Body extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(broker.rejectionReason!,
+                    textDirection: directionOf(broker.rejectionReason!),
                     style: TextStyle(color: c.text, fontSize: 13)),
               ],
             ),

@@ -156,7 +156,7 @@
   "verifySubmitFailed": "فشل التقديم.",
   "verifyHonestNote": "التوثيق يؤكد أن فريقنا راجع تسجيلك في GOEIC، وهو لا يغني عن التحقق القانوني المستقل.",
 
-  "myListings": "قوائمي",
+  "myListings": "عقاراتي",
   "browseListings": "تصفح القوائم",
   "navBrowse": "تصفح",
   "navMyListings": "عقاراتي",
@@ -170,7 +170,7 @@
   "accountTheme": "الوضع",
   "accountLanguage": "اللغة",
   "accountActions": "الحساب",
-  "newListing": "قائمة جديدة",
+  "newListing": "إضافة عقار",
   "priceTransparency": "شفافية الأسعار",
   "unverifiedRejectedTitle": "تم رفض تقديمك.",
   "unverifiedNotYetTitle": "يجب أن تكون موثّقاً لتنشر قوائم.",
