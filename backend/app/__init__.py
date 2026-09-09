@@ -97,6 +97,7 @@ def create_app(config_class: type[Config] = Config) -> Flask:
     from .reports.routes import reports_bp
     from .public.routes import public_bp
     from .devices.routes import devices_bp
+    from .favorites.routes import favorites_bp
     from .webapp.routes import webapp_bp
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(brokers_bp, url_prefix="/brokers")
@@ -117,6 +118,8 @@ def create_app(config_class: type[Config] = Config) -> Flask:
     app.register_blueprint(public_bp)
     # Push-notification device registration.
     app.register_blueprint(devices_bp, url_prefix="/devices")
+    # Buyer favorites — the heart on listing cards + the Saved tab.
+    app.register_blueprint(favorites_bp, url_prefix="/favorites")
     # Flutter Web bundle — the interactive app inside a browser.
     app.register_blueprint(webapp_bp, url_prefix="/app")
 

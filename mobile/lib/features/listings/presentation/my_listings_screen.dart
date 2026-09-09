@@ -10,6 +10,7 @@ import '../../../core/env.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
+import '../../shared/widgets/app_shell.dart';
 import '../../auth/data/auth_repository.dart';
 import '../../auth/data/models.dart' show AuthException;
 import '../../auth/presentation/auth_controller.dart';
@@ -133,6 +134,9 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
                                         return ListingCard(
                                           listing: l,
                                           showBroker: false,
+                                          // Saving your own listing is
+                                          // a no-op the UI shouldn't offer.
+                                          showFavorite: false,
                                           onTap: () async {
                                             final changed = await context.push<bool>(
                                               '${Routes.listings}/${l.id}',
@@ -157,6 +161,7 @@ class _MyListingsScreenState extends ConsumerState<MyListingsScreen> {
               label: Text(t.newListing),
             )
           : null,
+      bottomNavigationBar: const AppBottomNav(currentTab: AppTab.mine),
     );
   }
 }

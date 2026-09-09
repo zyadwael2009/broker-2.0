@@ -8,6 +8,7 @@ import '../../../l10n/gen/app_localizations.dart';
 import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/data/models.dart' show AuthException;
+import '../../shared/widgets/app_shell.dart';
 import '../../shared/widgets/language_toggle_button.dart';
 import '../../shared/widgets/theme_toggle_button.dart';
 import '../../shared/widgets/verified_badge.dart';
@@ -75,6 +76,7 @@ class _AdminQueueScreenState extends ConsumerState<AdminQueueScreen> {
     final t = AppL10n.of(context)!;
     final c = context.colors;
     return Scaffold(
+      bottomNavigationBar: const AppBottomNav(currentTab: AppTab.mine),
       appBar: AppBar(
         title: Text(t.adminTitle),
         actions: [

@@ -2394,6 +2394,300 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacyLink;
+
+  /// No description provided for @brandTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Officially verified properties'**
+  String get brandTagline;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// No description provided for @copiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied.'**
+  String get copiedToClipboard;
+
+  /// No description provided for @currencyEgp.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get currencyEgp;
+
+  /// No description provided for @currencyEgpPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP / month'**
+  String get currencyEgpPerMonth;
+
+  /// No description provided for @unitM2.
+  ///
+  /// In en, this message translates to:
+  /// **'m²'**
+  String get unitM2;
+
+  /// No description provided for @areaLabelShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Area'**
+  String get areaLabelShort;
+
+  /// No description provided for @typeLabelShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get typeLabelShort;
+
+  /// No description provided for @detailsCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get detailsCta;
+
+  /// No description provided for @brokerLicensedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Licensed broker'**
+  String get brokerLicensedLabel;
+
+  /// No description provided for @listingRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Ref. #{id}'**
+  String listingRef(int id);
+
+  /// No description provided for @listingSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to your list.'**
+  String get listingSaved;
+
+  /// No description provided for @listingUnsaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from your saved list.'**
+  String get listingUnsaved;
+
+  /// No description provided for @listingSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t update your saved list.'**
+  String get listingSaveFailed;
+
+  /// No description provided for @listingSaveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save this listing'**
+  String get listingSaveAction;
+
+  /// No description provided for @listingUnsaveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from saved'**
+  String get listingUnsaveAction;
+
+  /// No description provided for @browseSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by district, city, or listing number…'**
+  String get browseSearchHint;
+
+  /// No description provided for @browseVerifiedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No verified listings match} =1{1 verified listing} other{{count} verified listings}}'**
+  String browseVerifiedCount(int count);
+
+  /// No description provided for @filtersAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced filters'**
+  String get filtersAdvanced;
+
+  /// No description provided for @sortLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get sortLabel;
+
+  /// No description provided for @sortNewest.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest'**
+  String get sortNewest;
+
+  /// No description provided for @sortPriceAsc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price: low to high'**
+  String get sortPriceAsc;
+
+  /// No description provided for @sortPriceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price: high to low'**
+  String get sortPriceDesc;
+
+  /// No description provided for @sortAreaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Largest area'**
+  String get sortAreaDesc;
+
+  /// No description provided for @emptySearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matched that search'**
+  String get emptySearchTitle;
+
+  /// No description provided for @emptySearchSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Try fewer words, a district name, or the listing number.'**
+  String get emptySearchSub;
+
+  /// No description provided for @listingAuditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Property audit'**
+  String get listingAuditTitle;
+
+  /// No description provided for @brokerRatingTag.
+  ///
+  /// In en, this message translates to:
+  /// **'{avg} from {count} ratings'**
+  String brokerRatingTag(String avg, int count);
+
+  /// No description provided for @paneDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents'**
+  String get paneDocuments;
+
+  /// No description provided for @paneDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get paneDescription;
+
+  /// No description provided for @paneBroker.
+  ///
+  /// In en, this message translates to:
+  /// **'Broker'**
+  String get paneBroker;
+
+  /// No description provided for @noDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The broker hasn’t written a description for this property.'**
+  String get noDescription;
+
+  /// No description provided for @brokerUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Broker details are unavailable for this listing.'**
+  String get brokerUnavailable;
+
+  /// No description provided for @viewTrustFile.
+  ///
+  /// In en, this message translates to:
+  /// **'View trust file'**
+  String get viewTrustFile;
+
+  /// No description provided for @viewOnMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get viewOnMap;
+
+  /// No description provided for @openInMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Maps'**
+  String get openInMaps;
+
+  /// No description provided for @mapOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open a map app.'**
+  String get mapOpenFailed;
+
+  /// No description provided for @locationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location the broker pinned'**
+  String get locationSectionTitle;
+
+  /// No description provided for @brokerTrustMetrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust indicators'**
+  String get brokerTrustMetrics;
+
+  /// No description provided for @brokerGoeicChip.
+  ///
+  /// In en, this message translates to:
+  /// **'GOEIC #{number}'**
+  String brokerGoeicChip(String number);
+
+  /// No description provided for @brokerMemberSince.
+  ///
+  /// In en, this message translates to:
+  /// **'On Wasit since {date}'**
+  String brokerMemberSince(String date);
+
+  /// No description provided for @brokerLiveListings.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No live listings} =1{1 live listing} other{{count} live listings}}'**
+  String brokerLiveListings(int count);
+
+  /// No description provided for @brokerLiveListingsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Live listings'**
+  String get brokerLiveListingsLabel;
+
+  /// No description provided for @brokerAdminChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewed by our team'**
+  String get brokerAdminChecked;
+
+  /// No description provided for @brokerRatedThreads.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyer ratings'**
+  String get brokerRatedThreads;
+
+  /// No description provided for @brokerMetricsHonestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratings come only from buyers who actually messaged this broker through the app. Verification means we checked their GOEIC registration document — it is not a guarantee of any individual deal.'**
+  String get brokerMetricsHonestNote;
+
+  /// No description provided for @brokerTabListings.
+  ///
+  /// In en, this message translates to:
+  /// **'Listings ({count})'**
+  String brokerTabListings(int count);
+
+  /// No description provided for @brokerTabReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews ({count})'**
+  String brokerTabReviews(int count);
+
+  /// No description provided for @brokerNoListings.
+  ///
+  /// In en, this message translates to:
+  /// **'This broker has no live listings right now.'**
+  String get brokerNoListings;
 }
 
 class _AppL10nDelegate extends LocalizationsDelegate<AppL10n> {

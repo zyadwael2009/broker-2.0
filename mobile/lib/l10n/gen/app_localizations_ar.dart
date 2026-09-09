@@ -1246,4 +1246,188 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get privacyLink => 'سياسة الخصوصية';
+
+  @override
+  String get brandTagline => 'عقارات موثّقة رسميًا';
+
+  @override
+  String get clear => 'مسح';
+
+  @override
+  String get copiedToClipboard => 'تم النسخ.';
+
+  @override
+  String get currencyEgp => 'ج.م';
+
+  @override
+  String get currencyEgpPerMonth => 'ج.م / شهريًا';
+
+  @override
+  String get unitM2 => 'م²';
+
+  @override
+  String get areaLabelShort => 'المساحة';
+
+  @override
+  String get typeLabelShort => 'النوع';
+
+  @override
+  String get detailsCta => 'التفاصيل';
+
+  @override
+  String get brokerLicensedLabel => 'وسيط عقاري معتمد';
+
+  @override
+  String listingRef(int id) {
+    return 'رقم الإعلان #$id';
+  }
+
+  @override
+  String get listingSaved => 'تمت الإضافة إلى المحفوظات.';
+
+  @override
+  String get listingUnsaved => 'تمت الإزالة من المحفوظات.';
+
+  @override
+  String get listingSaveFailed => 'تعذّر تحديث قائمة المحفوظات.';
+
+  @override
+  String get listingSaveAction => 'حفظ الإعلان';
+
+  @override
+  String get listingUnsaveAction => 'إزالة من المحفوظات';
+
+  @override
+  String get browseSearchHint => 'ابحث بالحي، المدينة، أو رقم الإعلان…';
+
+  @override
+  String browseVerifiedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count عقار موثّق',
+      many: '$count عقارًا موثّقًا',
+      few: '$count عقارات موثّقة',
+      two: 'عقاران موثّقان',
+      one: 'عقار موثّق واحد',
+      zero: 'لا توجد عقارات مطابقة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filtersAdvanced => 'تصفية متقدمة';
+
+  @override
+  String get sortLabel => 'الترتيب';
+
+  @override
+  String get sortNewest => 'الأحدث';
+
+  @override
+  String get sortPriceAsc => 'السعر: من الأقل';
+
+  @override
+  String get sortPriceDesc => 'السعر: من الأعلى';
+
+  @override
+  String get sortAreaDesc => 'الأكبر مساحة';
+
+  @override
+  String get emptySearchTitle => 'لا توجد نتائج لهذا البحث';
+
+  @override
+  String get emptySearchSub => 'جرّب كلمات أقل، أو اسم الحي، أو رقم الإعلان.';
+
+  @override
+  String get listingAuditTitle => 'ملف تدقيق العقار';
+
+  @override
+  String brokerRatingTag(String avg, int count) {
+    return '$avg من $count تقييم';
+  }
+
+  @override
+  String get paneDocuments => 'المستندات';
+
+  @override
+  String get paneDescription => 'الوصف';
+
+  @override
+  String get paneBroker => 'الوسيط';
+
+  @override
+  String get noDescription => 'لم يكتب الوسيط وصفًا لهذا العقار.';
+
+  @override
+  String get brokerUnavailable => 'بيانات الوسيط غير متاحة لهذا الإعلان.';
+
+  @override
+  String get viewTrustFile => 'عرض ملف الثقة';
+
+  @override
+  String get viewOnMap => 'الخريطة';
+
+  @override
+  String get openInMaps => 'فتح في الخرائط';
+
+  @override
+  String get mapOpenFailed => 'تعذّر فتح تطبيق الخرائط.';
+
+  @override
+  String get locationSectionTitle => 'الموقع الذي حدّده الوسيط';
+
+  @override
+  String get brokerTrustMetrics => 'مؤشرات الثقة';
+
+  @override
+  String brokerGoeicChip(String number) {
+    return 'سجل GOEIC #$number';
+  }
+
+  @override
+  String brokerMemberSince(String date) {
+    return 'على وسيط منذ $date';
+  }
+
+  @override
+  String brokerLiveListings(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count إعلان نشط',
+      many: '$count إعلانًا نشطًا',
+      few: '$count إعلانات نشطة',
+      two: 'إعلانان نشطان',
+      one: 'إعلان نشط واحد',
+      zero: 'لا توجد إعلانات نشطة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get brokerLiveListingsLabel => 'إعلانات نشطة';
+
+  @override
+  String get brokerAdminChecked => 'راجعه فريقنا';
+
+  @override
+  String get brokerRatedThreads => 'تقييمات المشترين';
+
+  @override
+  String get brokerMetricsHonestNote =>
+      'التقييمات من مشترين تواصلوا فعلًا مع الوسيط داخل التطبيق. والتوثيق يعني أننا راجعنا مستند تسجيله في GOEIC — وليس ضمانًا لأي صفقة بعينها.';
+
+  @override
+  String brokerTabListings(int count) {
+    return 'الإعلانات ($count)';
+  }
+
+  @override
+  String brokerTabReviews(int count) {
+    return 'التقييمات ($count)';
+  }
+
+  @override
+  String get brokerNoListings => 'لا توجد إعلانات نشطة لهذا الوسيط حاليًا.';
 }

@@ -206,6 +206,57 @@ def test_file_endpoint_forbids_other_broker(client, admin, broker):
     assert res.status_code == 200
 
 
+def test_public_profile_carries_the_credentials_the_app_renders(
+    client, buyer, admin, broker
+):
+    """Phase 3 redesign — the broker profile screen shows the GOEIC
+    registry number, how long they've been on the platform, and how many
+    listings they have live."""
+    _submit_doc(client, broker["tokens"])
+    broker_id = broker["user"]["id"]
+    client.post(
+        f"/admin/brokers/{broker_id}/approve", headers=bearer(admin["tokens"])
+    )
+
+    body = client.get(
+        f"/brokers/{broker_id}", headers=bearer(buyer["tokens"])
+    ).get_json()
+    assert body["goeic_registration_number"] == "EG-12345"
+    assert body["member_since"] is not None
+    assert body["active_listing_count"] == 0
+
+    res = client.post(
+        "/listings",
+        json={
+            "title": "Nile-view apartment",
+            "price_egp": "3500000.00",
+            "area_m2": "120.5",
+            "governorate": "Cairo",
+            "city": "New Cairo",
+            "lat": 30.02,
+            "lng": 31.47,
+            "property_type": "apartment",
+        },
+        headers=bearer(broker["tokens"]),
+    )
+    assert res.status_code == 201, res.get_json()
+    body = client.get(
+        f"/brokers/{broker_id}", headers=bearer(buyer["tokens"])
+    ).get_json()
+    assert body["active_listing_count"] == 1
+
+
+def test_unverified_broker_registry_number_is_withheld(client, buyer, broker):
+    """A pending broker must not parade an unchecked registry number as
+    proof — it stays null until an admin has seen the document."""
+    _submit_doc(client, broker["tokens"])
+    body = client.get(
+        f"/brokers/{broker['user']['id']}", headers=bearer(buyer["tokens"])
+    ).get_json()
+    assert body["verification_status"] == "pending"
+    assert body["goeic_registration_number"] is None
+
+
 def test_public_profile_404_for_nonexistent(client, buyer):
     res = client.get("/brokers/9999999", headers=bearer(buyer["tokens"]))
     assert res.status_code == 404

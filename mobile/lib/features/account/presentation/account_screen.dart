@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../l10n/gen/app_localizations.dart';
+import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/presentation/auth_controller.dart';
 import '../../auth/presentation/delete_account_dialog.dart';
@@ -86,6 +88,12 @@ class AccountScreen extends ConsumerWidget {
             leading: Icons.language_outlined,
             title: t.accountLanguage,
             trailing: const LanguageToggleButton(),
+          ),
+
+          _SettingsRow(
+            leading: Icons.query_stats_rounded,
+            title: t.priceTransparency,
+            onTap: () => context.push(Routes.marketPrices),
           ),
 
           const SizedBox(height: 20),

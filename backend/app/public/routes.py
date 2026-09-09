@@ -27,7 +27,7 @@ from flask import (
 from ..extensions import db
 from ..geo import GOVERNORATES, all_governorates, cities_for
 from ..geo.slug import city_by_slug, gov_by_slug, slugify
-from ..listings.routes import apply_listing_filters
+from ..listings.routes import apply_listing_filters, apply_listing_sort
 from ..models.broker_profile import BrokerProfile, VerificationStatus
 from ..models.broker_rating import BrokerRating
 from ..models.listing import Listing, ListingKind, ListingStatus, PropertyType
@@ -176,10 +176,13 @@ def api_listings():
     if err is not None:
         return err
 
+    q, err = apply_listing_sort(q, request.args)
+    if err is not None:
+        return err
+
     # Bounded so anonymous scraping can't drain the DB.
     limit = min(int(request.args.get("limit", "60")), 200)
-    q = q.order_by(Listing.created_at.desc()).limit(limit)
-    rows = q.all()
+    rows = q.limit(limit).all()
 
     ratings = aggregate_for_many({l.broker_id for l in rows if l.broker_id})
     return jsonify([

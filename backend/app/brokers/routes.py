@@ -137,7 +137,21 @@ def public_broker_profile(broker_id: int):
     if user is None or user.role != UserRole.BROKER or not user.is_active:
         return jsonify(error="Broker not found."), 404
 
+    from ..listings.routes import visible_listings_query
+
     profile = user.broker_profile
+    is_verified = (
+        profile is not None
+        and profile.verification_status == VerificationStatus.VERIFIED
+    )
+
+    # How many listings this broker currently has live. Buyers read the
+    # number as "is this person actually working?", so it counts exactly
+    # what the browse feed would show them — not the raw row count.
+    active_listings = (
+        visible_listings_query().filter(Listing.broker_id == user.id).count()
+    )
+
     return jsonify(
         {
             "id": user.id,
@@ -153,6 +167,18 @@ def public_broker_profile(broker_id: int):
                 if profile is not None and profile.verified_at is not None
                 else None
             ),
+            # The GOEIC commercial-registry number is a public credential —
+            # it is what a buyer would look up to confirm the broker is
+            # real. Exposed only once an admin has actually checked the
+            # uploaded document, so a pending broker can't parade an
+            # unverified number as proof.
+            "goeic_registration_number": (
+                profile.goeic_registration_number if is_verified else None
+            ),
+            "member_since": (
+                user.created_at.isoformat() if user.created_at is not None else None
+            ),
+            "active_listing_count": active_listings,
             "rating": aggregate_for(user.id),
         }
     ), 200

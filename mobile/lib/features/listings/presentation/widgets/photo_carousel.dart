@@ -7,8 +7,20 @@ import '../../data/models.dart';
 
 /// Swipeable photo gallery for the listing detail screen.
 class PhotoCarousel extends StatefulWidget {
-  const PhotoCarousel({super.key, required this.photos});
+  const PhotoCarousel({
+    super.key,
+    required this.photos,
+    this.showCounter = false,
+    this.aspectRatio = 16 / 10,
+  });
+
   final List<ListingPhotoDto> photos;
+
+  /// Renders the "3 / 8" chip from the Stitch mockup. Lives in here
+  /// rather than in a caller's Stack because only the carousel knows
+  /// which page is showing.
+  final bool showCounter;
+  final double aspectRatio;
 
   @override
   State<PhotoCarousel> createState() => _PhotoCarouselState();
@@ -29,7 +41,7 @@ class _PhotoCarouselState extends State<PhotoCarousel> {
     final c = context.colors;
     if (widget.photos.isEmpty) {
       return AspectRatio(
-        aspectRatio: 16 / 10,
+        aspectRatio: widget.aspectRatio,
         child: Container(
           color: c.surfaceAlt,
           alignment: Alignment.center,
@@ -41,7 +53,7 @@ class _PhotoCarouselState extends State<PhotoCarousel> {
     return Stack(
       children: [
         AspectRatio(
-          aspectRatio: 16 / 10,
+          aspectRatio: widget.aspectRatio,
           child: PageView.builder(
             controller: _pageCtrl,
             itemCount: widget.photos.length,
@@ -61,6 +73,35 @@ class _PhotoCarouselState extends State<PhotoCarousel> {
             },
           ),
         ),
+        if (widget.showCounter && widget.photos.length > 1)
+          PositionedDirectional(
+            top: 12,
+            start: 12,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.55),
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.photo_library_rounded,
+                      size: 12, color: Colors.white),
+                  const SizedBox(width: 5),
+                  Text(
+                    '${_index + 1} / ${widget.photos.length}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      height: 1.3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         if (widget.photos.length > 1)
           Positioned(
             bottom: 12,

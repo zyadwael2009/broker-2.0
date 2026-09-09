@@ -1254,4 +1254,185 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get privacyLink => 'Privacy Policy';
+
+  @override
+  String get brandTagline => 'Officially verified properties';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String get copiedToClipboard => 'Copied.';
+
+  @override
+  String get currencyEgp => 'EGP';
+
+  @override
+  String get currencyEgpPerMonth => 'EGP / month';
+
+  @override
+  String get unitM2 => 'm²';
+
+  @override
+  String get areaLabelShort => 'Area';
+
+  @override
+  String get typeLabelShort => 'Type';
+
+  @override
+  String get detailsCta => 'Details';
+
+  @override
+  String get brokerLicensedLabel => 'Licensed broker';
+
+  @override
+  String listingRef(int id) {
+    return 'Ref. #$id';
+  }
+
+  @override
+  String get listingSaved => 'Saved to your list.';
+
+  @override
+  String get listingUnsaved => 'Removed from your saved list.';
+
+  @override
+  String get listingSaveFailed => 'Couldn’t update your saved list.';
+
+  @override
+  String get listingSaveAction => 'Save this listing';
+
+  @override
+  String get listingUnsaveAction => 'Remove from saved';
+
+  @override
+  String get browseSearchHint => 'Search by district, city, or listing number…';
+
+  @override
+  String browseVerifiedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count verified listings',
+      one: '1 verified listing',
+      zero: 'No verified listings match',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filtersAdvanced => 'Advanced filters';
+
+  @override
+  String get sortLabel => 'Sort';
+
+  @override
+  String get sortNewest => 'Newest';
+
+  @override
+  String get sortPriceAsc => 'Price: low to high';
+
+  @override
+  String get sortPriceDesc => 'Price: high to low';
+
+  @override
+  String get sortAreaDesc => 'Largest area';
+
+  @override
+  String get emptySearchTitle => 'Nothing matched that search';
+
+  @override
+  String get emptySearchSub =>
+      'Try fewer words, a district name, or the listing number.';
+
+  @override
+  String get listingAuditTitle => 'Property audit';
+
+  @override
+  String brokerRatingTag(String avg, int count) {
+    return '$avg from $count ratings';
+  }
+
+  @override
+  String get paneDocuments => 'Documents';
+
+  @override
+  String get paneDescription => 'Description';
+
+  @override
+  String get paneBroker => 'Broker';
+
+  @override
+  String get noDescription =>
+      'The broker hasn’t written a description for this property.';
+
+  @override
+  String get brokerUnavailable =>
+      'Broker details are unavailable for this listing.';
+
+  @override
+  String get viewTrustFile => 'View trust file';
+
+  @override
+  String get viewOnMap => 'Map';
+
+  @override
+  String get openInMaps => 'Open in Maps';
+
+  @override
+  String get mapOpenFailed => 'Could not open a map app.';
+
+  @override
+  String get locationSectionTitle => 'Location the broker pinned';
+
+  @override
+  String get brokerTrustMetrics => 'Trust indicators';
+
+  @override
+  String brokerGoeicChip(String number) {
+    return 'GOEIC #$number';
+  }
+
+  @override
+  String brokerMemberSince(String date) {
+    return 'On Wasit since $date';
+  }
+
+  @override
+  String brokerLiveListings(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count live listings',
+      one: '1 live listing',
+      zero: 'No live listings',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get brokerLiveListingsLabel => 'Live listings';
+
+  @override
+  String get brokerAdminChecked => 'Reviewed by our team';
+
+  @override
+  String get brokerRatedThreads => 'Buyer ratings';
+
+  @override
+  String get brokerMetricsHonestNote =>
+      'Ratings come only from buyers who actually messaged this broker through the app. Verification means we checked their GOEIC registration document — it is not a guarantee of any individual deal.';
+
+  @override
+  String brokerTabListings(int count) {
+    return 'Listings ($count)';
+  }
+
+  @override
+  String brokerTabReviews(int count) {
+    return 'Reviews ($count)';
+  }
+
+  @override
+  String get brokerNoListings => 'This broker has no live listings right now.';
 }

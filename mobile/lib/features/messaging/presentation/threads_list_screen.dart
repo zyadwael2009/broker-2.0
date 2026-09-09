@@ -10,6 +10,7 @@ import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/data/models.dart' show AuthException;
 import '../../auth/presentation/auth_controller.dart';
+import '../../shared/widgets/app_shell.dart';
 import '../../shared/widgets/verified_badge.dart';
 import '../data/messaging_repository.dart';
 import '../data/models.dart';
@@ -81,6 +82,7 @@ class _ThreadsListScreenState extends ConsumerState<ThreadsListScreen>
     final c = context.colors;
 
     return Scaffold(
+      bottomNavigationBar: const AppBottomNav(currentTab: AppTab.messages),
       appBar: AppBar(
         title: Text(t.messages),
         actions: [
