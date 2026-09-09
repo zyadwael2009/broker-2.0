@@ -249,7 +249,7 @@ class AppL10nEn extends AppL10n {
   String get ok => 'OK';
 
   @override
-  String get roleBuyer => 'Buyer / Renter';
+  String get roleBuyer => 'Buyer';
 
   @override
   String get roleBroker => 'Broker';
@@ -1435,4 +1435,309 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get brokerNoListings => 'This broker has no live listings right now.';
+
+  @override
+  String get myListingsSubtitle =>
+      'Manage your portfolio, verification and reach.';
+
+  @override
+  String get portfolioPerformanceTitle => 'This week';
+
+  @override
+  String get seeDetails => 'Details';
+
+  @override
+  String get statViews7d => 'Views (7 days)';
+
+  @override
+  String get statInquiries7d => 'Inquiries (7 days)';
+
+  @override
+  String get statLiveListings => 'Live listings';
+
+  @override
+  String bucketLive(int count) {
+    return 'Live ($count)';
+  }
+
+  @override
+  String bucketExpired(int count) {
+    return 'Needs confirming ($count)';
+  }
+
+  @override
+  String bucketArchived(int count) {
+    return 'Archived ($count)';
+  }
+
+  @override
+  String get bucketEmptyExpired => 'Nothing waiting on you';
+
+  @override
+  String get bucketEmptyExpiredSub =>
+      'Listings appear here once they pass 30 days without a confirmation.';
+
+  @override
+  String get bucketEmptyArchived => 'Nothing archived';
+
+  @override
+  String get bucketEmptyArchivedSub =>
+      'Sold and hidden listings are kept here.';
+
+  @override
+  String get whyVerificationTitle => 'Why the verified badge matters';
+
+  @override
+  String get whyVerificationBody =>
+      'Buyers only see listings from brokers whose GOEIC registration our team has checked. Keep your documents current and your listings stay in the feed.';
+
+  @override
+  String get manageListing => 'Manage';
+
+  @override
+  String metricViews(int count) {
+    return '$count views';
+  }
+
+  @override
+  String metricInquiries(int count) {
+    return '$count inquiries this week';
+  }
+
+  @override
+  String get listingStatusLive => 'Live';
+
+  @override
+  String get listingStatusExpiring => 'Expiring';
+
+  @override
+  String get listingStatusExpired => 'Expired';
+
+  @override
+  String get listingStatusSold => 'Sold';
+
+  @override
+  String get listingStatusHidden => 'Hidden';
+
+  @override
+  String get inboxTitle => 'Conversations';
+
+  @override
+  String get inboxSearchHint => 'Search by name, property, or listing number…';
+
+  @override
+  String inboxFilterAll(int count) {
+    return 'All ($count)';
+  }
+
+  @override
+  String inboxFilterUnread(int count) {
+    return 'Unread ($count)';
+  }
+
+  @override
+  String get inboxTrustTitle => 'Conversations stay on the record';
+
+  @override
+  String get inboxTrustBody =>
+      'Every thread is tied to a listing and to identified accounts, so what was agreed can be traced later.';
+
+  @override
+  String get inboxPrivacyNote =>
+      'Your conversations are visible only to you and the other party.';
+
+  @override
+  String get inboxNoMatches => 'No conversation matches that.';
+
+  @override
+  String get threadNoMessagesYet => 'No messages yet';
+
+  @override
+  String get safetyGuidanceTitle => 'Before you pay anything';
+
+  @override
+  String get safetyNoCashTitle => 'No cash outside a contract';
+
+  @override
+  String get safetyNoCashBody =>
+      'Never hand over a deposit without a signed, registered contract.';
+
+  @override
+  String get safetyCheckDeedTitle => 'Check the deed yourself';
+
+  @override
+  String get safetyCheckDeedBody =>
+      'Confirm the title at the notary office before any payment.';
+
+  @override
+  String get threadTitle => 'Conversation';
+
+  @override
+  String get viewListing => 'View listing';
+
+  @override
+  String get threadSecurityNote =>
+      'This conversation is kept on the record between two identified Wasit accounts. Wasit does not read it, and it is not end-to-end encrypted.';
+
+  @override
+  String get quickReplyBuyerViewing => 'Can I view the property this week?';
+
+  @override
+  String get quickReplyBuyerDocs => 'Which ownership documents are ready?';
+
+  @override
+  String get quickReplyBuyerPrice => 'Is the price negotiable?';
+
+  @override
+  String get quickReplyBrokerViewing =>
+      'The property is available for viewing — which day suits you?';
+
+  @override
+  String get quickReplyBrokerDocs =>
+      'The registered contract and deed are ready for review.';
+
+  @override
+  String get quickReplyBrokerPrice =>
+      'Tell me your offer and I will pass it to the owner.';
+
+  @override
+  String get createListingSubtitle => 'Publish a property for verified buyers';
+
+  @override
+  String get stepBack => 'Back';
+
+  @override
+  String get stepContinue => 'Continue';
+
+  @override
+  String stepCounter(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get stepType => 'Type';
+
+  @override
+  String get stepLocation => 'Location';
+
+  @override
+  String get stepSpecs => 'Details';
+
+  @override
+  String get stepPhotos => 'Photos';
+
+  @override
+  String get stepReview => 'Review';
+
+  @override
+  String get listingTitleHint => 'e.g. Panoramic apartment, Fifth Settlement';
+
+  @override
+  String get listingDescriptionHint =>
+      'Finishing, view, what is included — the things buyers ask about first.';
+
+  @override
+  String get listingDistrictHint => 'e.g. Fifth Settlement, Zayed Dunes';
+
+  @override
+  String get listingFloorHint => 'e.g. 4 — leave empty for a villa or land';
+
+  @override
+  String get selectGovernorate => 'Choose a governorate';
+
+  @override
+  String get selectCity => 'Choose a city';
+
+  @override
+  String get selectGovernorateFirst => 'Choose the governorate first.';
+
+  @override
+  String get selectCityFirst => 'Choose or type the city.';
+
+  @override
+  String get cityOther => 'Another city…';
+
+  @override
+  String get cityOtherHint => 'Type the city name';
+
+  @override
+  String get mapPinTitle => 'Map pin';
+
+  @override
+  String get mapPinBody =>
+      'Buyers use this to see where the property actually is. Stand at the property and tap the button, or paste the coordinates.';
+
+  @override
+  String get photosStepHint =>
+      'The first photo becomes the cover in search results. Wide daylight shots of the main rooms work best.';
+
+  @override
+  String get coverPhoto => 'Cover';
+
+  @override
+  String get documentsAfterPublishTitle => 'Ownership documents come next';
+
+  @override
+  String get documentsAfterPublishBody =>
+      'Once the listing is published, open it and attach the deed and clearance certificates — they attach to the listing itself.';
+
+  @override
+  String get publishExpiryNote =>
+      'Listings stay in the feed for 30 days. Confirm the property is still available before then and it keeps running.';
+
+  @override
+  String get locationPermissionDenied => 'Location permission denied.';
+
+  @override
+  String locationReadFailed(String error) {
+    return 'Could not read location: $error';
+  }
+
+  @override
+  String photoPickFailed(String error) {
+    return 'Could not pick photos: $error';
+  }
+
+  @override
+  String get adminConsoleTitle => 'Compliance desk';
+
+  @override
+  String get adminConsoleHeading => 'Verification & compliance';
+
+  @override
+  String get adminConsoleSubtitle =>
+      'Everything waiting on a decision, in one queue.';
+
+  @override
+  String get kpiBrokersLabel => 'Broker verification';
+
+  @override
+  String get kpiBrokersHint => 'GOEIC documents awaiting review';
+
+  @override
+  String get kpiListingsLabel => 'Flagged listings';
+
+  @override
+  String get kpiListingsHint => 'Possible duplicate photos';
+
+  @override
+  String get kpiDocumentsLabel => 'Property documents';
+
+  @override
+  String get kpiDocumentsHint => 'Deeds and clearances to check';
+
+  @override
+  String get kpiReportsLabel => 'Reports';
+
+  @override
+  String get kpiReportsHint => 'Open complaints from users';
+
+  @override
+  String get openFile => 'Open file';
+
+  @override
+  String get goeicNumberLabel => 'GOEIC number';
+
+  @override
+  String get imageAttached => 'Image';
 }

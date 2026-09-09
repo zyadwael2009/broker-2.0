@@ -245,7 +245,7 @@ class AppL10nAr extends AppL10n {
   String get ok => 'حسناً';
 
   @override
-  String get roleBuyer => 'مشتري / مستأجر';
+  String get roleBuyer => 'مشترٍ';
 
   @override
   String get roleBroker => 'سمسار';
@@ -1430,4 +1430,303 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get brokerNoListings => 'لا توجد إعلانات نشطة لهذا الوسيط حاليًا.';
+
+  @override
+  String get myListingsSubtitle =>
+      'إدارة محفظتك العقارية وتوثيقها ومتابعة انتشارها.';
+
+  @override
+  String get portfolioPerformanceTitle => 'هذا الأسبوع';
+
+  @override
+  String get seeDetails => 'التفاصيل';
+
+  @override
+  String get statViews7d => 'المشاهدات (٧ أيام)';
+
+  @override
+  String get statInquiries7d => 'الاستفسارات (٧ أيام)';
+
+  @override
+  String get statLiveListings => 'إعلانات نشطة';
+
+  @override
+  String bucketLive(int count) {
+    return 'النشطة ($count)';
+  }
+
+  @override
+  String bucketExpired(int count) {
+    return 'تحتاج تأكيدًا ($count)';
+  }
+
+  @override
+  String bucketArchived(int count) {
+    return 'المؤرشفة ($count)';
+  }
+
+  @override
+  String get bucketEmptyExpired => 'لا شيء ينتظر منك إجراءً';
+
+  @override
+  String get bucketEmptyExpiredSub =>
+      'يظهر الإعلان هنا بعد مرور ٣٠ يومًا دون تأكيد.';
+
+  @override
+  String get bucketEmptyArchived => 'لا توجد إعلانات مؤرشفة';
+
+  @override
+  String get bucketEmptyArchivedSub => 'تُحفظ هنا الإعلانات المباعة والمخفية.';
+
+  @override
+  String get whyVerificationTitle => 'لماذا علامة التوثيق مهمة';
+
+  @override
+  String get whyVerificationBody =>
+      'لا يرى المشترون إلا إعلانات الوسطاء الذين راجع فريقنا تسجيلهم في الهيئة العامة للرقابة على الصادرات والواردات. حافظ على تحديث مستنداتك لتبقى إعلاناتك ظاهرة.';
+
+  @override
+  String get manageListing => 'إدارة الإعلان';
+
+  @override
+  String metricViews(int count) {
+    return '$count مشاهدة';
+  }
+
+  @override
+  String metricInquiries(int count) {
+    return '$count استفسار هذا الأسبوع';
+  }
+
+  @override
+  String get listingStatusLive => 'نشط';
+
+  @override
+  String get listingStatusExpiring => 'قارب على الانتهاء';
+
+  @override
+  String get listingStatusExpired => 'منتهي';
+
+  @override
+  String get listingStatusSold => 'تم البيع';
+
+  @override
+  String get listingStatusHidden => 'مخفي';
+
+  @override
+  String get inboxTitle => 'المحادثات';
+
+  @override
+  String get inboxSearchHint => 'ابحث بالاسم، العقار، أو رقم الإعلان…';
+
+  @override
+  String inboxFilterAll(int count) {
+    return 'الكل ($count)';
+  }
+
+  @override
+  String inboxFilterUnread(int count) {
+    return 'غير مقروءة ($count)';
+  }
+
+  @override
+  String get inboxTrustTitle => 'محادثات مسجّلة رسميًا';
+
+  @override
+  String get inboxTrustBody =>
+      'كل محادثة مرتبطة بإعلان وبحسابات محددة الهوية، فيبقى ما تم الاتفاق عليه قابلًا للرجوع إليه.';
+
+  @override
+  String get inboxPrivacyNote => 'محادثاتك مرئية لك وللطرف الآخر فقط.';
+
+  @override
+  String get inboxNoMatches => 'لا توجد محادثة مطابقة.';
+
+  @override
+  String get threadNoMessagesYet => 'لا رسائل بعد';
+
+  @override
+  String get safetyGuidanceTitle => 'قبل أن تدفع أي مبلغ';
+
+  @override
+  String get safetyNoCashTitle => 'لا نقود بدون عقد';
+
+  @override
+  String get safetyNoCashBody => 'لا تسلّم عربونًا قبل توقيع عقد مسجّل.';
+
+  @override
+  String get safetyCheckDeedTitle => 'راجع سند الملكية بنفسك';
+
+  @override
+  String get safetyCheckDeedBody =>
+      'تأكد من الملكية في الشهر العقاري قبل أي دفع.';
+
+  @override
+  String get threadTitle => 'المحادثة';
+
+  @override
+  String get viewListing => 'عرض العقار';
+
+  @override
+  String get threadSecurityNote =>
+      'تُحفظ هذه المحادثة كسجل بين حسابين محددي الهوية على وسيط. وسيط لا يقرأها، وهي ليست مشفّرة طرفًا لطرف.';
+
+  @override
+  String get quickReplyBuyerViewing => 'هل يمكنني معاينة العقار هذا الأسبوع؟';
+
+  @override
+  String get quickReplyBuyerDocs => 'ما مستندات الملكية الجاهزة؟';
+
+  @override
+  String get quickReplyBuyerPrice => 'هل السعر قابل للتفاوض؟';
+
+  @override
+  String get quickReplyBrokerViewing => 'العقار متاح للمعاينة — أي يوم يناسبك؟';
+
+  @override
+  String get quickReplyBrokerDocs =>
+      'العقد المسجل وسند الملكية جاهزان للاطلاع.';
+
+  @override
+  String get quickReplyBrokerPrice => 'اذكر عرضك وسأنقله للمالك.';
+
+  @override
+  String get createListingSubtitle => 'انشر عقارًا لمشترين موثّقين';
+
+  @override
+  String get stepBack => 'السابق';
+
+  @override
+  String get stepContinue => 'متابعة';
+
+  @override
+  String stepCounter(int current, int total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String get stepType => 'النوع';
+
+  @override
+  String get stepLocation => 'الموقع';
+
+  @override
+  String get stepSpecs => 'المواصفات';
+
+  @override
+  String get stepPhotos => 'الصور';
+
+  @override
+  String get stepReview => 'المراجعة';
+
+  @override
+  String get listingTitleHint => 'مثال: شقة بانورامية — التجمع الخامس';
+
+  @override
+  String get listingDescriptionHint =>
+      'التشطيب، الإطلالة، وما يشمله العقار — أول ما يسأل عنه المشتري.';
+
+  @override
+  String get listingDistrictHint => 'مثال: التجمع الخامس، زايد ديونز';
+
+  @override
+  String get listingFloorHint => 'مثال: ٤ — اتركه فارغًا للفيلا أو الأرض';
+
+  @override
+  String get selectGovernorate => 'اختر المحافظة';
+
+  @override
+  String get selectCity => 'اختر المدينة';
+
+  @override
+  String get selectGovernorateFirst => 'اختر المحافظة أولًا.';
+
+  @override
+  String get selectCityFirst => 'اختر المدينة أو اكتبها.';
+
+  @override
+  String get cityOther => 'مدينة أخرى…';
+
+  @override
+  String get cityOtherHint => 'اكتب اسم المدينة';
+
+  @override
+  String get mapPinTitle => 'تحديد الموقع على الخريطة';
+
+  @override
+  String get mapPinBody =>
+      'يستخدمه المشتري ليعرف مكان العقار فعليًا. قف عند العقار واضغط الزر، أو الصق الإحداثيات.';
+
+  @override
+  String get photosStepHint =>
+      'أول صورة تصبح صورة الغلاف في نتائج البحث. الصور الواسعة بضوء النهار للغرف الرئيسية هي الأفضل.';
+
+  @override
+  String get coverPhoto => 'الغلاف';
+
+  @override
+  String get documentsAfterPublishTitle => 'مستندات الملكية في الخطوة التالية';
+
+  @override
+  String get documentsAfterPublishBody =>
+      'بعد نشر الإعلان، افتحه وأرفق سند الملكية وشهادات المخالصة — فهي ترتبط بالإعلان نفسه.';
+
+  @override
+  String get publishExpiryNote =>
+      'يظل الإعلان في القائمة ٣٠ يومًا. أكّد أن العقار ما زال متاحًا قبل انتهائها ليستمر ظهوره.';
+
+  @override
+  String get locationPermissionDenied => 'تم رفض إذن الموقع.';
+
+  @override
+  String locationReadFailed(String error) {
+    return 'تعذّرت قراءة الموقع: $error';
+  }
+
+  @override
+  String photoPickFailed(String error) {
+    return 'تعذّر اختيار الصور: $error';
+  }
+
+  @override
+  String get adminConsoleTitle => 'مكتب الامتثال';
+
+  @override
+  String get adminConsoleHeading => 'التوثيق والرقابة';
+
+  @override
+  String get adminConsoleSubtitle => 'كل ما ينتظر قرارًا، في طابور واحد.';
+
+  @override
+  String get kpiBrokersLabel => 'توثيق الوسطاء';
+
+  @override
+  String get kpiBrokersHint => 'مستندات GOEIC بانتظار المراجعة';
+
+  @override
+  String get kpiListingsLabel => 'إعلانات مُبلَّغ عنها';
+
+  @override
+  String get kpiListingsHint => 'اشتباه في تكرار الصور';
+
+  @override
+  String get kpiDocumentsLabel => 'مستندات العقارات';
+
+  @override
+  String get kpiDocumentsHint => 'سندات ومخالصات للمراجعة';
+
+  @override
+  String get kpiReportsLabel => 'البلاغات';
+
+  @override
+  String get kpiReportsHint => 'شكاوى مفتوحة من المستخدمين';
+
+  @override
+  String get openFile => 'فتح الملف';
+
+  @override
+  String get goeicNumberLabel => 'رقم GOEIC';
+
+  @override
+  String get imageAttached => 'صورة';
 }

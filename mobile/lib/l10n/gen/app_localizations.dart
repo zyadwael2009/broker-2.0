@@ -544,7 +544,7 @@ abstract class AppL10n {
   /// No description provided for @roleBuyer.
   ///
   /// In en, this message translates to:
-  /// **'Buyer / Renter'**
+  /// **'Buyer'**
   String get roleBuyer;
 
   /// No description provided for @roleBroker.
@@ -2688,6 +2688,540 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'This broker has no live listings right now.'**
   String get brokerNoListings;
+
+  /// No description provided for @myListingsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your portfolio, verification and reach.'**
+  String get myListingsSubtitle;
+
+  /// No description provided for @portfolioPerformanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get portfolioPerformanceTitle;
+
+  /// No description provided for @seeDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get seeDetails;
+
+  /// No description provided for @statViews7d.
+  ///
+  /// In en, this message translates to:
+  /// **'Views (7 days)'**
+  String get statViews7d;
+
+  /// No description provided for @statInquiries7d.
+  ///
+  /// In en, this message translates to:
+  /// **'Inquiries (7 days)'**
+  String get statInquiries7d;
+
+  /// No description provided for @statLiveListings.
+  ///
+  /// In en, this message translates to:
+  /// **'Live listings'**
+  String get statLiveListings;
+
+  /// No description provided for @bucketLive.
+  ///
+  /// In en, this message translates to:
+  /// **'Live ({count})'**
+  String bucketLive(int count);
+
+  /// No description provided for @bucketExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs confirming ({count})'**
+  String bucketExpired(int count);
+
+  /// No description provided for @bucketArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived ({count})'**
+  String bucketArchived(int count);
+
+  /// No description provided for @bucketEmptyExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing waiting on you'**
+  String get bucketEmptyExpired;
+
+  /// No description provided for @bucketEmptyExpiredSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Listings appear here once they pass 30 days without a confirmation.'**
+  String get bucketEmptyExpiredSub;
+
+  /// No description provided for @bucketEmptyArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing archived'**
+  String get bucketEmptyArchived;
+
+  /// No description provided for @bucketEmptyArchivedSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold and hidden listings are kept here.'**
+  String get bucketEmptyArchivedSub;
+
+  /// No description provided for @whyVerificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why the verified badge matters'**
+  String get whyVerificationTitle;
+
+  /// No description provided for @whyVerificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyers only see listings from brokers whose GOEIC registration our team has checked. Keep your documents current and your listings stay in the feed.'**
+  String get whyVerificationBody;
+
+  /// No description provided for @manageListing.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manageListing;
+
+  /// No description provided for @metricViews.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} views'**
+  String metricViews(int count);
+
+  /// No description provided for @metricInquiries.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} inquiries this week'**
+  String metricInquiries(int count);
+
+  /// No description provided for @listingStatusLive.
+  ///
+  /// In en, this message translates to:
+  /// **'Live'**
+  String get listingStatusLive;
+
+  /// No description provided for @listingStatusExpiring.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiring'**
+  String get listingStatusExpiring;
+
+  /// No description provided for @listingStatusExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get listingStatusExpired;
+
+  /// No description provided for @listingStatusSold.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold'**
+  String get listingStatusSold;
+
+  /// No description provided for @listingStatusHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden'**
+  String get listingStatusHidden;
+
+  /// No description provided for @inboxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversations'**
+  String get inboxTitle;
+
+  /// No description provided for @inboxSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name, property, or listing number…'**
+  String get inboxSearchHint;
+
+  /// No description provided for @inboxFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All ({count})'**
+  String inboxFilterAll(int count);
+
+  /// No description provided for @inboxFilterUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread ({count})'**
+  String inboxFilterUnread(int count);
+
+  /// No description provided for @inboxTrustTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversations stay on the record'**
+  String get inboxTrustTitle;
+
+  /// No description provided for @inboxTrustBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every thread is tied to a listing and to identified accounts, so what was agreed can be traced later.'**
+  String get inboxTrustBody;
+
+  /// No description provided for @inboxPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your conversations are visible only to you and the other party.'**
+  String get inboxPrivacyNote;
+
+  /// No description provided for @inboxNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No conversation matches that.'**
+  String get inboxNoMatches;
+
+  /// No description provided for @threadNoMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get threadNoMessagesYet;
+
+  /// No description provided for @safetyGuidanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you pay anything'**
+  String get safetyGuidanceTitle;
+
+  /// No description provided for @safetyNoCashTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No cash outside a contract'**
+  String get safetyNoCashTitle;
+
+  /// No description provided for @safetyNoCashBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Never hand over a deposit without a signed, registered contract.'**
+  String get safetyNoCashBody;
+
+  /// No description provided for @safetyCheckDeedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the deed yourself'**
+  String get safetyCheckDeedTitle;
+
+  /// No description provided for @safetyCheckDeedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the title at the notary office before any payment.'**
+  String get safetyCheckDeedBody;
+
+  /// No description provided for @threadTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation'**
+  String get threadTitle;
+
+  /// No description provided for @viewListing.
+  ///
+  /// In en, this message translates to:
+  /// **'View listing'**
+  String get viewListing;
+
+  /// No description provided for @threadSecurityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'This conversation is kept on the record between two identified Wasit accounts. Wasit does not read it, and it is not end-to-end encrypted.'**
+  String get threadSecurityNote;
+
+  /// No description provided for @quickReplyBuyerViewing.
+  ///
+  /// In en, this message translates to:
+  /// **'Can I view the property this week?'**
+  String get quickReplyBuyerViewing;
+
+  /// No description provided for @quickReplyBuyerDocs.
+  ///
+  /// In en, this message translates to:
+  /// **'Which ownership documents are ready?'**
+  String get quickReplyBuyerDocs;
+
+  /// No description provided for @quickReplyBuyerPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Is the price negotiable?'**
+  String get quickReplyBuyerPrice;
+
+  /// No description provided for @quickReplyBrokerViewing.
+  ///
+  /// In en, this message translates to:
+  /// **'The property is available for viewing — which day suits you?'**
+  String get quickReplyBrokerViewing;
+
+  /// No description provided for @quickReplyBrokerDocs.
+  ///
+  /// In en, this message translates to:
+  /// **'The registered contract and deed are ready for review.'**
+  String get quickReplyBrokerDocs;
+
+  /// No description provided for @quickReplyBrokerPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me your offer and I will pass it to the owner.'**
+  String get quickReplyBrokerPrice;
+
+  /// No description provided for @createListingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish a property for verified buyers'**
+  String get createListingSubtitle;
+
+  /// No description provided for @stepBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get stepBack;
+
+  /// No description provided for @stepContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get stepContinue;
+
+  /// No description provided for @stepCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String stepCounter(int current, int total);
+
+  /// No description provided for @stepType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get stepType;
+
+  /// No description provided for @stepLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get stepLocation;
+
+  /// No description provided for @stepSpecs.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get stepSpecs;
+
+  /// No description provided for @stepPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get stepPhotos;
+
+  /// No description provided for @stepReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get stepReview;
+
+  /// No description provided for @listingTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Panoramic apartment, Fifth Settlement'**
+  String get listingTitleHint;
+
+  /// No description provided for @listingDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Finishing, view, what is included — the things buyers ask about first.'**
+  String get listingDescriptionHint;
+
+  /// No description provided for @listingDistrictHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Fifth Settlement, Zayed Dunes'**
+  String get listingDistrictHint;
+
+  /// No description provided for @listingFloorHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 4 — leave empty for a villa or land'**
+  String get listingFloorHint;
+
+  /// No description provided for @selectGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a governorate'**
+  String get selectGovernorate;
+
+  /// No description provided for @selectCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a city'**
+  String get selectCity;
+
+  /// No description provided for @selectGovernorateFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the governorate first.'**
+  String get selectGovernorateFirst;
+
+  /// No description provided for @selectCityFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose or type the city.'**
+  String get selectCityFirst;
+
+  /// No description provided for @cityOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Another city…'**
+  String get cityOther;
+
+  /// No description provided for @cityOtherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the city name'**
+  String get cityOtherHint;
+
+  /// No description provided for @mapPinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Map pin'**
+  String get mapPinTitle;
+
+  /// No description provided for @mapPinBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyers use this to see where the property actually is. Stand at the property and tap the button, or paste the coordinates.'**
+  String get mapPinBody;
+
+  /// No description provided for @photosStepHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The first photo becomes the cover in search results. Wide daylight shots of the main rooms work best.'**
+  String get photosStepHint;
+
+  /// No description provided for @coverPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Cover'**
+  String get coverPhoto;
+
+  /// No description provided for @documentsAfterPublishTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ownership documents come next'**
+  String get documentsAfterPublishTitle;
+
+  /// No description provided for @documentsAfterPublishBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Once the listing is published, open it and attach the deed and clearance certificates — they attach to the listing itself.'**
+  String get documentsAfterPublishBody;
+
+  /// No description provided for @publishExpiryNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Listings stay in the feed for 30 days. Confirm the property is still available before then and it keeps running.'**
+  String get publishExpiryNote;
+
+  /// No description provided for @locationPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission denied.'**
+  String get locationPermissionDenied;
+
+  /// No description provided for @locationReadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read location: {error}'**
+  String locationReadFailed(String error);
+
+  /// No description provided for @photoPickFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not pick photos: {error}'**
+  String photoPickFailed(String error);
+
+  /// No description provided for @adminConsoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compliance desk'**
+  String get adminConsoleTitle;
+
+  /// No description provided for @adminConsoleHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification & compliance'**
+  String get adminConsoleHeading;
+
+  /// No description provided for @adminConsoleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything waiting on a decision, in one queue.'**
+  String get adminConsoleSubtitle;
+
+  /// No description provided for @kpiBrokersLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Broker verification'**
+  String get kpiBrokersLabel;
+
+  /// No description provided for @kpiBrokersHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GOEIC documents awaiting review'**
+  String get kpiBrokersHint;
+
+  /// No description provided for @kpiListingsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Flagged listings'**
+  String get kpiListingsLabel;
+
+  /// No description provided for @kpiListingsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Possible duplicate photos'**
+  String get kpiListingsHint;
+
+  /// No description provided for @kpiDocumentsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Property documents'**
+  String get kpiDocumentsLabel;
+
+  /// No description provided for @kpiDocumentsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeds and clearances to check'**
+  String get kpiDocumentsHint;
+
+  /// No description provided for @kpiReportsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get kpiReportsLabel;
+
+  /// No description provided for @kpiReportsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Open complaints from users'**
+  String get kpiReportsHint;
+
+  /// No description provided for @openFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Open file'**
+  String get openFile;
+
+  /// No description provided for @goeicNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'GOEIC number'**
+  String get goeicNumberLabel;
+
+  /// No description provided for @imageAttached.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get imageAttached;
 }
 
 class _AppL10nDelegate extends LocalizationsDelegate<AppL10n> {
