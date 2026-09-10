@@ -1,6 +1,24 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
     <!-- Network access for the Flask REST API. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Google Play Photo & Video Permissions policy (Android 13+, API 33+):
+         apps must use the system Photo Picker instead of broad storage
+         permissions when the picker is technically sufficient. The
+         image_picker Flutter plugin auto-declares these permissions to
+         support pre-Android-13 devices, but our minSdk is high enough
+         that Play rejects the request as unnecessary.
+
+         Removing them via tools:node="remove" strips them from the
+         merged manifest. pickMultiImage() still works on Android 13+
+         because image_picker falls back to the system Photo Picker,
+         which needs no permission at all. -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" tools:node="remove"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" tools:node="remove"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove"/>
 
     <application
         android:label="Wasit"
