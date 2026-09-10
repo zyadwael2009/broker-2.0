@@ -1,17 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Not found · Wasit{% endblock %}
-{% block description %}The page you&rsquo;re looking for isn&rsquo;t here.{% endblock %}
+{% block title %}{{ t('404_title') }}{% endblock %}
+{% block description %}{{ t('404_meta_description') }}{% endblock %}
 {% block content %}
 <section class="wrap error-page">
   <div class="error-emoji">🏚️</div>
-  <h1>This page is no longer available</h1>
-  <p class="lede">
-    The listing or broker profile you&rsquo;re looking for may have been
-    removed, sold, or is no longer verified.
-  </p>
+  <h1>{{ t('404_heading') }}</h1>
+  <p class="lede">{{ t('404_body') }}</p>
   <div class="hero-cta" style="justify-content: center;">
-    <a class="btn primary" href="/browse">Browse verified listings</a>
-    <a class="btn ghost" href="/">Back to home</a>
+    <a class="btn primary" href="/browse">{{ t('404_cta_browse') }}</a>
+    <a class="btn ghost" href="/">{{ t('404_cta_home') }}</a>
   </div>
 </section>
 {% endblock %}

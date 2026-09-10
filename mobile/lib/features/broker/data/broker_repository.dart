@@ -11,6 +11,18 @@ class BrokerRepository {
   BrokerRepository(this._api);
   final ApiClient _api;
 
+  /// The public profile a buyer sees at `/brokers/:id`.
+  Future<BrokerPublicProfileDto> fetchPublicProfile(int brokerId) async {
+    final res = await _api.dio.get<Map<String, dynamic>>('/brokers/$brokerId');
+    if (res.statusCode == 200 && res.data != null) {
+      return BrokerPublicProfileDto.fromJson(res.data!);
+    }
+    throw AuthException(
+      _extractError(res.data) ?? 'Could not load this broker.',
+      status: res.statusCode,
+    );
+  }
+
   Future<VerificationStatusDto> fetchMyStatus() async {
     final res = await _api.dio.get<Map<String, dynamic>>(
       '/brokers/me/verification',

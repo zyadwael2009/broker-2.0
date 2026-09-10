@@ -109,6 +109,318 @@ abstract class AppL10n {
   /// **'Sign in'**
   String get signIn;
 
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
+  /// No description provided for @loginHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Wasit'**
+  String get loginHeroTitle;
+
+  /// No description provided for @loginHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Egypt\'\'s first verified real-estate brokerage platform.'**
+  String get loginHeroSubtitle;
+
+  /// No description provided for @loginCredentialPill.
+  ///
+  /// In en, this message translates to:
+  /// **'Official accreditation & digital land registry'**
+  String get loginCredentialPill;
+
+  /// No description provided for @loginPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked to your National ID'**
+  String get loginPhoneHint;
+
+  /// No description provided for @loginAltDivider.
+  ///
+  /// In en, this message translates to:
+  /// **'Or continue with'**
+  String get loginAltDivider;
+
+  /// No description provided for @loginSsoDigitalEgypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Egyptian Digital ID (National Access)'**
+  String get loginSsoDigitalEgypt;
+
+  /// No description provided for @loginSsoDigitalEgyptSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant verification via your national ID card'**
+  String get loginSsoDigitalEgyptSub;
+
+  /// No description provided for @loginOtpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with SMS code'**
+  String get loginOtpTitle;
+
+  /// No description provided for @loginOtpSub.
+  ///
+  /// In en, this message translates to:
+  /// **'One-tap login by phone verification'**
+  String get loginOtpSub;
+
+  /// No description provided for @loginNoAccountPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'\'t have an account?'**
+  String get loginNoAccountPrompt;
+
+  /// No description provided for @loginRegisterCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Create one'**
+  String get loginRegisterCta;
+
+  /// No description provided for @loginTrustContracts.
+  ///
+  /// In en, this message translates to:
+  /// **'Official contracts'**
+  String get loginTrustContracts;
+
+  /// No description provided for @loginTrustContractsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified and legally compliant'**
+  String get loginTrustContractsSub;
+
+  /// No description provided for @loginTrustInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Professional inspection'**
+  String get loginTrustInspect;
+
+  /// No description provided for @loginTrustInspectSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Rigorous on-site checks'**
+  String get loginTrustInspectSub;
+
+  /// No description provided for @loginFooterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Real-estate safety & legality guarantee'**
+  String get loginFooterTitle;
+
+  /// No description provided for @loginFooterSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Every property and broker is officially vetted through the Real-Estate Registry.'**
+  String get loginFooterSub;
+
+  /// No description provided for @otpLoginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in by SMS code'**
+  String get otpLoginTitle;
+
+  /// No description provided for @otpLoginComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP-only sign-in is coming soon. Please use phone + password for now.'**
+  String get otpLoginComingSoon;
+
+  /// No description provided for @registerHeroPill.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital real-estate registration system'**
+  String get registerHeroPill;
+
+  /// No description provided for @registerHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Wasit\'\'s verified network'**
+  String get registerHeroTitle;
+
+  /// No description provided for @registerHeroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your account type to start browsing or listing verified properties.'**
+  String get registerHeroSubtitle;
+
+  /// No description provided for @registerAccountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Account type'**
+  String get registerAccountType;
+
+  /// No description provided for @registerStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String registerStep(int current, int total);
+
+  /// No description provided for @registerRoleBrokerLicensed.
+  ///
+  /// In en, this message translates to:
+  /// **'Licensed broker'**
+  String get registerRoleBrokerLicensed;
+
+  /// No description provided for @registerRoleBrokerLicenseChip.
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get registerRoleBrokerLicenseChip;
+
+  /// No description provided for @registerTrustBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification & transparency guarantee'**
+  String get registerTrustBannerTitle;
+
+  /// No description provided for @registerTrustBannerSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyers get contract validity and land-registry checks with no hidden brokerage fees.'**
+  String get registerTrustBannerSub;
+
+  /// No description provided for @registerFullNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'(As on your National ID)'**
+  String get registerFullNameHint;
+
+  /// No description provided for @registerFullNameExample.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Ahmed Abdallah El-Sherbiny'**
+  String get registerFullNameExample;
+
+  /// No description provided for @emailField.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailField;
+
+  /// No description provided for @registerEmailOptionalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get registerEmailOptionalHint;
+
+  /// No description provided for @registerPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'8+ letters & symbols'**
+  String get registerPasswordHint;
+
+  /// No description provided for @registerPasswordRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Must include digits, upper + lowercase letters, and a special character.'**
+  String get registerPasswordRule;
+
+  /// No description provided for @registerLinkRegistryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant link to the Real-Estate Registry'**
+  String get registerLinkRegistryTitle;
+
+  /// No description provided for @registerLinkRegistrySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted verification against registered contracts.'**
+  String get registerLinkRegistrySub;
+
+  /// No description provided for @registerAgreeTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the terms of service, real-estate verification policy, and data protection.'**
+  String get registerAgreeTerms;
+
+  /// No description provided for @registerMustAgreeTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Please tick the terms box to continue.'**
+  String get registerMustAgreeTerms;
+
+  /// No description provided for @registerContinueCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account and continue'**
+  String get registerContinueCta;
+
+  /// No description provided for @registerTrustEncrypted.
+  ///
+  /// In en, this message translates to:
+  /// **'Encrypted data'**
+  String get registerTrustEncrypted;
+
+  /// No description provided for @registerTrustLicensed.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal licensing'**
+  String get registerTrustLicensed;
+
+  /// No description provided for @registerTrustSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'24/7 support'**
+  String get registerTrustSupport;
+
+  /// No description provided for @verifyPhoneIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit verification code to'**
+  String get verifyPhoneIntro;
+
+  /// No description provided for @verifyPhoneEditNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Change number'**
+  String get verifyPhoneEditNumber;
+
+  /// No description provided for @verifyPhoneCodeSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Code sent.'**
+  String get verifyPhoneCodeSent;
+
+  /// No description provided for @verifyPhoneDigitsEntered.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} of 6 digits entered'**
+  String verifyPhoneDigitsEntered(int n);
+
+  /// No description provided for @verifyPhoneAutoDecrypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-encrypted'**
+  String get verifyPhoneAutoDecrypt;
+
+  /// No description provided for @verifyPhoneResendInPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code in'**
+  String get verifyPhoneResendInPrefix;
+
+  /// No description provided for @verifyPhoneResendSms.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code by SMS'**
+  String get verifyPhoneResendSms;
+
+  /// No description provided for @verifyPhoneConfirmCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm code and continue'**
+  String get verifyPhoneConfirmCta;
+
+  /// No description provided for @verifyPhoneSecurityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Wasit protects your data with 256-bit AES encryption.'**
+  String get verifyPhoneSecurityNote;
+
   /// No description provided for @createAccount.
   ///
   /// In en, this message translates to:
@@ -150,6 +462,36 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Sign out'**
   String get logout;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your account?'**
+  String get deleteAccountTitle;
+
+  /// No description provided for @deleteAccountBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes your account and hides your listings. You can\'\'t undo this. Enter your password to confirm.'**
+  String get deleteAccountBody;
+
+  /// No description provided for @deleteAccountConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete permanently'**
+  String get deleteAccountConfirm;
+
+  /// No description provided for @deleteAccountDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account has been deleted.'**
+  String get deleteAccountDone;
 
   /// No description provided for @refresh.
   ///
@@ -202,7 +544,7 @@ abstract class AppL10n {
   /// No description provided for @roleBuyer.
   ///
   /// In en, this message translates to:
-  /// **'Buyer / Renter'**
+  /// **'Buyer'**
   String get roleBuyer;
 
   /// No description provided for @roleBroker.
@@ -576,6 +918,78 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Browse listings'**
   String get browseListings;
+
+  /// No description provided for @navBrowse.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse'**
+  String get navBrowse;
+
+  /// No description provided for @navMyListings.
+  ///
+  /// In en, this message translates to:
+  /// **'My listings'**
+  String get navMyListings;
+
+  /// No description provided for @navSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get navSaved;
+
+  /// No description provided for @navMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get navMessages;
+
+  /// No description provided for @navAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get navAccount;
+
+  /// No description provided for @navAdminQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get navAdminQueue;
+
+  /// No description provided for @savedEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved listings yet.'**
+  String get savedEmptyTitle;
+
+  /// No description provided for @savedEmptySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the heart icon on any listing to save it here.'**
+  String get savedEmptySub;
+
+  /// No description provided for @accountPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get accountPreferences;
+
+  /// No description provided for @accountTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get accountTheme;
+
+  /// No description provided for @accountLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get accountLanguage;
+
+  /// No description provided for @accountActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get accountActions;
 
   /// No description provided for @newListing.
   ///
@@ -1980,6 +2394,834 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacyLink;
+
+  /// No description provided for @brandTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Officially verified properties'**
+  String get brandTagline;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// No description provided for @copiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied.'**
+  String get copiedToClipboard;
+
+  /// No description provided for @currencyEgp.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get currencyEgp;
+
+  /// No description provided for @currencyEgpPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP / month'**
+  String get currencyEgpPerMonth;
+
+  /// No description provided for @unitM2.
+  ///
+  /// In en, this message translates to:
+  /// **'m²'**
+  String get unitM2;
+
+  /// No description provided for @areaLabelShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Area'**
+  String get areaLabelShort;
+
+  /// No description provided for @typeLabelShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get typeLabelShort;
+
+  /// No description provided for @detailsCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get detailsCta;
+
+  /// No description provided for @brokerLicensedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Licensed broker'**
+  String get brokerLicensedLabel;
+
+  /// No description provided for @listingRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Ref. #{id}'**
+  String listingRef(int id);
+
+  /// No description provided for @listingSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to your list.'**
+  String get listingSaved;
+
+  /// No description provided for @listingUnsaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from your saved list.'**
+  String get listingUnsaved;
+
+  /// No description provided for @listingSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t update your saved list.'**
+  String get listingSaveFailed;
+
+  /// No description provided for @listingSaveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save this listing'**
+  String get listingSaveAction;
+
+  /// No description provided for @listingUnsaveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from saved'**
+  String get listingUnsaveAction;
+
+  /// No description provided for @browseSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by district, city, or listing number…'**
+  String get browseSearchHint;
+
+  /// No description provided for @browseVerifiedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No verified listings match} =1{1 verified listing} other{{count} verified listings}}'**
+  String browseVerifiedCount(int count);
+
+  /// No description provided for @filtersAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced filters'**
+  String get filtersAdvanced;
+
+  /// No description provided for @sortLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get sortLabel;
+
+  /// No description provided for @sortNewest.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest'**
+  String get sortNewest;
+
+  /// No description provided for @sortPriceAsc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price: low to high'**
+  String get sortPriceAsc;
+
+  /// No description provided for @sortPriceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Price: high to low'**
+  String get sortPriceDesc;
+
+  /// No description provided for @sortAreaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Largest area'**
+  String get sortAreaDesc;
+
+  /// No description provided for @emptySearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matched that search'**
+  String get emptySearchTitle;
+
+  /// No description provided for @emptySearchSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Try fewer words, a district name, or the listing number.'**
+  String get emptySearchSub;
+
+  /// No description provided for @listingAuditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Property audit'**
+  String get listingAuditTitle;
+
+  /// No description provided for @brokerRatingTag.
+  ///
+  /// In en, this message translates to:
+  /// **'{avg} from {count} ratings'**
+  String brokerRatingTag(String avg, int count);
+
+  /// No description provided for @paneDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents'**
+  String get paneDocuments;
+
+  /// No description provided for @paneDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get paneDescription;
+
+  /// No description provided for @paneBroker.
+  ///
+  /// In en, this message translates to:
+  /// **'Broker'**
+  String get paneBroker;
+
+  /// No description provided for @noDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The broker hasn’t written a description for this property.'**
+  String get noDescription;
+
+  /// No description provided for @brokerUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Broker details are unavailable for this listing.'**
+  String get brokerUnavailable;
+
+  /// No description provided for @viewTrustFile.
+  ///
+  /// In en, this message translates to:
+  /// **'View trust file'**
+  String get viewTrustFile;
+
+  /// No description provided for @viewOnMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get viewOnMap;
+
+  /// No description provided for @openInMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Maps'**
+  String get openInMaps;
+
+  /// No description provided for @mapOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open a map app.'**
+  String get mapOpenFailed;
+
+  /// No description provided for @locationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location the broker pinned'**
+  String get locationSectionTitle;
+
+  /// No description provided for @brokerTrustMetrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust indicators'**
+  String get brokerTrustMetrics;
+
+  /// No description provided for @brokerGoeicChip.
+  ///
+  /// In en, this message translates to:
+  /// **'GOEIC #{number}'**
+  String brokerGoeicChip(String number);
+
+  /// No description provided for @brokerMemberSince.
+  ///
+  /// In en, this message translates to:
+  /// **'On Wasit since {date}'**
+  String brokerMemberSince(String date);
+
+  /// No description provided for @brokerLiveListings.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No live listings} =1{1 live listing} other{{count} live listings}}'**
+  String brokerLiveListings(int count);
+
+  /// No description provided for @brokerLiveListingsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Live listings'**
+  String get brokerLiveListingsLabel;
+
+  /// No description provided for @brokerAdminChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewed by our team'**
+  String get brokerAdminChecked;
+
+  /// No description provided for @brokerRatedThreads.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyer ratings'**
+  String get brokerRatedThreads;
+
+  /// No description provided for @brokerMetricsHonestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratings come only from buyers who actually messaged this broker through the app. Verification means we checked their GOEIC registration document — it is not a guarantee of any individual deal.'**
+  String get brokerMetricsHonestNote;
+
+  /// No description provided for @brokerTabListings.
+  ///
+  /// In en, this message translates to:
+  /// **'Listings ({count})'**
+  String brokerTabListings(int count);
+
+  /// No description provided for @brokerTabReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews ({count})'**
+  String brokerTabReviews(int count);
+
+  /// No description provided for @brokerNoListings.
+  ///
+  /// In en, this message translates to:
+  /// **'This broker has no live listings right now.'**
+  String get brokerNoListings;
+
+  /// No description provided for @myListingsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your portfolio, verification and reach.'**
+  String get myListingsSubtitle;
+
+  /// No description provided for @portfolioPerformanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get portfolioPerformanceTitle;
+
+  /// No description provided for @seeDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get seeDetails;
+
+  /// No description provided for @statViews7d.
+  ///
+  /// In en, this message translates to:
+  /// **'Views (7 days)'**
+  String get statViews7d;
+
+  /// No description provided for @statInquiries7d.
+  ///
+  /// In en, this message translates to:
+  /// **'Inquiries (7 days)'**
+  String get statInquiries7d;
+
+  /// No description provided for @statLiveListings.
+  ///
+  /// In en, this message translates to:
+  /// **'Live listings'**
+  String get statLiveListings;
+
+  /// No description provided for @bucketLive.
+  ///
+  /// In en, this message translates to:
+  /// **'Live ({count})'**
+  String bucketLive(int count);
+
+  /// No description provided for @bucketExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs confirming ({count})'**
+  String bucketExpired(int count);
+
+  /// No description provided for @bucketArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived ({count})'**
+  String bucketArchived(int count);
+
+  /// No description provided for @bucketEmptyExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing waiting on you'**
+  String get bucketEmptyExpired;
+
+  /// No description provided for @bucketEmptyExpiredSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Listings appear here once they pass 30 days without a confirmation.'**
+  String get bucketEmptyExpiredSub;
+
+  /// No description provided for @bucketEmptyArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing archived'**
+  String get bucketEmptyArchived;
+
+  /// No description provided for @bucketEmptyArchivedSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold and hidden listings are kept here.'**
+  String get bucketEmptyArchivedSub;
+
+  /// No description provided for @whyVerificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why the verified badge matters'**
+  String get whyVerificationTitle;
+
+  /// No description provided for @whyVerificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyers only see listings from brokers whose GOEIC registration our team has checked. Keep your documents current and your listings stay in the feed.'**
+  String get whyVerificationBody;
+
+  /// No description provided for @manageListing.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manageListing;
+
+  /// No description provided for @metricViews.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} views'**
+  String metricViews(int count);
+
+  /// No description provided for @metricInquiries.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} inquiries this week'**
+  String metricInquiries(int count);
+
+  /// No description provided for @listingStatusLive.
+  ///
+  /// In en, this message translates to:
+  /// **'Live'**
+  String get listingStatusLive;
+
+  /// No description provided for @listingStatusExpiring.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiring'**
+  String get listingStatusExpiring;
+
+  /// No description provided for @listingStatusExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get listingStatusExpired;
+
+  /// No description provided for @listingStatusSold.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold'**
+  String get listingStatusSold;
+
+  /// No description provided for @listingStatusHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden'**
+  String get listingStatusHidden;
+
+  /// No description provided for @inboxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversations'**
+  String get inboxTitle;
+
+  /// No description provided for @inboxSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name, property, or listing number…'**
+  String get inboxSearchHint;
+
+  /// No description provided for @inboxFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All ({count})'**
+  String inboxFilterAll(int count);
+
+  /// No description provided for @inboxFilterUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread ({count})'**
+  String inboxFilterUnread(int count);
+
+  /// No description provided for @inboxTrustTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversations stay on the record'**
+  String get inboxTrustTitle;
+
+  /// No description provided for @inboxTrustBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every thread is tied to a listing and to identified accounts, so what was agreed can be traced later.'**
+  String get inboxTrustBody;
+
+  /// No description provided for @inboxPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your conversations are visible only to you and the other party.'**
+  String get inboxPrivacyNote;
+
+  /// No description provided for @inboxNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No conversation matches that.'**
+  String get inboxNoMatches;
+
+  /// No description provided for @threadNoMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get threadNoMessagesYet;
+
+  /// No description provided for @safetyGuidanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you pay anything'**
+  String get safetyGuidanceTitle;
+
+  /// No description provided for @safetyNoCashTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No cash outside a contract'**
+  String get safetyNoCashTitle;
+
+  /// No description provided for @safetyNoCashBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Never hand over a deposit without a signed, registered contract.'**
+  String get safetyNoCashBody;
+
+  /// No description provided for @safetyCheckDeedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the deed yourself'**
+  String get safetyCheckDeedTitle;
+
+  /// No description provided for @safetyCheckDeedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the title at the notary office before any payment.'**
+  String get safetyCheckDeedBody;
+
+  /// No description provided for @threadTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation'**
+  String get threadTitle;
+
+  /// No description provided for @viewListing.
+  ///
+  /// In en, this message translates to:
+  /// **'View listing'**
+  String get viewListing;
+
+  /// No description provided for @threadSecurityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'This conversation is kept on the record between two identified Wasit accounts. Wasit does not read it, and it is not end-to-end encrypted.'**
+  String get threadSecurityNote;
+
+  /// No description provided for @quickReplyBuyerViewing.
+  ///
+  /// In en, this message translates to:
+  /// **'Can I view the property this week?'**
+  String get quickReplyBuyerViewing;
+
+  /// No description provided for @quickReplyBuyerDocs.
+  ///
+  /// In en, this message translates to:
+  /// **'Which ownership documents are ready?'**
+  String get quickReplyBuyerDocs;
+
+  /// No description provided for @quickReplyBuyerPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Is the price negotiable?'**
+  String get quickReplyBuyerPrice;
+
+  /// No description provided for @quickReplyBrokerViewing.
+  ///
+  /// In en, this message translates to:
+  /// **'The property is available for viewing — which day suits you?'**
+  String get quickReplyBrokerViewing;
+
+  /// No description provided for @quickReplyBrokerDocs.
+  ///
+  /// In en, this message translates to:
+  /// **'The registered contract and deed are ready for review.'**
+  String get quickReplyBrokerDocs;
+
+  /// No description provided for @quickReplyBrokerPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me your offer and I will pass it to the owner.'**
+  String get quickReplyBrokerPrice;
+
+  /// No description provided for @createListingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish a property for verified buyers'**
+  String get createListingSubtitle;
+
+  /// No description provided for @stepBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get stepBack;
+
+  /// No description provided for @stepContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get stepContinue;
+
+  /// No description provided for @stepCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String stepCounter(int current, int total);
+
+  /// No description provided for @stepType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get stepType;
+
+  /// No description provided for @stepLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get stepLocation;
+
+  /// No description provided for @stepSpecs.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get stepSpecs;
+
+  /// No description provided for @stepPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get stepPhotos;
+
+  /// No description provided for @stepReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get stepReview;
+
+  /// No description provided for @listingTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Panoramic apartment, Fifth Settlement'**
+  String get listingTitleHint;
+
+  /// No description provided for @listingDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Finishing, view, what is included — the things buyers ask about first.'**
+  String get listingDescriptionHint;
+
+  /// No description provided for @listingDistrictHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Fifth Settlement, Zayed Dunes'**
+  String get listingDistrictHint;
+
+  /// No description provided for @listingFloorHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 4 — leave empty for a villa or land'**
+  String get listingFloorHint;
+
+  /// No description provided for @selectGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a governorate'**
+  String get selectGovernorate;
+
+  /// No description provided for @selectCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a city'**
+  String get selectCity;
+
+  /// No description provided for @selectGovernorateFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the governorate first.'**
+  String get selectGovernorateFirst;
+
+  /// No description provided for @selectCityFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose or type the city.'**
+  String get selectCityFirst;
+
+  /// No description provided for @cityOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Another city…'**
+  String get cityOther;
+
+  /// No description provided for @cityOtherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the city name'**
+  String get cityOtherHint;
+
+  /// No description provided for @mapPinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Map pin'**
+  String get mapPinTitle;
+
+  /// No description provided for @mapPinBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyers use this to see where the property actually is. Stand at the property and tap the button, or paste the coordinates.'**
+  String get mapPinBody;
+
+  /// No description provided for @photosStepHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The first photo becomes the cover in search results. Wide daylight shots of the main rooms work best.'**
+  String get photosStepHint;
+
+  /// No description provided for @coverPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Cover'**
+  String get coverPhoto;
+
+  /// No description provided for @documentsAfterPublishTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ownership documents come next'**
+  String get documentsAfterPublishTitle;
+
+  /// No description provided for @documentsAfterPublishBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Once the listing is published, open it and attach the deed and clearance certificates — they attach to the listing itself.'**
+  String get documentsAfterPublishBody;
+
+  /// No description provided for @publishExpiryNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Listings stay in the feed for 30 days. Confirm the property is still available before then and it keeps running.'**
+  String get publishExpiryNote;
+
+  /// No description provided for @locationPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission denied.'**
+  String get locationPermissionDenied;
+
+  /// No description provided for @locationReadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not read location: {error}'**
+  String locationReadFailed(String error);
+
+  /// No description provided for @photoPickFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not pick photos: {error}'**
+  String photoPickFailed(String error);
+
+  /// No description provided for @adminConsoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compliance desk'**
+  String get adminConsoleTitle;
+
+  /// No description provided for @adminConsoleHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification & compliance'**
+  String get adminConsoleHeading;
+
+  /// No description provided for @adminConsoleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything waiting on a decision, in one queue.'**
+  String get adminConsoleSubtitle;
+
+  /// No description provided for @kpiBrokersLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Broker verification'**
+  String get kpiBrokersLabel;
+
+  /// No description provided for @kpiBrokersHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GOEIC documents awaiting review'**
+  String get kpiBrokersHint;
+
+  /// No description provided for @kpiListingsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Flagged listings'**
+  String get kpiListingsLabel;
+
+  /// No description provided for @kpiListingsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Possible duplicate photos'**
+  String get kpiListingsHint;
+
+  /// No description provided for @kpiDocumentsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Property documents'**
+  String get kpiDocumentsLabel;
+
+  /// No description provided for @kpiDocumentsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeds and clearances to check'**
+  String get kpiDocumentsHint;
+
+  /// No description provided for @kpiReportsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get kpiReportsLabel;
+
+  /// No description provided for @kpiReportsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Open complaints from users'**
+  String get kpiReportsHint;
+
+  /// No description provided for @openFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Open file'**
+  String get openFile;
+
+  /// No description provided for @goeicNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'GOEIC number'**
+  String get goeicNumberLabel;
+
+  /// No description provided for @imageAttached.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get imageAttached;
 }
 
 class _AppL10nDelegate extends LocalizationsDelegate<AppL10n> {

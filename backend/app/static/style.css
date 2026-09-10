@@ -1562,3 +1562,414 @@ h2 { font-size: 20px; }
   color: #8592A0;
   font-variant-numeric: tabular-nums;
 }
+
+/* ── Language toggle pill (in the header nav) ─────────────────────── */
+.header-nav .lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  margin-inline: 4px;
+  border: 1px solid #d0d5db;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #566571;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+.header-nav .lang-toggle:hover {
+  background: #f4f6f8;
+  border-color: #a9b2bd;
+  color: #1a2732;
+}
+
+/* ── RTL overrides — Arabic layout ────────────────────────────────── */
+/* System-font stack that covers Arabic well on Cairo devices without
+   loading a webfont (CSP-friendly, offline-safe). */
+[dir="rtl"] body {
+  font-family: 'Segoe UI', 'Cairo', 'Tajawal', 'Noto Sans Arabic',
+               'Helvetica Neue', system-ui, sans-serif;
+}
+/* Flip main flex rows so nav + footer + filter chips read right-to-left. */
+[dir="rtl"] .header-row,
+[dir="rtl"] .header-nav,
+[dir="rtl"] .footer-row,
+[dir="rtl"] .filter-row,
+[dir="rtl"] .chip-row,
+[dir="rtl"] .breadcrumbs ol,
+[dir="rtl"] .hero-cta,
+[dir="rtl"] .cred-actions,
+[dir="rtl"] .card-meta,
+[dir="rtl"] .card-facts,
+[dir="rtl"] .card-broker,
+[dir="rtl"] .listing-meta,
+[dir="rtl"] .metaline {
+  flex-direction: row-reverse;
+}
+/* The breadcrumb chevron looks weird in RTL — flip it. */
+[dir="rtl"] .breadcrumbs .sep {
+  transform: scaleX(-1);
+  display: inline-block;
+}
+/* Trust strip (home) and features grid (for-brokers) stay in normal
+   grid order but text-align flips. */
+[dir="rtl"] .trust-strip,
+[dir="rtl"] .fb-features-grid,
+[dir="rtl"] .fb-compare-grid,
+[dir="rtl"] .stats {
+  direction: rtl;
+}
+[dir="rtl"] .trust-strip .trust-item,
+[dir="rtl"] .fb-feature,
+[dir="rtl"] .fb-compare-col,
+[dir="rtl"] .stat {
+  text-align: start;
+}
+/* Numeric fields (price, ratings, stat cards) stay LTR-aligned so
+   digits + arithmetic operators read naturally even in Arabic. */
+[dir="rtl"] .card-price,
+[dir="rtl"] .listing-price,
+[dir="rtl"] .stat-num,
+[dir="rtl"] .sticky-price-num {
+  direction: ltr;
+  text-align: right;
+}
+/* The URL bar contains a hostname + numeric id — keep LTR too. */
+[dir="rtl"] .urlbar code {
+  direction: ltr;
+}
+/* Reviews grid + listings section head. */
+[dir="rtl"] .section-head,
+[dir="rtl"] .review-head {
+  flex-direction: row-reverse;
+}
+/* FAQ toggle arrow — leave alone; browsers handle <details> correctly
+   in RTL out of the box. */
+
+/* Prose defaults sensibly (paragraphs align to the reading direction).
+   We only need to nudge headings that have a specific style. */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { text-align: start; }
+[dir="rtl"] .lede { text-align: start; }
+
+/* ══ Stitch admin/web round ═══════════════════════════════════════════
+   Components from the second Stitch drop: the header trust pill, the
+   home stat band + compliance strip, the browse results bar, richer
+   card overlays, and the legal hub (tabs + section index + DPO card).
+   Everything below reuses the existing tokens, so both themes and both
+   directions come along for free. */
+
+/* ── header trust pill ───────────────────────────────────────────── */
+.header-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  border: 1px solid var(--verified-border);
+  border-radius: 999px;
+  background: var(--verified-bg);
+  color: var(--verified);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.header-live .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--verified);
+  flex-shrink: 0;
+}
+@media (max-width: 720px) { .header-live { display: none; } }
+
+/* ── home: stat band ─────────────────────────────────────────────── */
+.stat-band {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 28px auto 0;
+  max-width: 780px;
+}
+.stat-band .stat-cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  text-align: center;
+}
+.stat-band .stat-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+}
+.stat-band .stat-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .stat-band { grid-template-columns: 1fr; max-width: 420px; }
+}
+
+/* ── home: regulatory alignment band ─────────────────────────────── */
+.compliance-band {
+  margin: 44px auto 0;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.compliance-band h2 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 6px; }
+.compliance-band > p { color: var(--text-muted); font-size: 14px; margin: 0 0 16px; }
+.compliance-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+.compliance-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.compliance-card .cc-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.compliance-card .cc-title .cc-icon { color: var(--verified); }
+.compliance-card p { margin: 0; color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+
+/* ── browse: results bar ─────────────────────────────────────────── */
+.results-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 18px 20px 4px;
+}
+.results-bar .results-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.results-bar .results-count .dot {
+  width: 7px; height: 7px; border-radius: 999px; background: var(--verified);
+}
+.results-bar .results-sub { color: var(--text-muted); font-size: 13px; font-weight: 400; }
+.results-bar .sort-form { margin-inline-start: auto; display: flex; align-items: center; gap: 8px; }
+.results-bar .sort-label { color: var(--text-subtle); font-size: 12px; }
+/* The sort control lives outside .browse-filters, so it needs the
+   select styling in its own right rather than inheriting it. */
+.results-bar .filter-select {
+  appearance: none;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 9px 32px 9px 12px;
+  font-family: inherit; font-size: 14px; font-weight: 500;
+  cursor: pointer; min-width: 190px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238892A0' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+[dir="rtl"] .results-bar .filter-select {
+  padding: 9px 12px 9px 32px;
+  background-position: left 10px center;
+}
+.results-bar .filter-select:focus { border-color: var(--primary); outline: none; }
+
+/* ── card overlays ───────────────────────────────────────────────── */
+.card-photo .verified-pill {
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--verified-bg);
+  border: 1px solid var(--verified-border);
+  color: var(--verified);
+  font-size: 11px;
+  font-weight: 700;
+}
+.card-photo .price-chip {
+  position: absolute;
+  bottom: 10px;
+  inset-inline-start: 10px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(10, 18, 31, 0.82);
+  color: #E8ECF3;
+  font-weight: 700;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  backdrop-filter: blur(6px);
+}
+.card-photo .price-chip .ccy { font-size: 11px; font-weight: 600; opacity: 0.85; }
+.card-cta {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+.card:hover .card-cta { border-color: var(--primary); }
+
+/* ── legal hub ───────────────────────────────────────────────────── */
+.legal-hero {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+.legal-hero .lh-icon {
+  width: 38px; height: 38px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: var(--verified-bg);
+  border: 1px solid var(--verified-border);
+  color: var(--verified);
+}
+.legal-hero h2 { font-size: 17px; margin: 0 0 4px; letter-spacing: -0.01em; }
+.legal-hero p { margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+.legal-hero .lh-updated {
+  margin-inline-start: auto;
+  color: var(--text-subtle);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.legal-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  margin-bottom: 22px;
+  overflow-x: auto;
+}
+.legal-tabs a {
+  flex: 1 1 0;
+  text-align: center;
+  white-space: nowrap;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.legal-tabs a:hover { color: var(--text); text-decoration: none; }
+.legal-tabs a.active { background: var(--primary); color: var(--primary-ink); }
+.legal-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+/* Grid children default to min-width:auto, so one long unbreakable
+   string in the prose (a URL, an email) pushes the whole page wider
+   than the viewport. Letting the columns shrink kills the horizontal
+   scrollbar. */
+.legal-layout > * { min-width: 0; }
+.legal-prose { overflow-wrap: anywhere; }
+.legal-aside { position: sticky; top: 20px; display: grid; gap: 14px; }
+.legal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.legal-card h3 {
+  font-size: 13px;
+  margin: 0 0 10px;
+  letter-spacing: 0.02em;
+}
+.legal-index ol { margin: 0; padding: 0; list-style: none; }
+.legal-index li { margin: 0 0 2px; }
+.legal-index a {
+  display: block;
+  padding: 7px 9px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.legal-index a:hover { background: var(--surface-alt); color: var(--text); text-decoration: none; }
+.legal-card .dpo-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  padding: 5px 0;
+}
+.legal-card .dpo-row span { color: var(--text-subtle); }
+.legal-card p { margin: 0 0 10px; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+@media (max-width: 900px) {
+  .legal-layout { grid-template-columns: 1fr; }
+  .legal-aside { position: static; order: 2; }
+  .legal-hero { flex-wrap: wrap; }
+  .legal-hero .lh-updated { margin-inline-start: 0; }
+}
+
+/* ── footer columns ──────────────────────────────────────────────── */
+.footer-cols {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 28px;
+  padding: 32px 0 8px;
+}
+.footer-cols .fc-head {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.footer-cols a { display: block; color: var(--text-muted); font-size: 14px; padding: 4px 0; }
+.footer-cols a:hover { color: var(--text); }
+.footer-cols p { margin: 0 0 12px; color: var(--text-muted); font-size: 13px; line-height: 1.7; }
+.footer-note-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.footer-legal-line {
+  border-top: 1px solid var(--border);
+  padding: 14px 0 4px;
+  color: var(--text-subtle);
+  font-size: 12px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .footer-cols { grid-template-columns: 1fr; gap: 20px; }
+}

@@ -1,10 +1,69 @@
 {% extends "legal_base.html" %}
-{% block title %}Contact · Wasit{% endblock %}
-{% block description %}Reach the Wasit team for support, press, or legal enquiries.{% endblock %}
-{% block legal_title %}Contact us{% endblock %}
-{% block legal_subtitle %}We aim to respond to every message within one business day.{% endblock %}
+{% block title %}{{ 'تواصل معنا · وسيط' if lang == 'ar' else 'Contact · Wasit' }}{% endblock %}
+{% block description %}{{ 'تواصل مع فريق وسيط للدعم أو الصحافة أو الاستفسارات القانونية.' if lang == 'ar' else 'Reach the Wasit team for support, press, or legal enquiries.' }}{% endblock %}
+{% block legal_title %}{{ 'تواصل معنا' if lang == 'ar' else 'Contact us' }}{% endblock %}
+{% block legal_subtitle %}{{ 'بنحاول نرد على كل رسالة خلال يوم عمل واحد.' if lang == 'ar' else 'We aim to respond to every message within one business day.' }}{% endblock %}
 
 {% block legal_body %}
+{% if lang == 'ar' %}
+<h2>الدعم — أي حاجة تخص حسابك أو إعلانك</h2>
+<p>
+  {% if config.SUPPORT_EMAIL %}
+  ابعت إيميل على <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>.
+  {% else %}
+  إيميل الدعم هيتنشر هنا قبل الإطلاق.
+  {% endif %}
+  {% if config.SUPPORT_WHATSAPP_URL %}
+  أو راسلنا على
+  <a href="{{ config.SUPPORT_WHATSAPP_URL }}" target="_blank" rel="noopener">واتساب</a>.
+  {% endif %}
+</p>
+<p>
+  الرد عادة خلال يوم عمل واحد (الأحد–الخميس).
+  للأمور العاجلة الخاصة بالتوثيق على إعلان شغال،
+  اكتب <strong>عاجل</strong> في عنوان الرسالة.
+</p>
+
+<h2>الإبلاغ عن احتيال أو إساءة</h2>
+<p>
+  لو صادفت إعلان أو وسيط شكله مزيف أو غير صادق،
+  استخدم زرار الإبلاغ في التطبيق (النقاط الثلاث على أي إعلان أو ملف وسيط) —
+  ده بيروح مباشرة لطابور المراجعة عندنا.
+  {% if config.SUPPORT_EMAIL %}
+  لأي حاجة التطبيق مش قادر يقبضها، ابعت إيميل على
+  <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>
+  بأكبر قدر من التفاصيل.
+  {% endif %}
+</p>
+
+<h2>الصحافة والشراكات</h2>
+<p>
+  للاستفسارات الصحفية، الشراكات التقنية، أو تسجيل مجموعات وسطاء،
+  {% if config.SUPPORT_EMAIL %}
+  ابعت إيميل على <a href="mailto:{{ config.SUPPORT_EMAIL }}">{{ config.SUPPORT_EMAIL }}</a>
+  مع كلمة «صحافة» أو «شراكة» في العنوان.
+  {% else %}
+  بيانات التواصل هتتنشر هنا قبل الإطلاق.
+  {% endif %}
+</p>
+
+<h2>الطلبات القانونية</h2>
+<p>
+  للطلبات القانونية (أوامر قضائية، الحق في النسيان، الإفصاح عن بيانات)،
+  استخدم نفس القناة واذكر هويتك والأساس القانوني للطلب بوضوح.
+  بنرد خلال 30 يوم حسب المطلوب.
+</p>
+
+{% if config.COMPANY_ADDRESS or config.COMPANY_LEGAL_NAME %}
+<h2>بياناتنا</h2>
+<p>
+  {% if config.COMPANY_LEGAL_NAME %}<strong>{{ config.COMPANY_LEGAL_NAME }}</strong><br>{% endif %}
+  {% if config.COMPANY_ADDRESS %}{{ config.COMPANY_ADDRESS }}{% endif %}
+</p>
+{% endif %}
+
+{% else %}
+
 <h2>Support &mdash; anything about your account or a listing</h2>
 <p>
   {% if config.SUPPORT_EMAIL %}
@@ -60,5 +119,7 @@
   {% if config.COMPANY_LEGAL_NAME %}<strong>{{ config.COMPANY_LEGAL_NAME }}</strong><br>{% endif %}
   {% if config.COMPANY_ADDRESS %}{{ config.COMPANY_ADDRESS }}{% endif %}
 </p>
+{% endif %}
+
 {% endif %}
 {% endblock %}

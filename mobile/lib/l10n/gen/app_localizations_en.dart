@@ -15,6 +15,179 @@ class AppL10nEn extends AppL10n {
   String get signIn => 'Sign in';
 
   @override
+  String get comingSoon => 'Coming soon';
+
+  @override
+  String get loginHeroTitle => 'Welcome to Wasit';
+
+  @override
+  String get loginHeroSubtitle =>
+      'Egypt\'\'s first verified real-estate brokerage platform.';
+
+  @override
+  String get loginCredentialPill =>
+      'Official accreditation & digital land registry';
+
+  @override
+  String get loginPhoneHint => 'Linked to your National ID';
+
+  @override
+  String get loginAltDivider => 'Or continue with';
+
+  @override
+  String get loginSsoDigitalEgypt => 'Egyptian Digital ID (National Access)';
+
+  @override
+  String get loginSsoDigitalEgyptSub =>
+      'Instant verification via your national ID card';
+
+  @override
+  String get loginOtpTitle => 'Sign in with SMS code';
+
+  @override
+  String get loginOtpSub => 'One-tap login by phone verification';
+
+  @override
+  String get loginNoAccountPrompt => 'Don\'\'t have an account?';
+
+  @override
+  String get loginRegisterCta => 'Create one';
+
+  @override
+  String get loginTrustContracts => 'Official contracts';
+
+  @override
+  String get loginTrustContractsSub => 'Verified and legally compliant';
+
+  @override
+  String get loginTrustInspect => 'Professional inspection';
+
+  @override
+  String get loginTrustInspectSub => 'Rigorous on-site checks';
+
+  @override
+  String get loginFooterTitle => 'Real-estate safety & legality guarantee';
+
+  @override
+  String get loginFooterSub =>
+      'Every property and broker is officially vetted through the Real-Estate Registry.';
+
+  @override
+  String get otpLoginTitle => 'Sign in by SMS code';
+
+  @override
+  String get otpLoginComingSoon =>
+      'OTP-only sign-in is coming soon. Please use phone + password for now.';
+
+  @override
+  String get registerHeroPill => 'Digital real-estate registration system';
+
+  @override
+  String get registerHeroTitle => 'Join Wasit\'\'s verified network';
+
+  @override
+  String get registerHeroSubtitle =>
+      'Choose your account type to start browsing or listing verified properties.';
+
+  @override
+  String get registerAccountType => 'Account type';
+
+  @override
+  String registerStep(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get registerRoleBrokerLicensed => 'Licensed broker';
+
+  @override
+  String get registerRoleBrokerLicenseChip => 'License';
+
+  @override
+  String get registerTrustBannerTitle =>
+      'Verification & transparency guarantee';
+
+  @override
+  String get registerTrustBannerSub =>
+      'Buyers get contract validity and land-registry checks with no hidden brokerage fees.';
+
+  @override
+  String get registerFullNameHint => '(As on your National ID)';
+
+  @override
+  String get registerFullNameExample => 'e.g. Ahmed Abdallah El-Sherbiny';
+
+  @override
+  String get emailField => 'Email';
+
+  @override
+  String get registerEmailOptionalHint => 'Optional';
+
+  @override
+  String get registerPasswordHint => '8+ letters & symbols';
+
+  @override
+  String get registerPasswordRule =>
+      'Must include digits, upper + lowercase letters, and a special character.';
+
+  @override
+  String get registerLinkRegistryTitle =>
+      'Instant link to the Real-Estate Registry';
+
+  @override
+  String get registerLinkRegistrySub =>
+      'Encrypted verification against registered contracts.';
+
+  @override
+  String get registerAgreeTerms =>
+      'I agree to the terms of service, real-estate verification policy, and data protection.';
+
+  @override
+  String get registerMustAgreeTerms => 'Please tick the terms box to continue.';
+
+  @override
+  String get registerContinueCta => 'Create account and continue';
+
+  @override
+  String get registerTrustEncrypted => 'Encrypted data';
+
+  @override
+  String get registerTrustLicensed => 'Legal licensing';
+
+  @override
+  String get registerTrustSupport => '24/7 support';
+
+  @override
+  String get verifyPhoneIntro => 'We sent a 6-digit verification code to';
+
+  @override
+  String get verifyPhoneEditNumber => 'Change number';
+
+  @override
+  String get verifyPhoneCodeSent => 'Code sent.';
+
+  @override
+  String verifyPhoneDigitsEntered(int n) {
+    return '$n of 6 digits entered';
+  }
+
+  @override
+  String get verifyPhoneAutoDecrypt => 'Auto-encrypted';
+
+  @override
+  String get verifyPhoneResendInPrefix => 'Resend code in';
+
+  @override
+  String get verifyPhoneResendSms => 'Resend code by SMS';
+
+  @override
+  String get verifyPhoneConfirmCta => 'Confirm code and continue';
+
+  @override
+  String get verifyPhoneSecurityNote =>
+      'Wasit protects your data with 256-bit AES encryption.';
+
+  @override
   String get createAccount => 'Create account';
 
   @override
@@ -34,6 +207,22 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get logout => 'Sign out';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get deleteAccountTitle => 'Delete your account?';
+
+  @override
+  String get deleteAccountBody =>
+      'This permanently deletes your account and hides your listings. You can\'\'t undo this. Enter your password to confirm.';
+
+  @override
+  String get deleteAccountConfirm => 'Delete permanently';
+
+  @override
+  String get deleteAccountDone => 'Your account has been deleted.';
 
   @override
   String get refresh => 'Refresh';
@@ -60,7 +249,7 @@ class AppL10nEn extends AppL10n {
   String get ok => 'OK';
 
   @override
-  String get roleBuyer => 'Buyer / Renter';
+  String get roleBuyer => 'Buyer';
 
   @override
   String get roleBroker => 'Broker';
@@ -264,6 +453,43 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get browseListings => 'Browse listings';
+
+  @override
+  String get navBrowse => 'Browse';
+
+  @override
+  String get navMyListings => 'My listings';
+
+  @override
+  String get navSaved => 'Saved';
+
+  @override
+  String get navMessages => 'Messages';
+
+  @override
+  String get navAccount => 'Account';
+
+  @override
+  String get navAdminQueue => 'Queue';
+
+  @override
+  String get savedEmptyTitle => 'No saved listings yet.';
+
+  @override
+  String get savedEmptySub =>
+      'Tap the heart icon on any listing to save it here.';
+
+  @override
+  String get accountPreferences => 'Preferences';
+
+  @override
+  String get accountTheme => 'Theme';
+
+  @override
+  String get accountLanguage => 'Language';
+
+  @override
+  String get accountActions => 'Account';
 
   @override
   String get newListing => 'New listing';
@@ -1028,4 +1254,490 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get privacyLink => 'Privacy Policy';
+
+  @override
+  String get brandTagline => 'Officially verified properties';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String get copiedToClipboard => 'Copied.';
+
+  @override
+  String get currencyEgp => 'EGP';
+
+  @override
+  String get currencyEgpPerMonth => 'EGP / month';
+
+  @override
+  String get unitM2 => 'm²';
+
+  @override
+  String get areaLabelShort => 'Area';
+
+  @override
+  String get typeLabelShort => 'Type';
+
+  @override
+  String get detailsCta => 'Details';
+
+  @override
+  String get brokerLicensedLabel => 'Licensed broker';
+
+  @override
+  String listingRef(int id) {
+    return 'Ref. #$id';
+  }
+
+  @override
+  String get listingSaved => 'Saved to your list.';
+
+  @override
+  String get listingUnsaved => 'Removed from your saved list.';
+
+  @override
+  String get listingSaveFailed => 'Couldn’t update your saved list.';
+
+  @override
+  String get listingSaveAction => 'Save this listing';
+
+  @override
+  String get listingUnsaveAction => 'Remove from saved';
+
+  @override
+  String get browseSearchHint => 'Search by district, city, or listing number…';
+
+  @override
+  String browseVerifiedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count verified listings',
+      one: '1 verified listing',
+      zero: 'No verified listings match',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filtersAdvanced => 'Advanced filters';
+
+  @override
+  String get sortLabel => 'Sort';
+
+  @override
+  String get sortNewest => 'Newest';
+
+  @override
+  String get sortPriceAsc => 'Price: low to high';
+
+  @override
+  String get sortPriceDesc => 'Price: high to low';
+
+  @override
+  String get sortAreaDesc => 'Largest area';
+
+  @override
+  String get emptySearchTitle => 'Nothing matched that search';
+
+  @override
+  String get emptySearchSub =>
+      'Try fewer words, a district name, or the listing number.';
+
+  @override
+  String get listingAuditTitle => 'Property audit';
+
+  @override
+  String brokerRatingTag(String avg, int count) {
+    return '$avg from $count ratings';
+  }
+
+  @override
+  String get paneDocuments => 'Documents';
+
+  @override
+  String get paneDescription => 'Description';
+
+  @override
+  String get paneBroker => 'Broker';
+
+  @override
+  String get noDescription =>
+      'The broker hasn’t written a description for this property.';
+
+  @override
+  String get brokerUnavailable =>
+      'Broker details are unavailable for this listing.';
+
+  @override
+  String get viewTrustFile => 'View trust file';
+
+  @override
+  String get viewOnMap => 'Map';
+
+  @override
+  String get openInMaps => 'Open in Maps';
+
+  @override
+  String get mapOpenFailed => 'Could not open a map app.';
+
+  @override
+  String get locationSectionTitle => 'Location the broker pinned';
+
+  @override
+  String get brokerTrustMetrics => 'Trust indicators';
+
+  @override
+  String brokerGoeicChip(String number) {
+    return 'GOEIC #$number';
+  }
+
+  @override
+  String brokerMemberSince(String date) {
+    return 'On Wasit since $date';
+  }
+
+  @override
+  String brokerLiveListings(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count live listings',
+      one: '1 live listing',
+      zero: 'No live listings',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get brokerLiveListingsLabel => 'Live listings';
+
+  @override
+  String get brokerAdminChecked => 'Reviewed by our team';
+
+  @override
+  String get brokerRatedThreads => 'Buyer ratings';
+
+  @override
+  String get brokerMetricsHonestNote =>
+      'Ratings come only from buyers who actually messaged this broker through the app. Verification means we checked their GOEIC registration document — it is not a guarantee of any individual deal.';
+
+  @override
+  String brokerTabListings(int count) {
+    return 'Listings ($count)';
+  }
+
+  @override
+  String brokerTabReviews(int count) {
+    return 'Reviews ($count)';
+  }
+
+  @override
+  String get brokerNoListings => 'This broker has no live listings right now.';
+
+  @override
+  String get myListingsSubtitle =>
+      'Manage your portfolio, verification and reach.';
+
+  @override
+  String get portfolioPerformanceTitle => 'This week';
+
+  @override
+  String get seeDetails => 'Details';
+
+  @override
+  String get statViews7d => 'Views (7 days)';
+
+  @override
+  String get statInquiries7d => 'Inquiries (7 days)';
+
+  @override
+  String get statLiveListings => 'Live listings';
+
+  @override
+  String bucketLive(int count) {
+    return 'Live ($count)';
+  }
+
+  @override
+  String bucketExpired(int count) {
+    return 'Needs confirming ($count)';
+  }
+
+  @override
+  String bucketArchived(int count) {
+    return 'Archived ($count)';
+  }
+
+  @override
+  String get bucketEmptyExpired => 'Nothing waiting on you';
+
+  @override
+  String get bucketEmptyExpiredSub =>
+      'Listings appear here once they pass 30 days without a confirmation.';
+
+  @override
+  String get bucketEmptyArchived => 'Nothing archived';
+
+  @override
+  String get bucketEmptyArchivedSub =>
+      'Sold and hidden listings are kept here.';
+
+  @override
+  String get whyVerificationTitle => 'Why the verified badge matters';
+
+  @override
+  String get whyVerificationBody =>
+      'Buyers only see listings from brokers whose GOEIC registration our team has checked. Keep your documents current and your listings stay in the feed.';
+
+  @override
+  String get manageListing => 'Manage';
+
+  @override
+  String metricViews(int count) {
+    return '$count views';
+  }
+
+  @override
+  String metricInquiries(int count) {
+    return '$count inquiries this week';
+  }
+
+  @override
+  String get listingStatusLive => 'Live';
+
+  @override
+  String get listingStatusExpiring => 'Expiring';
+
+  @override
+  String get listingStatusExpired => 'Expired';
+
+  @override
+  String get listingStatusSold => 'Sold';
+
+  @override
+  String get listingStatusHidden => 'Hidden';
+
+  @override
+  String get inboxTitle => 'Conversations';
+
+  @override
+  String get inboxSearchHint => 'Search by name, property, or listing number…';
+
+  @override
+  String inboxFilterAll(int count) {
+    return 'All ($count)';
+  }
+
+  @override
+  String inboxFilterUnread(int count) {
+    return 'Unread ($count)';
+  }
+
+  @override
+  String get inboxTrustTitle => 'Conversations stay on the record';
+
+  @override
+  String get inboxTrustBody =>
+      'Every thread is tied to a listing and to identified accounts, so what was agreed can be traced later.';
+
+  @override
+  String get inboxPrivacyNote =>
+      'Your conversations are visible only to you and the other party.';
+
+  @override
+  String get inboxNoMatches => 'No conversation matches that.';
+
+  @override
+  String get threadNoMessagesYet => 'No messages yet';
+
+  @override
+  String get safetyGuidanceTitle => 'Before you pay anything';
+
+  @override
+  String get safetyNoCashTitle => 'No cash outside a contract';
+
+  @override
+  String get safetyNoCashBody =>
+      'Never hand over a deposit without a signed, registered contract.';
+
+  @override
+  String get safetyCheckDeedTitle => 'Check the deed yourself';
+
+  @override
+  String get safetyCheckDeedBody =>
+      'Confirm the title at the notary office before any payment.';
+
+  @override
+  String get threadTitle => 'Conversation';
+
+  @override
+  String get viewListing => 'View listing';
+
+  @override
+  String get threadSecurityNote =>
+      'This conversation is kept on the record between two identified Wasit accounts. Wasit does not read it, and it is not end-to-end encrypted.';
+
+  @override
+  String get quickReplyBuyerViewing => 'Can I view the property this week?';
+
+  @override
+  String get quickReplyBuyerDocs => 'Which ownership documents are ready?';
+
+  @override
+  String get quickReplyBuyerPrice => 'Is the price negotiable?';
+
+  @override
+  String get quickReplyBrokerViewing =>
+      'The property is available for viewing — which day suits you?';
+
+  @override
+  String get quickReplyBrokerDocs =>
+      'The registered contract and deed are ready for review.';
+
+  @override
+  String get quickReplyBrokerPrice =>
+      'Tell me your offer and I will pass it to the owner.';
+
+  @override
+  String get createListingSubtitle => 'Publish a property for verified buyers';
+
+  @override
+  String get stepBack => 'Back';
+
+  @override
+  String get stepContinue => 'Continue';
+
+  @override
+  String stepCounter(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
+  String get stepType => 'Type';
+
+  @override
+  String get stepLocation => 'Location';
+
+  @override
+  String get stepSpecs => 'Details';
+
+  @override
+  String get stepPhotos => 'Photos';
+
+  @override
+  String get stepReview => 'Review';
+
+  @override
+  String get listingTitleHint => 'e.g. Panoramic apartment, Fifth Settlement';
+
+  @override
+  String get listingDescriptionHint =>
+      'Finishing, view, what is included — the things buyers ask about first.';
+
+  @override
+  String get listingDistrictHint => 'e.g. Fifth Settlement, Zayed Dunes';
+
+  @override
+  String get listingFloorHint => 'e.g. 4 — leave empty for a villa or land';
+
+  @override
+  String get selectGovernorate => 'Choose a governorate';
+
+  @override
+  String get selectCity => 'Choose a city';
+
+  @override
+  String get selectGovernorateFirst => 'Choose the governorate first.';
+
+  @override
+  String get selectCityFirst => 'Choose or type the city.';
+
+  @override
+  String get cityOther => 'Another city…';
+
+  @override
+  String get cityOtherHint => 'Type the city name';
+
+  @override
+  String get mapPinTitle => 'Map pin';
+
+  @override
+  String get mapPinBody =>
+      'Buyers use this to see where the property actually is. Stand at the property and tap the button, or paste the coordinates.';
+
+  @override
+  String get photosStepHint =>
+      'The first photo becomes the cover in search results. Wide daylight shots of the main rooms work best.';
+
+  @override
+  String get coverPhoto => 'Cover';
+
+  @override
+  String get documentsAfterPublishTitle => 'Ownership documents come next';
+
+  @override
+  String get documentsAfterPublishBody =>
+      'Once the listing is published, open it and attach the deed and clearance certificates — they attach to the listing itself.';
+
+  @override
+  String get publishExpiryNote =>
+      'Listings stay in the feed for 30 days. Confirm the property is still available before then and it keeps running.';
+
+  @override
+  String get locationPermissionDenied => 'Location permission denied.';
+
+  @override
+  String locationReadFailed(String error) {
+    return 'Could not read location: $error';
+  }
+
+  @override
+  String photoPickFailed(String error) {
+    return 'Could not pick photos: $error';
+  }
+
+  @override
+  String get adminConsoleTitle => 'Compliance desk';
+
+  @override
+  String get adminConsoleHeading => 'Verification & compliance';
+
+  @override
+  String get adminConsoleSubtitle =>
+      'Everything waiting on a decision, in one queue.';
+
+  @override
+  String get kpiBrokersLabel => 'Broker verification';
+
+  @override
+  String get kpiBrokersHint => 'GOEIC documents awaiting review';
+
+  @override
+  String get kpiListingsLabel => 'Flagged listings';
+
+  @override
+  String get kpiListingsHint => 'Possible duplicate photos';
+
+  @override
+  String get kpiDocumentsLabel => 'Property documents';
+
+  @override
+  String get kpiDocumentsHint => 'Deeds and clearances to check';
+
+  @override
+  String get kpiReportsLabel => 'Reports';
+
+  @override
+  String get kpiReportsHint => 'Open complaints from users';
+
+  @override
+  String get openFile => 'Open file';
+
+  @override
+  String get goeicNumberLabel => 'GOEIC number';
+
+  @override
+  String get imageAttached => 'Image';
 }

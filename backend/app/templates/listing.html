@@ -21,7 +21,7 @@
 
 {% block content %}
 <div class="urlbar-outer wrap">
-  <span class="urlbar" role="group" aria-label="Shareable listing URL">
+  <span class="urlbar" role="group" aria-label="{{ t('listing_shareable_url_aria') }}">
     <span class="lock" aria-hidden="true">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <rect x="4" y="10" width="16" height="11" rx="2"/>
@@ -29,12 +29,13 @@
       </svg>
     </span>
     <code><span class="host">{{ canonical.split('/l/')[0].replace('https://','').replace('http://','') }}/l/</span><span class="handle">{{ listing.id }}</span></code>
-    <button class="urlbar-copy" type="button" data-copy-target="{{ canonical }}">Copy link</button>
-    <a class="urlbar-whatsapp" href="{{ whatsapp_url }}" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+    <button class="urlbar-copy" type="button" data-copy-target="{{ canonical }}"
+            data-copy-done="{{ t('listing_copy_link_done') }}">{{ t('listing_copy_link') }}</button>
+    <a class="urlbar-whatsapp" href="{{ whatsapp_url }}" target="_blank" rel="noopener" aria-label="{{ t('listing_share_whatsapp_aria') }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.88 11.9L4 20l4.2-1.1a7.94 7.94 0 0 0 3.85.98h.01a7.94 7.94 0 0 0 5.54-13.56zm-5.55 12.22a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.66-2.43-.15-.25a6.6 6.6 0 1 1 12.24-3.48 6.6 6.6 0 0 1-6.65 6.57zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.2-.5.64-.62.77-.11.13-.23.15-.42.05-.2-.1-.83-.31-1.58-.98-.58-.52-.97-1.16-1.09-1.36-.11-.2-.01-.31.09-.4.09-.09.2-.23.3-.35.1-.11.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.07-.6-1.46-.16-.38-.32-.33-.44-.34-.11 0-.24-.01-.37-.01a.7.7 0 0 0-.51.24c-.18.2-.68.66-.68 1.6 0 .95.7 1.87.8 2 .1.13 1.38 2.11 3.33 2.96.47.2.83.32 1.11.42.47.15.9.13 1.24.08.38-.06 1.17-.48 1.34-.94.16-.47.16-.86.11-.94-.05-.09-.18-.14-.38-.24z"/>
       </svg>
-      WhatsApp
+      {{ t('listing_share_whatsapp') }}
     </a>
   </span>
 </div>
@@ -54,25 +55,25 @@
     <div class="listing-body">
       <div class="listing-main">
         <span class="kind-badge kind-{{ listing.listing_kind.value if listing.listing_kind else 'sale' }}">
-          {% if listing.listing_kind and listing.listing_kind.value == 'rent' %}For rent{% else %}For sale{% endif %}
+          {{ t('kind_' + (listing.listing_kind.value if listing.listing_kind else 'sale')) }}
         </span>
         <h1>{{ listing.title }}</h1>
         <div class="listing-price">
-          {{ price_display }} <span class="ccy">EGP{% if listing.listing_kind and listing.listing_kind.value == 'rent' %} / mo{% endif %}</span>
+          {{ price_display }} <span class="ccy">{{ t('card_currency_egp') }}{% if listing.listing_kind and listing.listing_kind.value == 'rent' %}{{ t('card_per_month') }}{% endif %}</span>
         </div>
         <div class="listing-meta">
-          <span>📍 {{ listing.city }}, {{ listing.governorate }}{% if listing.district %} · {{ listing.district }}{% endif %}</span>
+          <span>📍 {{ listing.city }}, {{ gov_display(listing.governorate) }}{% if listing.district %} · {{ listing.district }}{% endif %}</span>
           <span>📐 {{ listing.area_m2 }} m²</span>
-          <span>🏷️ {{ listing.property_type.value if listing.property_type else '' }}</span>
+          <span>🏷️ {{ t('ptype_' + listing.property_type.value) if listing.property_type else '' }}</span>
         </div>
 
         {# Phase A1 richer facts — only render items that are set #}
         {% set facts = [] %}
-        {% if listing.bedrooms is not none %}{% set _ = facts.append(('🛏️', listing.bedrooms|string ~ ' bed')) %}{% endif %}
-        {% if listing.bathrooms is not none %}{% set _ = facts.append(('🛁', listing.bathrooms|string ~ ' bath')) %}{% endif %}
-        {% if listing.floor_number is not none %}{% set _ = facts.append(('🏢', 'Floor ' ~ listing.floor_number|string)) %}{% endif %}
-        {% if listing.is_furnished is not none %}{% set _ = facts.append(('🛋️', 'Furnished' if listing.is_furnished else 'Unfurnished')) %}{% endif %}
-        {% if listing.delivery_status %}{% set _ = facts.append(('🗝️', 'Ready to move' if listing.delivery_status.value == 'ready' else 'Under construction')) %}{% endif %}
+        {% if listing.bedrooms is not none %}{% set _ = facts.append(('🛏️', listing.bedrooms|string ~ ' ' ~ t('listing_fact_bed'))) %}{% endif %}
+        {% if listing.bathrooms is not none %}{% set _ = facts.append(('🛁', listing.bathrooms|string ~ ' ' ~ t('listing_fact_bath'))) %}{% endif %}
+        {% if listing.floor_number is not none %}{% set _ = facts.append(('🏢', t('listing_fact_floor') ~ ' ' ~ listing.floor_number|string)) %}{% endif %}
+        {% if listing.is_furnished is not none %}{% set _ = facts.append(('🛋️', t('listing_fact_furnished') if listing.is_furnished else t('listing_fact_unfurnished'))) %}{% endif %}
+        {% if listing.delivery_status %}{% set _ = facts.append(('🗝️', t('listing_delivery_ready') if listing.delivery_status.value == 'ready' else t('listing_delivery_under_construction'))) %}{% endif %}
         {% if listing.compound_name %}{% set _ = facts.append(('🏘️', listing.compound_name)) %}{% endif %}
         {% if facts %}
         <ul class="listing-facts">
@@ -84,7 +85,7 @@
 
         {% if listing.description %}
         <section class="prose">
-          <h2>About this property</h2>
+          <h2>{{ t('listing_about_heading') }}</h2>
           <p>{{ listing.description }}</p>
         </section>
         {% endif %}
@@ -93,50 +94,50 @@
            beyond openstreetmap.org itself. #}
         {% if listing.lat is not none and listing.lng is not none %}
         <section class="listing-map-section">
-          <h2>Location</h2>
+          <h2>{{ t('listing_location_heading') }}</h2>
           {% set lat = listing.lat %}
           {% set lng = listing.lng %}
           <div class="listing-map-wrap">
             <iframe class="listing-map"
-              title="Map of {{ listing.city }}"
+              title="{{ t('listing_map_of', city=listing.city) }}"
               loading="lazy"
               src="https://www.openstreetmap.org/export/embed.html?bbox={{ '%.5f' % (lng - 0.008) }},{{ '%.5f' % (lat - 0.005) }},{{ '%.5f' % (lng + 0.008) }},{{ '%.5f' % (lat + 0.005) }}&amp;layer=mapnik&amp;marker={{ '%.5f' % lat }},{{ '%.5f' % lng }}"></iframe>
           </div>
           <a class="map-external"
              href="https://www.openstreetmap.org/?mlat={{ '%.5f' % lat }}&amp;mlon={{ '%.5f' % lng }}#map=17/{{ '%.5f' % lat }}/{{ '%.5f' % lng }}"
-             target="_blank" rel="noopener">Open larger map &rarr;</a>
+             target="_blank" rel="noopener">{{ t('listing_open_larger_map') }}</a>
         </section>
         {% endif %}
 
         <section class="disclaimer-box">
-          <strong>Honest note.</strong> This platform helps verify &mdash;
-          it does not replace a lawyer or the notary office. Always
-          confirm ownership at the Real Estate Registry before signing.
+          <strong>{{ t('listing_disclaimer_strong') }}</strong> {{ t('listing_disclaimer_body') }}
         </section>
       </div>
 
       <aside class="listing-side">
         <div class="broker-card">
           <div class="broker-name">
-            {{ broker.full_name or 'Verified broker' }}
+            {{ broker.full_name or t('listing_verified_broker_fallback') }}
             {% if broker.verification_status == 'verified' %}
-              <span class="badge verified">✓ Verified</span>
+              <span class="badge verified">{{ t('listing_verified_badge') }}</span>
             {% endif %}
           </div>
           {% if broker.rating and broker.rating.count %}
           <div class="broker-rating">
             <span class="star">★</span> {{ '%.1f' % broker.rating.avg }}
-            <span class="muted">({{ broker.rating.count }} review{{ '' if broker.rating.count == 1 else 's' }})</span>
+            <span class="muted">{{
+              t('listing_reviews_singular', n=broker.rating.count) if broker.rating.count == 1
+              else t('listing_reviews_plural', n=broker.rating.count)
+            }}</span>
           </div>
           {% endif %}
-          <p class="broker-note">
-            Contact the broker via the app to keep messages, ratings, and
-            the document trail in one place.
-          </p>
-          <a class="btn primary block" href="/app/#/listings/{{ listing.id }}">Open in the app</a>
+          <p class="broker-note">{{ t('listing_broker_note') }}</p>
+          <a class="btn primary block" href="/app/#/listings/{{ listing.id }}">{{ t('listing_open_in_app') }}</a>
           {% if broker.id %}
           <a class="broker-profile-link" href="/b/{{ broker.id }}">
-            See {{ (broker.full_name.split()[0] if broker.full_name else 'broker') }}&rsquo;s public credentials &rarr;
+            {{ t('listing_see_credentials',
+                  name=(broker.full_name.split()[0] if broker.full_name
+                        else t('listing_broker_generic_name'))) }}
           </a>
           {% endif %}
         </div>
@@ -149,10 +150,10 @@
 <div class="listing-sticky-cta" aria-hidden="false">
   <div class="wrap sticky-inner">
     <div class="sticky-price">
-      <div class="sticky-price-num">{{ price_display }}<span class="ccy">&nbsp;EGP</span></div>
+      <div class="sticky-price-num">{{ price_display }}<span class="ccy">&nbsp;{{ t('card_currency_egp') }}</span></div>
       <div class="sticky-price-meta">{{ listing.city }} &middot; {{ listing.area_m2 }} m&sup2;</div>
     </div>
-    <a class="btn primary" href="/app/#/listings/{{ listing.id }}">Open in app</a>
+    <a class="btn primary" href="/app/#/listings/{{ listing.id }}">{{ t('listing_sticky_open_in_app') }}</a>
   </div>
 </div>
 {% endblock %}
@@ -166,7 +167,7 @@
         if (!url || !navigator.clipboard) return;
         navigator.clipboard.writeText(url).then(function () {
           var original = btn.textContent;
-          btn.textContent = 'Copied ✓';
+          btn.textContent = btn.getAttribute('data-copy-done') || 'Copied ✓';
           btn.classList.add('copied');
           setTimeout(function () {
             btn.textContent = original;

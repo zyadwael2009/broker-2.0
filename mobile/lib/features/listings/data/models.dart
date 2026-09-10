@@ -144,6 +144,24 @@ class ListingDto {
     return DateTime.tryParse(v);
   }
 
+  double get priceValue => double.tryParse(priceEgp) ?? 0;
+  double get areaValue => double.tryParse(areaM2) ?? 0;
+
+  /// Grouped digits with NO currency word — for places that render the
+  /// unit themselves (the big price row on a card pairs the number with
+  /// a localized "EGP"/"ج.م" suffix in its own type scale).
+  ///
+  /// Grouping is deliberately en_US even in Arabic: the mockups, and
+  /// every Egyptian property portal, print prices in Latin digits.
+  String get priceGrouped =>
+      NumberFormat.decimalPattern('en_US').format(priceValue);
+
+  /// Bare area number, e.g. "210" or "120.5".
+  String get areaNumber {
+    final n = areaValue;
+    return n == n.roundToDouble() ? '${n.toInt()}' : n.toStringAsFixed(1);
+  }
+
   /// Human-friendly price like "3,500,000 EGP" (Egyptian locale-ish grouping).
   String get priceDisplay {
     final n = double.tryParse(priceEgp) ?? 0;

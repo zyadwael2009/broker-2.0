@@ -36,10 +36,15 @@ from .storage import get_storage
 # ─── shared admin helper ───────────────────────────────────────────────
 
 def create_or_promote_admin(
-    phone: str, password: str, name: str, email: str | None
+    phone: str, password: str, name: str, email: str | None,
+    reset_password: bool = False,
 ) -> User:
     """Idempotent — promotes an existing user or creates a fresh admin.
-    Reused by `seed-admin` and `seed-demo`."""
+    Reused by `seed-admin` and `seed-demo`.
+
+    An existing user keeps their password unless `reset_password` is set.
+    seed-demo sets it: the credentials it prints must actually work, even
+    when the demo admin phone was first created with another password."""
     if len(password) < 8:
         raise ValueError("Password must be at least 8 characters.")
     phone_e164 = normalize_phone(phone)
@@ -47,6 +52,8 @@ def create_or_promote_admin(
     if existing:
         existing.role = UserRole.ADMIN
         existing.is_active = True
+        if reset_password:
+            existing.password_hash = hash_password(password)
         db.session.commit()
         return existing
     user = User(
@@ -123,6 +130,9 @@ def _upsert_user(phone: str, name: str, role: UserRole,
     else:
         user.full_name = name
         user.role = role
+        # Reseeding restores the printed demo password (store reviewers
+        # log in with it, and it may have been changed in-app).
+        user.password_hash = hash_password(DEMO_PASSWORD)
     user.is_active = is_active
 
     if role == UserRole.BROKER:
@@ -374,7 +384,8 @@ def seed_demo(reset: bool, wipe_storage: bool):
 
     # --- admin -----------------------------------------------------------
     admin = create_or_promote_admin(
-        DEMO_ADMIN_PHONE, DEMO_ADMIN_PASSWORD, "Demo Admin", None
+        DEMO_ADMIN_PHONE, DEMO_ADMIN_PASSWORD, "Demo Admin", None,
+        reset_password=True,
     )
 
     # --- buyers ----------------------------------------------------------

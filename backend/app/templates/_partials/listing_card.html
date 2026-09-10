@@ -8,22 +8,28 @@
       <div class="photo-placeholder">🏠</div>
     {% endif %}
     <span class="kind-badge kind-{{ l.listing_kind }}">
-      {% if l.listing_kind == 'rent' %}For rent{% else %}For sale{% endif %}
+      {{ t('kind_' + l.listing_kind) }}
+    </span>
+    {% if l.broker_name %}
+    <span class="verified-pill">
+      <span aria-hidden="true">✓</span> {{ t('card_verified_broker') }}
+    </span>
+    {% endif %}
+    <span class="price-chip">
+      {{ l.price_display }}
+      <span class="ccy">{{ t('card_currency_egp') }}{% if l.listing_kind == 'rent' %}{{ t('card_per_month') }}{% endif %}</span>
     </span>
   </div>
   <div class="card-body">
     <div class="card-title">{{ l.title }}</div>
-    <div class="card-price">
-      {{ l.price_display }} <span class="ccy">EGP{% if l.listing_kind == 'rent' %} / mo{% endif %}</span>
-    </div>
     <div class="card-meta">
-      <span>{{ l.city }}, {{ l.governorate }}</span>
+      <span>{{ l.city }}, {{ gov_display(l.governorate) }}</span>
       <span>{{ l.area_m2 }} m²</span>
     </div>
     {% if l.bedrooms is not none or l.bathrooms is not none or l.compound_name %}
     <div class="card-facts">
-      {% if l.bedrooms is not none %}<span>{{ l.bedrooms }} bed</span>{% endif %}
-      {% if l.bathrooms is not none %}<span>{{ l.bathrooms }} bath</span>{% endif %}
+      {% if l.bedrooms is not none %}<span>{{ l.bedrooms }} {{ t('card_bed') }}</span>{% endif %}
+      {% if l.bathrooms is not none %}<span>{{ l.bathrooms }} {{ t('card_bath') }}</span>{% endif %}
       {% if l.compound_name %}<span class="compound">{{ l.compound_name }}</span>{% endif %}
     </div>
     {% endif %}
@@ -38,5 +44,9 @@
       {% endif %}
     </div>
     {% endif %}
+    <div class="card-cta">
+      {{ t('card_view_details') }}
+      <span aria-hidden="true">{{ "←" if dir == "rtl" else "→" }}</span>
+    </div>
   </div>
 </a>

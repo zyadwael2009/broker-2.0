@@ -1,13 +1,20 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/env.dart';
+import '../../../core/bidi.dart';
 import '../../../l10n/gen/app_localizations.dart';
+import '../../../router.dart';
 import '../../../theme.dart';
 import '../../auth/data/models.dart' show AuthException;
 import '../../auth/presentation/auth_controller.dart';
+import '../../listings/data/listings_repository.dart';
+import '../../listings/data/models.dart' show ListingDto;
 import '../../ratings/data/models.dart' as ratings;
 import '../../ratings/data/ratings_repository.dart';
 import '../../ratings/presentation/rate_broker_dialog.dart';
@@ -40,6 +47,7 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
   Timer? _poll;
   int _lastId = 0;
   ThreadDto? _resolvedHint; // populated from server when widget.hint is null
+  ListingDto? _listing;
   ratings.RatingDto? _myRating;
   bool _myRatingChecked = false;
   int _myRatingRetries = 0;
@@ -54,10 +62,27 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
     // in parallel so the AppBar can render the counterparty name.
     if (widget.hint == null) {
       unawaited(_fetchHint());
+    } else {
+      unawaited(_fetchListing(widget.hint!.listingId));
     }
     _load(initial: true);
     unawaited(_loadMyRating());
     _poll = Timer.periodic(const Duration(seconds: 10), (_) => _load());
+  }
+
+  /// The property being negotiated is the context for every message in
+  /// here, so the header card shows it with its real price and photo.
+  /// Best-effort: a failure just leaves the card off.
+  Future<void> _fetchListing(int listingId) async {
+    try {
+      final l = await ref
+          .read(listingsRepositoryProvider)
+          .get(listingId, usePublic: Env.screenshotMode);
+      if (!mounted) return;
+      setState(() => _listing = l);
+    } catch (_) {
+      // Header card is decoration; the conversation is the screen.
+    }
   }
 
   Future<void> _loadMyRating() async {
@@ -115,6 +140,7 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
           .getThread(widget.threadId);
       if (!mounted) return;
       setState(() => _resolvedHint = t);
+      unawaited(_fetchListing(t.listingId));
     } catch (_) {
       // Silent — the message list still loads. Header just stays generic.
     }
@@ -164,18 +190,7 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
       });
       // Refresh the global inbox badge — polling here just marked ours read.
       unawaited(ref.read(unreadCountProvider.notifier).refresh());
-
-      // Auto-scroll to bottom on new messages (delayed a frame so the
-      // ListView has the new items measured).
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_scrollCtrl.hasClients) {
-          _scrollCtrl.animateTo(
-            _scrollCtrl.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOut,
-          );
-        }
-      });
+      _scrollToBottom();
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -183,6 +198,19 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
         _error = e is AuthException ? e.message : e.toString();
       });
     }
+  }
+
+  void _scrollToBottom() {
+    // Delayed a frame so the ListView has the new items measured.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollCtrl.hasClients) {
+        _scrollCtrl.animateTo(
+          _scrollCtrl.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 
   Future<void> _send() async {
@@ -199,15 +227,7 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
         _sending = false;
         _sendCtrl.clear();
       });
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_scrollCtrl.hasClients) {
-          _scrollCtrl.animateTo(
-            _scrollCtrl.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOut,
-          );
-        }
-      });
+      _scrollToBottom();
     } catch (e) {
       if (!mounted) return;
       setState(() => _sending = false);
@@ -217,6 +237,16 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
     }
   }
 
+  /// Quick replies PREFILL the composer rather than sending. These are
+  /// commitments about a real property — nobody should be able to
+  /// promise a viewing time with one stray tap.
+  void _prefill(String text) {
+    _sendCtrl
+      ..text = text
+      ..selection = TextSelection.collapsed(offset: text.length);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppL10n.of(context)!;
@@ -224,40 +254,31 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
     final meId = auth.user?.id ?? -1;
     final c = context.colors;
     final hint = _hint;
+    final other = hint?.counterparty;
 
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(hint?.counterparty?.fullName ?? '—',
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
-            if (hint?.listingTitle != null)
-              Text(
-                t.conversationWith(hint!.listingTitle!),
-                style: TextStyle(color: c.textMuted, fontSize: 11),
-                overflow: TextOverflow.ellipsis,
-              ),
-          ],
-        ),
+        title: Text(t.threadTitle),
         actions: [
-          if (hint?.counterparty?.role == 'broker' &&
-              hint?.counterparty?.verificationStatus != null)
-            Padding(
-              padding: const EdgeInsetsDirectional.only(end: 12),
-              child: Center(
-                child: VerifiedBadge(
-                  status: hint!.counterparty!.verificationStatus!,
-                  compact: true,
-                ),
-              ),
+          if (hint != null)
+            IconButton(
+              tooltip: t.viewListing,
+              icon: const Icon(Icons.apartment_rounded),
+              onPressed: () =>
+                  context.push('${Routes.listings}/${hint.listingId}'),
             ),
         ],
       ),
       body: SafeArea(
         child: Column(
           children: [
+            if (other != null) _CounterpartyBar(counterparty: other),
+            if (_listing != null)
+              _ListingContextCard(
+                listing: _listing!,
+                onOpen: () =>
+                    context.push('${Routes.listings}/${_listing!.id}'),
+              ),
             Expanded(
               child: _loading
                   ? const Center(child: CircularProgressIndicator())
@@ -271,12 +292,27 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
                         )
                       : ListView.builder(
                           controller: _scrollCtrl,
-                          padding: const EdgeInsets.all(12),
-                          itemCount: _messages.length,
-                          itemBuilder: (context, i) => _Bubble(
-                            message: _messages[i],
-                            isMe: _messages[i].senderId == meId,
-                          ),
+                          padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
+                          // +1 for the on-the-record banner that opens
+                          // every thread.
+                          itemCount: _messages.length + 1,
+                          itemBuilder: (context, i) {
+                            if (i == 0) return const _ThreadSecurityNote();
+                            final index = i - 1;
+                            final msg = _messages[index];
+                            final prev =
+                                index == 0 ? null : _messages[index - 1];
+                            return Column(
+                              children: [
+                                if (_needsDateDivider(prev, msg))
+                                  _DateDivider(when: msg.createdAt),
+                                _Bubble(
+                                  message: msg,
+                                  isMe: msg.senderId == meId,
+                                ),
+                              ],
+                            );
+                          },
                         ),
             ),
             // Buyer + has sent ≥1 message + no rating yet → show the prompt.
@@ -285,14 +321,244 @@ class _ThreadScreenState extends ConsumerState<ThreadScreen>
                 _myRating == null &&
                 _messages.any((m) => m.senderId == meId))
               _RatePromptCard(onTap: _openRateDialog),
+            _QuickReplies(
+              isBroker: auth.user?.role == 'broker',
+              onPick: _prefill,
+            ),
             _Composer(
               controller: _sendCtrl,
               sending: _sending,
               onSend: _send,
               hint: t.sendMessagePlaceholder,
-              sendLabel: t.sendMessage,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  bool _needsDateDivider(MessageDto? prev, MessageDto current) {
+    final now = current.createdAt;
+    if (now == null) return false;
+    if (prev?.createdAt == null) return true;
+    final a = prev!.createdAt!.toLocal();
+    final b = now.toLocal();
+    return a.year != b.year || a.month != b.month || a.day != b.day;
+  }
+}
+
+/// Who you're talking to, pinned under the app bar: name, what they are,
+/// and whether we verified them.
+class _CounterpartyBar extends StatelessWidget {
+  const _CounterpartyBar({required this.counterparty});
+  final ThreadCounterparty counterparty;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppL10n.of(context)!;
+    final c = context.colors;
+    final isBroker = counterparty.role == 'broker';
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: c.surface,
+        border: Border(bottom: BorderSide(color: c.border)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: c.surfaceHigh,
+              shape: BoxShape.circle,
+              border: Border.all(color: c.border),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              counterparty.fullName.trim().isEmpty
+                  ? '?'
+                  : counterparty.fullName.trim().characters.first.toUpperCase(),
+              style: TextStyle(
+                  color: c.textMuted, fontSize: 15, fontWeight: FontWeight.w700),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  counterparty.fullName,
+                  style: TextStyle(
+                      color: c.text, fontSize: 15, fontWeight: FontWeight.w700),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  isBroker ? t.brokerLicensedLabel : t.roleBuyer,
+                  style: TextStyle(color: c.textMuted, fontSize: 11),
+                ),
+              ],
+            ),
+          ),
+          if (isBroker && counterparty.verificationStatus != null)
+            VerifiedBadge(status: counterparty.verificationStatus!, compact: true),
+        ],
+      ),
+    );
+  }
+}
+
+class _ListingContextCard extends StatelessWidget {
+  const _ListingContextCard({required this.listing, required this.onOpen});
+  final ListingDto listing;
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppL10n.of(context)!;
+    final c = context.colors;
+    final cover = listing.photos.isNotEmpty ? listing.photos.first : null;
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(12, 10, 12, 0),
+      decoration: BoxDecoration(
+        color: c.surfaceAlt,
+        border: Border.all(color: c.border),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: InkWell(
+        onTap: onOpen,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SizedBox(
+                  width: 54,
+                  height: 46,
+                  child: cover == null
+                      ? Container(
+                          color: c.surfaceHigh,
+                          alignment: Alignment.center,
+                          child: Icon(Icons.image_rounded,
+                              size: 18, color: c.textSubtle),
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: '${Env.apiBaseUrl}${cover.url}',
+                          fit: BoxFit.cover,
+                          placeholder: (_, __) => Container(color: c.surfaceHigh),
+                          errorWidget: (_, __, ___) => Container(
+                            color: c.surfaceHigh,
+                            alignment: Alignment.center,
+                            child: Icon(Icons.image_rounded,
+                                size: 18, color: c.textSubtle),
+                          ),
+                        ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      listing.title,
+                      style: TextStyle(
+                          color: c.text,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      '${listing.priceGrouped} ${listing.listingKind == 'rent' ? t.currencyEgpPerMonth : t.currencyEgp}',
+                      style: TextStyle(
+                          color: c.primary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                t.viewListing,
+                style: TextStyle(
+                    color: c.primary, fontSize: 12, fontWeight: FontWeight.w700),
+              ),
+              Icon(Icons.chevron_left_rounded, size: 18, color: c.primary),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Opens every thread: says what the platform actually does — keeps the
+/// conversation on the record between two identified accounts. It does
+/// not claim end-to-end encryption, which we don't implement.
+class _ThreadSecurityNote extends StatelessWidget {
+  const _ThreadSecurityNote();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppL10n.of(context)!;
+    final c = context.colors;
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: c.surfaceLow,
+        border: Border.all(color: c.border),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.shield_outlined, size: 18, color: c.verified),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              t.threadSecurityNote,
+              style: TextStyle(color: c.textMuted, fontSize: 11, height: 1.5),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DateDivider extends StatelessWidget {
+  const _DateDivider({required this.when});
+  final DateTime? when;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    if (when == null) return const SizedBox.shrink();
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final label = DateFormat.yMMMd(locale).format(when!.toLocal());
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          decoration: BoxDecoration(
+            color: c.surfaceAlt,
+            border: Border.all(color: c.border),
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+                color: c.textMuted, fontSize: 11, fontWeight: FontWeight.w600),
+          ),
         ),
       ),
     );
@@ -336,6 +602,50 @@ class _RatePromptCard extends StatelessWidget {
   }
 }
 
+/// The three things people actually type in a property negotiation.
+/// Tapping one drops it in the composer to edit and send.
+class _QuickReplies extends StatelessWidget {
+  const _QuickReplies({required this.isBroker, required this.onPick});
+  final bool isBroker;
+  final ValueChanged<String> onPick;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppL10n.of(context)!;
+    final c = context.colors;
+    final replies = isBroker
+        ? [t.quickReplyBrokerViewing, t.quickReplyBrokerDocs, t.quickReplyBrokerPrice]
+        : [t.quickReplyBuyerViewing, t.quickReplyBuyerDocs, t.quickReplyBuyerPrice];
+
+    return SizedBox(
+      height: 52,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        itemCount: replies.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, i) => InkWell(
+          onTap: () => onPick(replies[i]),
+          borderRadius: BorderRadius.circular(999),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: c.surfaceAlt,
+              border: Border.all(color: c.border),
+              borderRadius: BorderRadius.circular(999),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              replies[i],
+              style: TextStyle(
+                  color: c.textMuted, fontSize: 12, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _Bubble extends StatelessWidget {
   const _Bubble({required this.message, required this.isMe});
@@ -345,8 +655,11 @@ class _Bubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final bg = isMe ? c.primary : c.surfaceAlt;
-    final fg = isMe ? Colors.white : c.text;
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final bg = isMe ? c.primary : c.surface;
+    // Primary-ink on teal in dark mode per the design system's button
+    // rule — white on this teal fails contrast.
+    final fg = isMe ? (dark ? c.background : Colors.white) : c.text;
     final when = message.createdAt;
     final stamp = when == null
         ? ''
@@ -359,10 +672,11 @@ class _Bubble extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.72,
+          maxWidth: MediaQuery.of(context).size.width * 0.76,
         ),
         decoration: BoxDecoration(
           color: bg,
+          border: isMe ? null : Border.all(color: c.border),
           borderRadius: BorderRadiusDirectional.only(
             topStart: const Radius.circular(14),
             topEnd: const Radius.circular(14),
@@ -373,14 +687,39 @@ class _Bubble extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(message.body, style: TextStyle(color: fg, fontSize: 14, height: 1.35)),
-            const SizedBox(height: 2),
             Text(
-              stamp,
-              style: TextStyle(
-                color: isMe ? Colors.white70 : c.textSubtle,
-                fontSize: 10,
-              ),
+              message.body,
+              // Message bodies are user text: an English sentence in
+              // the Arabic UI needs its own direction or its final
+              // '?' lands on the wrong side.
+              textDirection: directionOf(message.body),
+              style: TextStyle(color: fg, fontSize: 14, height: 1.45),
+            ),
+            const SizedBox(height: 3),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  stamp,
+                  style: TextStyle(
+                    color: isMe
+                        ? fg.withValues(alpha: 0.7)
+                        : c.textSubtle,
+                    fontSize: 10,
+                  ),
+                ),
+                if (isMe) ...[
+                  const SizedBox(width: 4),
+                  // Single tick = delivered, double = the other side
+                  // opened it. Read state comes from the server, so it
+                  // is a fact rather than an optimistic guess.
+                  Icon(
+                    message.readAt == null ? Icons.check_rounded : Icons.done_all_rounded,
+                    size: 13,
+                    color: fg.withValues(alpha: 0.75),
+                  ),
+                ],
+              ],
             ),
           ],
         ),
@@ -395,17 +734,16 @@ class _Composer extends StatelessWidget {
     required this.sending,
     required this.onSend,
     required this.hint,
-    required this.sendLabel,
   });
   final TextEditingController controller;
   final bool sending;
   final VoidCallback onSend;
   final String hint;
-  final String sendLabel;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
+    final dark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
       decoration: BoxDecoration(
@@ -424,28 +762,47 @@ class _Composer extends StatelessWidget {
               textInputAction: TextInputAction.newline,
               decoration: InputDecoration(
                 hintText: hint,
+                fillColor: c.surfaceAlt,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: BorderSide(color: c.border),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: BorderSide(color: c.primary, width: 1.6),
                 ),
                 counterText: '',
               ),
             ),
           ),
           const SizedBox(width: 8),
-          FilledButton(
-            onPressed: sending ? null : onSend,
-            style: FilledButton.styleFrom(
-              minimumSize: const Size(64, 48),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
+          SizedBox(
+            width: 48,
+            height: 48,
+            child: Material(
+              color: c.primary,
+              shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: sending ? null : onSend,
+                child: Center(
+                  child: sending
+                      ? SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: dark ? c.background : Colors.white,
+                          ),
+                        )
+                      : Icon(Icons.send_rounded,
+                          size: 20, color: dark ? c.background : Colors.white),
+                ),
               ),
             ),
-            child: sending
-                ? const SizedBox(
-                    width: 16, height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                  )
-                : const Icon(Icons.send_rounded),
           ),
         ],
       ),

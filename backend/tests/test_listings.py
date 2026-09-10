@@ -461,3 +461,81 @@ def test_sold_listing_has_no_expiry(client, verified_broker):
                       headers=bearer(verified_broker["tokens"])).get_json()
     assert body["is_expired"] is False
     assert body["expires_at"] is None
+
+
+# ── Phase 3 redesign: free-text search, sort, broker filter ────────────
+
+def _second_verified_broker(app, client):
+    """A second verified broker, so broker-scoped queries have something
+    to exclude."""
+    from tests.conftest import _promote_broker_to_verified, _register
+
+    payload = _register(client, "01000000055", "broker", "Rival Broker")
+    _promote_broker_to_verified(app, payload["tokens"], payload["user"]["id"])
+    return payload
+
+
+def test_free_text_search_matches_district_and_title(client, buyer, verified_broker):
+    _create_listing(client, verified_broker["tokens"],
+                    title="Nile-view apartment", district="Fifth Settlement")
+    _create_listing(client, verified_broker["tokens"],
+                    title="Garden duplex", district="Zayed Dunes",
+                    city="Sheikh Zayed")
+
+    h = bearer(buyer["tokens"])
+    by_district = client.get("/listings?q=Zayed", headers=h).get_json()
+    assert [l["title"] for l in by_district] == ["Garden duplex"]
+
+    by_title = client.get("/listings?q=nile", headers=h).get_json()
+    assert [l["title"] for l in by_title] == ["Nile-view apartment"]
+
+    assert client.get("/listings?q=nothingmatches", headers=h).get_json() == []
+
+
+def test_free_text_search_accepts_a_pasted_listing_number(client, buyer, verified_broker):
+    listing_id = _create_listing(
+        client, verified_broker["tokens"], title="Nile-view apartment"
+    ).get_json()["id"]
+    _create_listing(client, verified_broker["tokens"], title="Garden duplex")
+
+    found = client.get(f"/listings?q={listing_id}", headers=bearer(buyer["tokens"])).get_json()
+    assert [l["id"] for l in found] == [listing_id]
+
+
+def test_broker_id_filter_scopes_to_one_broker(client, buyer, verified_broker, app):
+    """Backs the "listings" tab on a broker's public profile."""
+    mine = _create_listing(client, verified_broker["tokens"]).get_json()["id"]
+    other = _second_verified_broker(app, client)
+    _create_listing(client, other["tokens"], title="Someone else's flat")
+
+    h = bearer(buyer["tokens"])
+    broker_id = verified_broker["user"]["id"]
+    rows = client.get(f"/listings?broker_id={broker_id}", headers=h).get_json()
+    assert [l["id"] for l in rows] == [mine]
+
+    assert client.get("/listings?broker_id=abc", headers=h).status_code == 400
+
+
+def test_sort_by_price(client, buyer, verified_broker):
+    _create_listing(client, verified_broker["tokens"],
+                    title="Cheap", price_egp="1000000.00")
+    _create_listing(client, verified_broker["tokens"],
+                    title="Pricey", price_egp="9000000.00")
+
+    h = bearer(buyer["tokens"])
+    asc = client.get("/listings?sort=price_asc", headers=h).get_json()
+    assert [l["title"] for l in asc] == ["Cheap", "Pricey"]
+
+    desc = client.get("/listings?sort=price_desc", headers=h).get_json()
+    assert [l["title"] for l in desc] == ["Pricey", "Cheap"]
+
+    # No sort arg → the endpoint still answers with everything (the
+    # default ordering is created_at desc, which SQLite's second-
+    # resolution timestamps make a coin flip for same-second rows).
+    default = client.get("/listings", headers=h).get_json()
+    assert {l["title"] for l in default} == {"Cheap", "Pricey"}
+
+
+def test_invalid_sort_returns_400_not_500(client, buyer):
+    res = client.get("/listings?sort=cheapest", headers=bearer(buyer["tokens"]))
+    assert res.status_code == 400

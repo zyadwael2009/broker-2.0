@@ -20,7 +20,13 @@ Future<void> main() async {
   // so we don't flash a wrong theme or bounce a returning user to /login.
   // Failures (platform channel not ready, storage corrupted) must NOT
   // block runApp — the app can still boot to the login screen.
-  await Future.wait([
+  //
+  // The timeout matters as much as the catchError: a storage plugin that
+  // never answers (rather than throwing) would hold the first frame
+  // forever, and a user staring at a blank canvas cannot even reach the
+  // login screen to work around it. Nothing is lost by giving up early —
+  // these are StateNotifiers, so a late answer still repaints the app.
+  await Future.wait<void>([
     container
         .read(themeControllerProvider.notifier)
         .load()
@@ -33,7 +39,10 @@ Future<void> main() async {
         .read(authControllerProvider.notifier)
         .hydrate()
         .catchError((_) {}),
-  ]);
+  ]).timeout(
+    const Duration(seconds: 3),
+    onTimeout: () => const <void>[],
+  );
 
   runApp(
     UncontrolledProviderScope(container: container, child: const BrokerApp()),

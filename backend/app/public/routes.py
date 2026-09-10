@@ -27,7 +27,11 @@ from flask import (
 from ..extensions import db
 from ..geo import GOVERNORATES, all_governorates, cities_for
 from ..geo.slug import city_by_slug, gov_by_slug, slugify
-from ..listings.routes import apply_listing_filters
+from ..listings.routes import (
+    LISTING_SORTS,
+    apply_listing_filters,
+    apply_listing_sort,
+)
 from ..models.broker_profile import BrokerProfile, VerificationStatus
 from ..models.broker_rating import BrokerRating
 from ..models.listing import Listing, ListingKind, ListingStatus, PropertyType
@@ -169,6 +173,25 @@ def _price_display(v: Decimal | None) -> str:
 
 # ── JSON endpoints (no auth) ───────────────────────────────────────────
 
+@public_bp.app_context_processor
+def _inject_public_helpers():
+    """Template helpers shared by every public page.
+
+    `live_listing_count` is a callable, not a value: only the pages that
+    actually print the number pay for the COUNT query.
+    """
+    def live_listing_count() -> int:
+        try:
+            return _active_verified_query().count()
+        except Exception:  # pragma: no cover — a broken count must not 500 a page
+            return 0
+
+    return {
+        "live_listing_count": live_listing_count,
+        "current_year": datetime.now(timezone.utc).year,
+    }
+
+
 @public_bp.get("/api/public/listings")
 def api_listings():
     q = _active_verified_query()
@@ -176,10 +199,13 @@ def api_listings():
     if err is not None:
         return err
 
+    q, err = apply_listing_sort(q, request.args)
+    if err is not None:
+        return err
+
     # Bounded so anonymous scraping can't drain the DB.
     limit = min(int(request.args.get("limit", "60")), 200)
-    q = q.order_by(Listing.created_at.desc()).limit(limit)
-    rows = q.all()
+    rows = q.limit(limit).all()
 
     ratings = aggregate_for_many({l.broker_id for l in rows if l.broker_id})
     return jsonify([
@@ -592,8 +618,16 @@ def browse():
         # Fall back to the unfiltered feed.
         q = _active_verified_query()
 
-    q = q.order_by(Listing.created_at.desc()).limit(60)
-    listings = q.all()
+    # Total before the page cap, so the results bar can say how many
+    # verified listings actually matched rather than how many we drew.
+    total_matches = q.count()
+
+    q, sort_err = apply_listing_sort(q, request.args)
+    if sort_err is not None:
+        # Same policy as a bad filter: fall back rather than 400 an HTML page.
+        q, _ = apply_listing_sort(q, {})
+
+    listings = q.limit(60).all()
     cards = _build_card_dicts(listings)
 
     # Values currently selected — echoed back so the template highlights
@@ -606,6 +640,7 @@ def browse():
         "bedrooms_min": request.args.get("bedrooms_min") or "",
         "min_price": request.args.get("min_price") or "",
         "max_price": request.args.get("max_price") or "",
+        "sort": request.args.get("sort") or "newest",
     }
 
     # Governorate → city dropdown data. Pre-fill cities for the selected
@@ -622,6 +657,9 @@ def browse():
         cities_by_gov={g["en"]: g["cities"] for g in GOVERNORATES},
         property_types=[t.value for t in PropertyType],
         listing_kinds=[k.value for k in ListingKind],
+        sort_options=LISTING_SORTS,
+        total_matches=total_matches,
+        shown_count=len(cards),
         canonical=_absolute("/browse"),
     )
 

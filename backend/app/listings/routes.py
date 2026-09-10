@@ -163,36 +163,48 @@ def _require_verified_broker(user: User | None):
 
 # ── endpoints ──────────────────────────────────────────────────────────
 
-@listings_bp.get("")
-@jwt_required()
-def list_listings():
-    """Public listing feed. Auto-hides expired listings AND listings whose
-    broker is no longer verified/active — the whole verification flow
-    exists to gate what buyers see, so this must enforce it."""
+def visible_listings_query():
+    """Base query for listings a buyer is allowed to see: ACTIVE, still
+    inside the 30-day confirm window, from an active AND verified broker.
+
+    The whole verification flow exists to gate what buyers see, so every
+    buyer-facing feed (browse, favorites, a broker's public listings)
+    starts here rather than re-deriving the rules.
+    """
     from sqlalchemy import func
     from ..models.broker_profile import BrokerProfile
 
-    now = datetime.now(timezone.utc)
-    cutoff = now - LISTING_TTL
+    cutoff = datetime.now(timezone.utc) - LISTING_TTL
+    # last_confirmed_at is nullable; use created_at as the baseline via COALESCE.
+    baseline = func.coalesce(Listing.last_confirmed_at, Listing.created_at)
 
-    q = (
+    return (
         Listing.query
         .join(User, Listing.broker_id == User.id)
         .join(BrokerProfile, BrokerProfile.user_id == User.id)
         .filter(Listing.status == ListingStatus.ACTIVE)
         .filter(User.is_active.is_(True))
         .filter(BrokerProfile.verification_status == VerificationStatus.VERIFIED)
+        .filter(baseline > cutoff)
     )
 
-    # last_confirmed_at is nullable; use created_at as the baseline via COALESCE.
-    baseline = func.coalesce(Listing.last_confirmed_at, Listing.created_at)
-    q = q.filter(baseline > cutoff)
+
+@listings_bp.get("")
+@jwt_required()
+def list_listings():
+    """Public listing feed. Auto-hides expired listings AND listings whose
+    broker is no longer verified/active — the whole verification flow
+    exists to gate what buyers see, so this must enforce it."""
+    q = visible_listings_query()
 
     q, err = apply_listing_filters(q, request.args)
     if err is not None:
         return err
 
-    q = q.order_by(Listing.created_at.desc())
+    q, err = apply_listing_sort(q, request.args)
+    if err is not None:
+        return err
+
     return jsonify([_listing_public_dict(l) for l in q.all()]), 200
 
 
@@ -257,6 +269,38 @@ def apply_listing_filters(q, args):
     if compound:
         q = q.filter(Listing.compound_name == compound)
 
+    # A single broker's listings — powers the "listings" tab on the
+    # broker's public profile.
+    broker_raw = args.get("broker_id")
+    if broker_raw is not None and broker_raw != "":
+        try:
+            broker_id = int(broker_raw)
+        except ValueError:
+            return q, (jsonify(error=f"Invalid broker_id: {broker_raw!r}"), 400)
+        q = q.filter(Listing.broker_id == broker_id)
+
+    # Free-text search — one box over the fields a buyer actually types:
+    # district/city/compound names, words from the title, or the listing
+    # number off a shared link. LIKE (not full-text) because the corpus
+    # is small and Arabic stemming would need a real search engine to be
+    # worth the complexity.
+    text = (args.get("q") or "").strip()
+    if text:
+        from sqlalchemy import or_
+
+        like = f"%{text}%"
+        clauses = [
+            Listing.title.ilike(like),
+            Listing.governorate.ilike(like),
+            Listing.city.ilike(like),
+            Listing.district.ilike(like),
+            Listing.compound_name.ilike(like),
+        ]
+        # A bare number is almost always a listing id pasted from a link.
+        if text.isdigit():
+            clauses.append(Listing.id == int(text))
+        q = q.filter(or_(*clauses))
+
     for arg_name, op in (("min_price", ">="), ("max_price", "<=")):
         raw = args.get(arg_name)
         if raw is None or raw == "":
@@ -270,6 +314,29 @@ def apply_listing_filters(q, args):
         )
 
     return q, None
+
+
+# Sort keys the clients may ask for. `newest` mirrors the old hardcoded
+# ordering, so an existing caller that sends no `sort` is unaffected.
+LISTING_SORTS = ("newest", "oldest", "price_asc", "price_desc", "area_desc")
+
+
+def apply_listing_sort(q, args):
+    """Order a listing query from the `sort` arg. Returns the same
+    (query, error_response) shape as `apply_listing_filters`."""
+    sort = (args.get("sort") or "newest").strip()
+    if sort not in LISTING_SORTS:
+        return q, (jsonify(error=f"Invalid sort: {sort!r}"), 400)
+
+    if sort == "oldest":
+        return q.order_by(Listing.created_at.asc()), None
+    if sort == "price_asc":
+        return q.order_by(Listing.price_egp.asc(), Listing.created_at.desc()), None
+    if sort == "price_desc":
+        return q.order_by(Listing.price_egp.desc(), Listing.created_at.desc()), None
+    if sort == "area_desc":
+        return q.order_by(Listing.area_m2.desc(), Listing.created_at.desc()), None
+    return q.order_by(Listing.created_at.desc()), None
 
 
 @listings_bp.get("/mine")

@@ -15,6 +15,175 @@ class AppL10nAr extends AppL10n {
   String get signIn => 'تسجيل الدخول';
 
   @override
+  String get comingSoon => 'قريباً';
+
+  @override
+  String get loginHeroTitle => 'مرحباً بك في وسيط';
+
+  @override
+  String get loginHeroSubtitle =>
+      'المنصة الأولى الموثقة للوساطة العقارية في مصر.';
+
+  @override
+  String get loginCredentialPill => 'اعتماد رسمي وسجل عقاري إلكتروني';
+
+  @override
+  String get loginPhoneHint => 'مربوط بالرقم القومي';
+
+  @override
+  String get loginAltDivider => 'أو المتابعة عبر';
+
+  @override
+  String get loginSsoDigitalEgypt => 'مصر الرقمية (النفاذ الوطني)';
+
+  @override
+  String get loginSsoDigitalEgyptSub => 'التحقق اللحظي عبر بطاقة الرقم القومي';
+
+  @override
+  String get loginOtpTitle => 'تسجيل سريع برمز التحقق (SMS OTP)';
+
+  @override
+  String get loginOtpSub => 'دخول بضغطة واحدة عبر التحقق من الهاتف';
+
+  @override
+  String get loginNoAccountPrompt => 'ليس لديك حساب؟';
+
+  @override
+  String get loginRegisterCta => 'إنشاء حساب جديد';
+
+  @override
+  String get loginTrustContracts => 'عقود رسمية';
+
+  @override
+  String get loginTrustContractsSub => 'موثقة ومطابقة للقانون';
+
+  @override
+  String get loginTrustInspect => 'معاينة فنية';
+
+  @override
+  String get loginTrustInspectSub => 'فحص ميداني دقيق';
+
+  @override
+  String get loginFooterTitle => 'ضمان الأمان والشرعية العقارية';
+
+  @override
+  String get loginFooterSub =>
+      'جميع العقارات والوسطاء مفحوصون ومعتمدون رسمياً عبر هيئة السجل العقاري.';
+
+  @override
+  String get otpLoginTitle => 'دخول برمز التحقق';
+
+  @override
+  String get otpLoginComingSoon =>
+      'دخول الرمز فقط بيوصل قريباً. استخدم الهاتف وكلمة المرور دلوقتي.';
+
+  @override
+  String get registerHeroPill => 'منظومة التسجيل العقاري الرقمي';
+
+  @override
+  String get registerHeroTitle => 'انضم إلى شبكة وسيط الموثقة';
+
+  @override
+  String get registerHeroSubtitle =>
+      'اختر نوع حسابك للبدء في تصفح أو عرض العقارات المفحوصة والمطابقة للسجل العقاري.';
+
+  @override
+  String get registerAccountType => 'نوع الحساب';
+
+  @override
+  String registerStep(int current, int total) {
+    return 'خطوة $current من $total';
+  }
+
+  @override
+  String get registerRoleBrokerLicensed => 'وسيط معتمد';
+
+  @override
+  String get registerRoleBrokerLicenseChip => 'رخصة';
+
+  @override
+  String get registerTrustBannerTitle => 'ضمانة التحقق والشفافية';
+
+  @override
+  String get registerTrustBannerSub =>
+      'حساب المشتري يتيح لك فحص حجية العقود والسجلات المساحية دون رسوم سمسرة خفية.';
+
+  @override
+  String get registerFullNameHint => '(كما في بطاقة الرقم القومي)';
+
+  @override
+  String get registerFullNameExample => 'مثال: أحمد عبد الله الشربيني';
+
+  @override
+  String get emailField => 'البريد الإلكتروني';
+
+  @override
+  String get registerEmailOptionalHint => 'اختياري';
+
+  @override
+  String get registerPasswordHint => '8+ أحرف ورموز';
+
+  @override
+  String get registerPasswordRule =>
+      'يجب أن تشمل أرقاماً، أحرفاً كبيرة وصغيرة، ورمزاً خاصاً.';
+
+  @override
+  String get registerLinkRegistryTitle => 'ربط فوري بالسجل العيني';
+
+  @override
+  String get registerLinkRegistrySub => 'تدقيق إلكتروني مشفر للعقود المسجلة.';
+
+  @override
+  String get registerAgreeTerms =>
+      'أوافق على شروط الخدمة وسياسة التحقق من الملكية العقارية وحماية البيانات.';
+
+  @override
+  String get registerMustAgreeTerms => 'اقبل الشروط أولاً عشان نكمل.';
+
+  @override
+  String get registerContinueCta => 'إنشاء الحساب والمتابعة';
+
+  @override
+  String get registerTrustEncrypted => 'بيانات مشفرة';
+
+  @override
+  String get registerTrustLicensed => 'ترخيص قانوني';
+
+  @override
+  String get registerTrustSupport => 'دعم مستمر 24/7';
+
+  @override
+  String get verifyPhoneIntro =>
+      'تم إرسال رمز التحقق المكون من 6 أرقام إلى الرقم';
+
+  @override
+  String get verifyPhoneEditNumber => 'تعديل الرقم';
+
+  @override
+  String get verifyPhoneCodeSent => 'تم إرسال الرمز.';
+
+  @override
+  String verifyPhoneDigitsEntered(int n) {
+    return 'تم إدخال $n من 6 أرقام';
+  }
+
+  @override
+  String get verifyPhoneAutoDecrypt => 'مشفر تلقائياً';
+
+  @override
+  String get verifyPhoneResendInPrefix => 'إعادة إرسال الرمز خلال';
+
+  @override
+  String get verifyPhoneResendSms => 'إعادة الإرسال عبر رسالة نصية';
+
+  @override
+  String get verifyPhoneConfirmCta => 'تأكيد الرمز والمتابعة';
+
+  @override
+  String get verifyPhoneSecurityNote =>
+      'وسيط يحمي بياناتك برمز تشفير آمن 256-bit.';
+
+  @override
   String get createAccount => 'إنشاء حساب';
 
   @override
@@ -34,6 +203,22 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get logout => 'تسجيل الخروج';
+
+  @override
+  String get deleteAccount => 'حذف الحساب';
+
+  @override
+  String get deleteAccountTitle => 'تحذف حسابك نهائياً؟';
+
+  @override
+  String get deleteAccountBody =>
+      'هذا بيمسح حسابك للأبد وبيخفي إعلاناتك. مفيش تراجع. أدخل كلمة السر عشان نأكد.';
+
+  @override
+  String get deleteAccountConfirm => 'احذف نهائياً';
+
+  @override
+  String get deleteAccountDone => 'تم حذف حسابك.';
 
   @override
   String get refresh => 'تحديث';
@@ -60,7 +245,7 @@ class AppL10nAr extends AppL10n {
   String get ok => 'حسناً';
 
   @override
-  String get roleBuyer => 'مشتري / مستأجر';
+  String get roleBuyer => 'مشترٍ';
 
   @override
   String get roleBroker => 'سمسار';
@@ -257,13 +442,50 @@ class AppL10nAr extends AppL10n {
       'التوثيق يؤكد أن فريقنا راجع تسجيلك في GOEIC، وهو لا يغني عن التحقق القانوني المستقل.';
 
   @override
-  String get myListings => 'قوائمي';
+  String get myListings => 'عقاراتي';
 
   @override
   String get browseListings => 'تصفح القوائم';
 
   @override
-  String get newListing => 'قائمة جديدة';
+  String get navBrowse => 'تصفح';
+
+  @override
+  String get navMyListings => 'عقاراتي';
+
+  @override
+  String get navSaved => 'المفضلة';
+
+  @override
+  String get navMessages => 'محادثات';
+
+  @override
+  String get navAccount => 'حسابي';
+
+  @override
+  String get navAdminQueue => 'الطلبات';
+
+  @override
+  String get savedEmptyTitle => 'مفيش عقارات محفوظة لسه.';
+
+  @override
+  String get savedEmptySub =>
+      'اضغط على أيقونة القلب في أي إعلان عشان تحفظه هنا.';
+
+  @override
+  String get accountPreferences => 'التفضيلات';
+
+  @override
+  String get accountTheme => 'الوضع';
+
+  @override
+  String get accountLanguage => 'اللغة';
+
+  @override
+  String get accountActions => 'الحساب';
+
+  @override
+  String get newListing => 'إضافة عقار';
 
   @override
   String get priceTransparency => 'شفافية الأسعار';
@@ -1024,4 +1246,487 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get privacyLink => 'سياسة الخصوصية';
+
+  @override
+  String get brandTagline => 'عقارات موثّقة رسميًا';
+
+  @override
+  String get clear => 'مسح';
+
+  @override
+  String get copiedToClipboard => 'تم النسخ.';
+
+  @override
+  String get currencyEgp => 'ج.م';
+
+  @override
+  String get currencyEgpPerMonth => 'ج.م / شهريًا';
+
+  @override
+  String get unitM2 => 'م²';
+
+  @override
+  String get areaLabelShort => 'المساحة';
+
+  @override
+  String get typeLabelShort => 'النوع';
+
+  @override
+  String get detailsCta => 'التفاصيل';
+
+  @override
+  String get brokerLicensedLabel => 'وسيط عقاري معتمد';
+
+  @override
+  String listingRef(int id) {
+    return 'رقم الإعلان #$id';
+  }
+
+  @override
+  String get listingSaved => 'تمت الإضافة إلى المحفوظات.';
+
+  @override
+  String get listingUnsaved => 'تمت الإزالة من المحفوظات.';
+
+  @override
+  String get listingSaveFailed => 'تعذّر تحديث قائمة المحفوظات.';
+
+  @override
+  String get listingSaveAction => 'حفظ الإعلان';
+
+  @override
+  String get listingUnsaveAction => 'إزالة من المحفوظات';
+
+  @override
+  String get browseSearchHint => 'ابحث بالحي، المدينة، أو رقم الإعلان…';
+
+  @override
+  String browseVerifiedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count عقار موثّق',
+      many: '$count عقارًا موثّقًا',
+      few: '$count عقارات موثّقة',
+      two: 'عقاران موثّقان',
+      one: 'عقار موثّق واحد',
+      zero: 'لا توجد عقارات مطابقة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filtersAdvanced => 'تصفية متقدمة';
+
+  @override
+  String get sortLabel => 'الترتيب';
+
+  @override
+  String get sortNewest => 'الأحدث';
+
+  @override
+  String get sortPriceAsc => 'السعر: من الأقل';
+
+  @override
+  String get sortPriceDesc => 'السعر: من الأعلى';
+
+  @override
+  String get sortAreaDesc => 'الأكبر مساحة';
+
+  @override
+  String get emptySearchTitle => 'لا توجد نتائج لهذا البحث';
+
+  @override
+  String get emptySearchSub => 'جرّب كلمات أقل، أو اسم الحي، أو رقم الإعلان.';
+
+  @override
+  String get listingAuditTitle => 'ملف تدقيق العقار';
+
+  @override
+  String brokerRatingTag(String avg, int count) {
+    return '$avg من $count تقييم';
+  }
+
+  @override
+  String get paneDocuments => 'المستندات';
+
+  @override
+  String get paneDescription => 'الوصف';
+
+  @override
+  String get paneBroker => 'الوسيط';
+
+  @override
+  String get noDescription => 'لم يكتب الوسيط وصفًا لهذا العقار.';
+
+  @override
+  String get brokerUnavailable => 'بيانات الوسيط غير متاحة لهذا الإعلان.';
+
+  @override
+  String get viewTrustFile => 'عرض ملف الثقة';
+
+  @override
+  String get viewOnMap => 'الخريطة';
+
+  @override
+  String get openInMaps => 'فتح في الخرائط';
+
+  @override
+  String get mapOpenFailed => 'تعذّر فتح تطبيق الخرائط.';
+
+  @override
+  String get locationSectionTitle => 'الموقع الذي حدّده الوسيط';
+
+  @override
+  String get brokerTrustMetrics => 'مؤشرات الثقة';
+
+  @override
+  String brokerGoeicChip(String number) {
+    return 'سجل GOEIC #$number';
+  }
+
+  @override
+  String brokerMemberSince(String date) {
+    return 'على وسيط منذ $date';
+  }
+
+  @override
+  String brokerLiveListings(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count إعلان نشط',
+      many: '$count إعلانًا نشطًا',
+      few: '$count إعلانات نشطة',
+      two: 'إعلانان نشطان',
+      one: 'إعلان نشط واحد',
+      zero: 'لا توجد إعلانات نشطة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get brokerLiveListingsLabel => 'إعلانات نشطة';
+
+  @override
+  String get brokerAdminChecked => 'راجعه فريقنا';
+
+  @override
+  String get brokerRatedThreads => 'تقييمات المشترين';
+
+  @override
+  String get brokerMetricsHonestNote =>
+      'التقييمات من مشترين تواصلوا فعلًا مع الوسيط داخل التطبيق. والتوثيق يعني أننا راجعنا مستند تسجيله في GOEIC — وليس ضمانًا لأي صفقة بعينها.';
+
+  @override
+  String brokerTabListings(int count) {
+    return 'الإعلانات ($count)';
+  }
+
+  @override
+  String brokerTabReviews(int count) {
+    return 'التقييمات ($count)';
+  }
+
+  @override
+  String get brokerNoListings => 'لا توجد إعلانات نشطة لهذا الوسيط حاليًا.';
+
+  @override
+  String get myListingsSubtitle =>
+      'إدارة محفظتك العقارية وتوثيقها ومتابعة انتشارها.';
+
+  @override
+  String get portfolioPerformanceTitle => 'هذا الأسبوع';
+
+  @override
+  String get seeDetails => 'التفاصيل';
+
+  @override
+  String get statViews7d => 'المشاهدات (٧ أيام)';
+
+  @override
+  String get statInquiries7d => 'الاستفسارات (٧ أيام)';
+
+  @override
+  String get statLiveListings => 'إعلانات نشطة';
+
+  @override
+  String bucketLive(int count) {
+    return 'النشطة ($count)';
+  }
+
+  @override
+  String bucketExpired(int count) {
+    return 'تحتاج تأكيدًا ($count)';
+  }
+
+  @override
+  String bucketArchived(int count) {
+    return 'المؤرشفة ($count)';
+  }
+
+  @override
+  String get bucketEmptyExpired => 'لا شيء ينتظر منك إجراءً';
+
+  @override
+  String get bucketEmptyExpiredSub =>
+      'يظهر الإعلان هنا بعد مرور ٣٠ يومًا دون تأكيد.';
+
+  @override
+  String get bucketEmptyArchived => 'لا توجد إعلانات مؤرشفة';
+
+  @override
+  String get bucketEmptyArchivedSub => 'تُحفظ هنا الإعلانات المباعة والمخفية.';
+
+  @override
+  String get whyVerificationTitle => 'لماذا علامة التوثيق مهمة';
+
+  @override
+  String get whyVerificationBody =>
+      'لا يرى المشترون إلا إعلانات الوسطاء الذين راجع فريقنا تسجيلهم في الهيئة العامة للرقابة على الصادرات والواردات. حافظ على تحديث مستنداتك لتبقى إعلاناتك ظاهرة.';
+
+  @override
+  String get manageListing => 'إدارة الإعلان';
+
+  @override
+  String metricViews(int count) {
+    return '$count مشاهدة';
+  }
+
+  @override
+  String metricInquiries(int count) {
+    return '$count استفسار هذا الأسبوع';
+  }
+
+  @override
+  String get listingStatusLive => 'نشط';
+
+  @override
+  String get listingStatusExpiring => 'قارب على الانتهاء';
+
+  @override
+  String get listingStatusExpired => 'منتهي';
+
+  @override
+  String get listingStatusSold => 'تم البيع';
+
+  @override
+  String get listingStatusHidden => 'مخفي';
+
+  @override
+  String get inboxTitle => 'المحادثات';
+
+  @override
+  String get inboxSearchHint => 'ابحث بالاسم، العقار، أو رقم الإعلان…';
+
+  @override
+  String inboxFilterAll(int count) {
+    return 'الكل ($count)';
+  }
+
+  @override
+  String inboxFilterUnread(int count) {
+    return 'غير مقروءة ($count)';
+  }
+
+  @override
+  String get inboxTrustTitle => 'محادثات مسجّلة رسميًا';
+
+  @override
+  String get inboxTrustBody =>
+      'كل محادثة مرتبطة بإعلان وبحسابات محددة الهوية، فيبقى ما تم الاتفاق عليه قابلًا للرجوع إليه.';
+
+  @override
+  String get inboxPrivacyNote => 'محادثاتك مرئية لك وللطرف الآخر فقط.';
+
+  @override
+  String get inboxNoMatches => 'لا توجد محادثة مطابقة.';
+
+  @override
+  String get threadNoMessagesYet => 'لا رسائل بعد';
+
+  @override
+  String get safetyGuidanceTitle => 'قبل أن تدفع أي مبلغ';
+
+  @override
+  String get safetyNoCashTitle => 'لا نقود بدون عقد';
+
+  @override
+  String get safetyNoCashBody => 'لا تسلّم عربونًا قبل توقيع عقد مسجّل.';
+
+  @override
+  String get safetyCheckDeedTitle => 'راجع سند الملكية بنفسك';
+
+  @override
+  String get safetyCheckDeedBody =>
+      'تأكد من الملكية في الشهر العقاري قبل أي دفع.';
+
+  @override
+  String get threadTitle => 'المحادثة';
+
+  @override
+  String get viewListing => 'عرض العقار';
+
+  @override
+  String get threadSecurityNote =>
+      'تُحفظ هذه المحادثة كسجل بين حسابين محددي الهوية على وسيط. وسيط لا يقرأها، وهي ليست مشفّرة طرفًا لطرف.';
+
+  @override
+  String get quickReplyBuyerViewing => 'هل يمكنني معاينة العقار هذا الأسبوع؟';
+
+  @override
+  String get quickReplyBuyerDocs => 'ما مستندات الملكية الجاهزة؟';
+
+  @override
+  String get quickReplyBuyerPrice => 'هل السعر قابل للتفاوض؟';
+
+  @override
+  String get quickReplyBrokerViewing => 'العقار متاح للمعاينة — أي يوم يناسبك؟';
+
+  @override
+  String get quickReplyBrokerDocs =>
+      'العقد المسجل وسند الملكية جاهزان للاطلاع.';
+
+  @override
+  String get quickReplyBrokerPrice => 'اذكر عرضك وسأنقله للمالك.';
+
+  @override
+  String get createListingSubtitle => 'انشر عقارًا لمشترين موثّقين';
+
+  @override
+  String get stepBack => 'السابق';
+
+  @override
+  String get stepContinue => 'متابعة';
+
+  @override
+  String stepCounter(int current, int total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String get stepType => 'النوع';
+
+  @override
+  String get stepLocation => 'الموقع';
+
+  @override
+  String get stepSpecs => 'المواصفات';
+
+  @override
+  String get stepPhotos => 'الصور';
+
+  @override
+  String get stepReview => 'المراجعة';
+
+  @override
+  String get listingTitleHint => 'مثال: شقة بانورامية — التجمع الخامس';
+
+  @override
+  String get listingDescriptionHint =>
+      'التشطيب، الإطلالة، وما يشمله العقار — أول ما يسأل عنه المشتري.';
+
+  @override
+  String get listingDistrictHint => 'مثال: التجمع الخامس، زايد ديونز';
+
+  @override
+  String get listingFloorHint => 'مثال: ٤ — اتركه فارغًا للفيلا أو الأرض';
+
+  @override
+  String get selectGovernorate => 'اختر المحافظة';
+
+  @override
+  String get selectCity => 'اختر المدينة';
+
+  @override
+  String get selectGovernorateFirst => 'اختر المحافظة أولًا.';
+
+  @override
+  String get selectCityFirst => 'اختر المدينة أو اكتبها.';
+
+  @override
+  String get cityOther => 'مدينة أخرى…';
+
+  @override
+  String get cityOtherHint => 'اكتب اسم المدينة';
+
+  @override
+  String get mapPinTitle => 'تحديد الموقع على الخريطة';
+
+  @override
+  String get mapPinBody =>
+      'يستخدمه المشتري ليعرف مكان العقار فعليًا. قف عند العقار واضغط الزر، أو الصق الإحداثيات.';
+
+  @override
+  String get photosStepHint =>
+      'أول صورة تصبح صورة الغلاف في نتائج البحث. الصور الواسعة بضوء النهار للغرف الرئيسية هي الأفضل.';
+
+  @override
+  String get coverPhoto => 'الغلاف';
+
+  @override
+  String get documentsAfterPublishTitle => 'مستندات الملكية في الخطوة التالية';
+
+  @override
+  String get documentsAfterPublishBody =>
+      'بعد نشر الإعلان، افتحه وأرفق سند الملكية وشهادات المخالصة — فهي ترتبط بالإعلان نفسه.';
+
+  @override
+  String get publishExpiryNote =>
+      'يظل الإعلان في القائمة ٣٠ يومًا. أكّد أن العقار ما زال متاحًا قبل انتهائها ليستمر ظهوره.';
+
+  @override
+  String get locationPermissionDenied => 'تم رفض إذن الموقع.';
+
+  @override
+  String locationReadFailed(String error) {
+    return 'تعذّرت قراءة الموقع: $error';
+  }
+
+  @override
+  String photoPickFailed(String error) {
+    return 'تعذّر اختيار الصور: $error';
+  }
+
+  @override
+  String get adminConsoleTitle => 'مكتب الامتثال';
+
+  @override
+  String get adminConsoleHeading => 'التوثيق والرقابة';
+
+  @override
+  String get adminConsoleSubtitle => 'كل ما ينتظر قرارًا، في طابور واحد.';
+
+  @override
+  String get kpiBrokersLabel => 'توثيق الوسطاء';
+
+  @override
+  String get kpiBrokersHint => 'مستندات GOEIC بانتظار المراجعة';
+
+  @override
+  String get kpiListingsLabel => 'إعلانات مُبلَّغ عنها';
+
+  @override
+  String get kpiListingsHint => 'اشتباه في تكرار الصور';
+
+  @override
+  String get kpiDocumentsLabel => 'مستندات العقارات';
+
+  @override
+  String get kpiDocumentsHint => 'سندات ومخالصات للمراجعة';
+
+  @override
+  String get kpiReportsLabel => 'البلاغات';
+
+  @override
+  String get kpiReportsHint => 'شكاوى مفتوحة من المستخدمين';
+
+  @override
+  String get openFile => 'فتح الملف';
+
+  @override
+  String get goeicNumberLabel => 'رقم GOEIC';
+
+  @override
+  String get imageAttached => 'صورة';
 }

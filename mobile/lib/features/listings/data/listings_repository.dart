@@ -23,6 +23,11 @@ class ListingsRepository {
     bool? furnished,
     String? compound,
     String? deliveryStatus,
+    // Phase 3 redesign — the single search box, the sort control, and the
+    // "listings by this broker" tab on a broker's public profile.
+    String? query,
+    String? sort,
+    int? brokerId,
     // Screenshot-mode builds hit the public feed at `/api/public/listings`
     // so we can capture the browse UI without a logged-in JWT. The two
     // endpoints share the same shape (see backend/app/listings/routes.py).
@@ -42,6 +47,9 @@ class ListingsRepository {
         if (furnished != null) 'furnished': furnished ? 'true' : 'false',
         if (compound != null && compound.isNotEmpty) 'compound': compound,
         if (deliveryStatus != null && deliveryStatus.isNotEmpty) 'delivery_status': deliveryStatus,
+        if (query != null && query.trim().isNotEmpty) 'q': query.trim(),
+        if (sort != null && sort.isNotEmpty) 'sort': sort,
+        if (brokerId != null) 'broker_id': brokerId,
       },
     );
     if (res.statusCode == 200 && res.data is List) {

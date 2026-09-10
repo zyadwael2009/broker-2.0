@@ -11,6 +11,7 @@ from .message import Message
 from .broker_rating import BrokerRating
 from .report import Report, ReportTargetType, ReportReason, ReportStatus
 from .device_token import DeviceToken, DevicePlatform
+from .favorite import Favorite
 
 __all__ = [
     "User",
@@ -36,4 +37,5 @@ __all__ = [
     "ReportStatus",
     "DeviceToken",
     "DevicePlatform",
+    "Favorite",
 ]

@@ -34,37 +34,37 @@
 <section class="wrap browse-filters landing-facets">
   <div class="filter-row">
     <div class="filter-group filter-kind">
-      <span class="filter-label">Kind</span>
+      <span class="filter-label">{{ t('browse_filter_kind') }}</span>
       <div class="chip-row">
         <a class="filter-chip {% if not facet_slug or facet_slug not in ['for-sale','for-rent'] %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key }}">All</a>
+           href="{{ '/browse/' ~ gov.key }}">{{ t('landing_facet_all') }}</a>
         <a class="filter-chip {% if facet_slug == 'for-sale' %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key ~ '/for-sale' }}">For sale</a>
+           href="{{ '/browse/' ~ gov.key ~ '/for-sale' }}">{{ t('kind_sale') }}</a>
         <a class="filter-chip {% if facet_slug == 'for-rent' %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key ~ '/for-rent' }}">For rent</a>
+           href="{{ '/browse/' ~ gov.key ~ '/for-rent' }}">{{ t('kind_rent') }}</a>
       </div>
     </div>
 
     <div class="filter-group">
-      <span class="filter-label">Type</span>
+      <span class="filter-label">{{ t('browse_filter_type') }}</span>
       <div class="chip-row">
         <a class="filter-chip {% if not facet_slug or facet_slug in ['for-sale','for-rent'] %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key }}">Any</a>
+           href="{{ '/browse/' ~ gov.key }}">{{ t('landing_facet_any') }}</a>
         <a class="filter-chip {% if facet_slug == 'apartments' %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key ~ '/apartments' }}">Apartments</a>
+           href="{{ '/browse/' ~ gov.key ~ '/apartments' }}">{{ t('ptype_apartment_plural') }}</a>
         <a class="filter-chip {% if facet_slug == 'villas' %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key ~ '/villas' }}">Villas</a>
+           href="{{ '/browse/' ~ gov.key ~ '/villas' }}">{{ t('ptype_villa_plural') }}</a>
         <a class="filter-chip {% if facet_slug == 'houses' %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key ~ '/houses' }}">Houses</a>
+           href="{{ '/browse/' ~ gov.key ~ '/houses' }}">{{ t('ptype_house_plural') }}</a>
         <a class="filter-chip {% if facet_slug == 'land' %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key ~ '/land' }}">Land</a>
+           href="{{ '/browse/' ~ gov.key ~ '/land' }}">{{ t('ptype_land_plural') }}</a>
         <a class="filter-chip {% if facet_slug == 'commercial' %}active{% endif %}"
-           href="{{ '/browse/' ~ gov.key ~ '/commercial' }}">Commercial</a>
+           href="{{ '/browse/' ~ gov.key ~ '/commercial' }}">{{ t('ptype_commercial_plural') }}</a>
       </div>
     </div>
 
     <div class="filter-group filter-actions">
-      <a class="filter-reset" href="/browse">More filters →</a>
+      <a class="filter-reset" href="/browse">{{ t('landing_more_filters') }}</a>
     </div>
   </div>
 </section>
@@ -77,13 +77,16 @@
 
 {% if related_locations %}
 <section class="wrap related-locations">
-  <h2>Also popular in {{ gov.en }}</h2>
+  <h2>{{ t('landing_related_title', gov=(gov.ar if lang == 'ar' else gov.en)) }}</h2>
   <ul class="location-list">
     {% for loc in related_locations %}
     <li>
       <a href="{{ loc.url }}">
         <span class="loc-name">{{ loc.name }}</span>
-        <span class="loc-count">{{ loc.count }} listing{% if loc.count != 1 %}s{% endif %}</span>
+        <span class="loc-count">{{
+          t('landing_related_listing_singular', n=loc.count) if loc.count == 1
+          else t('landing_related_listing_plural', n=loc.count)
+        }}</span>
       </a>
     </li>
     {% endfor %}
